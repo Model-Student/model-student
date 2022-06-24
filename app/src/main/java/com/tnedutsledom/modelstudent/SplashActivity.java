@@ -13,13 +13,14 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        //딜레이 후 화면전환
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent_view_change = new Intent(SplashActivity.this,MainActivity.class);
+                Intent intent_view_change = new Intent(SplashActivity.this, MainActivity.class);
                 startActivity(intent_view_change);
                 finish();
             }
-        },1500);
+        }, 5000);
     }
 }
