@@ -14,10 +14,11 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="5.15"
+        android:layout_weight="5.9"
         android:orientation="horizontal"
         android:layout_marginBottom="4dp"
         android:background="#ffffff"
+        android:elevation="5dp"
         >
 
         <TextView
@@ -69,8 +70,15 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="#ffffff"
-            android:layout_marginBottom="3dp">
+            android:layout_marginBottom="2dp"
+            android:elevation="1dp">
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vp_main_carousel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
 
+                android:clipChildren="false"
+                android:clipToPadding="false"/>
         </LinearLayout>
 
         <LinearLayout
@@ -78,15 +86,16 @@
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:background="#ffffff"
-            android:layout_marginTop="3dp"
-            android:orientation="vertical">
+            android:layout_marginTop="2dp"
+            android:orientation="vertical"
+            android:elevation="1dp">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="4.3"
                 android:text="Model Student 사용 TIP!"
                 android:fontFamily="@font/jalnan_font"
-                android:textColor="#272727"
+                android:textColor="@color/Theme_Indigo"
                 android:gravity="center|left"
                 android:paddingLeft="20dp"
                 android:textSize="21dp"/>
@@ -94,55 +103,49 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1.7"
-                android:background="#C6C6C6"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="4.9"/>
-
+                android:background="@color/Theme_Indigo"/>
         </LinearLayout>
-
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#DCDADA"/>
 <!--    하단바-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="5"
+        android:layout_weight="6"
         android:orientation="horizontal"
-        android:layout_marginTop="2dp"
         android:background="#ffffff"
         >
+<!--        도움말 아이콘-->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/ic_help_not_fill"
+            android:backgroundTint="@color/Theme_Indigo"
+            android:padding="10dp"
+            android:gravity="center"/>
 <!--        홈 아이콘-->
-        <TextView
+        <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="홈\n아이콘"
-            android:gravity="center"
-            android:textColor="@color/Theme_Indigo"
-            android:textSize="23dp"
-            android:textStyle="bold"/>
-<!--        대화 아이콘-->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="대화\n아이콘"
-            android:gravity="center"
-            android:textColor="@color/Theme_Indigo"
-            android:textSize="23dp"
-            android:textStyle="bold"/>
+            android:src="@drawable/ic_home_not_fill"
+            android:backgroundTint="@color/Theme_Indigo"
+            android:padding="10dp"
+            android:gravity="center"/>
 <!--        설정 아이콘-->
-        <TextView
+        <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="설정\n아이콘"
-            android:gravity="center"
-            android:textColor="@color/Theme_Indigo"
-            android:textSize="23dp"
-            android:textStyle="bold"/>
+            android:src="@drawable/ic_settings_not_fill"
+            android:backgroundTint="@color/Theme_Indigo"
+            android:padding="10dp"
+            android:gravity="center"/>
 
 
     </LinearLayout>
