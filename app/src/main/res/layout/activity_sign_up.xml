@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    tools:context=".SignUpActivity">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SIGN UP"
+        android:textSize="40dp"
+        android:textColor="@color/Theme_Indigo_Text"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:fontFamily="@font/inter_extrabold_font"/>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_weight="1"/>
+    <ImageView
+        android:layout_width="200px"
+        android:layout_height="200px"
+        android:layout_marginRight="20dp"
+        android:src="@drawable/sign_up_banana_temp"/>
+</LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="70px"
+        android:orientation="vertical">
+        <!--STEP 1-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="STEP 1."
+            android:textSize="25dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/inter_extrabold_font"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="사용자의 이름을 \n입력해주세요."
+            android:textSize="23dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/inter_medium_font"/>
+        <EditText
+            android:id="@+id/et_sigh_up_name_text"
+            android:layout_width="800px"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:maxLength="4"
+            android:layout_marginBottom="20dp"
+            android:hint="Name"/>
+        <!--STEP 2-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="STEP 2."
+            android:textSize="25dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/inter_extrabold_font"/>
+        <!--NUGU 고유 넘버가 될 수도-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="비밀번호를\n입력해주세요."
+            android:textSize="23dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/inter_medium_font"/>
+        <EditText
+            android:id="@+id/et_sigh_up_password_text"
+            android:layout_width="800px"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:hint="Password"/>
+        <!--STEP 3-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="STEP 3."
+            android:textSize="25dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/inter_extrabold_font"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="보호자의 전화번호를 \n입력해주세요."
+            android:textSize="23dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/inter_medium_font"/>
+        <EditText
+            android:id="@+id/et_sigh_up_number_text"
+            android:layout_width="800px"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:inputType="phone"
+            android:layout_height="wrap_content"
+            android:hint="Number"/>
+
+    </LinearLayout>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_weight="1"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/bt_sign_up_login"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_gravity="center"
+        android:text="로그인"
+        android:textSize="30dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/inter_medium_font"
+        android:background="@color/Theme_Indigo"/>
+
+</LinearLayout>
