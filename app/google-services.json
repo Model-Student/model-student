@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "401088561477",
+    "project_id": "modelstudent-e14f4",
+    "storage_bucket": "modelstudent-e14f4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:401088561477:android:eb0e527016406f8e06be2c",
+        "android_client_info": {
+          "package_name": "com.tnedutsledom.modelstudent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "401088561477-3js6vlb8nh8tfk7vumo86qu9bmmcggfh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tnedutsledom.modelstudent",
+            "certificate_hash": "d029fb8f770e14ab8da33dcd722ace5902a97508"
+          }
+        },
+        {
+          "client_id": "401088561477-voehschkaqoqi7fgvf7h25kgocv840b2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjrL5ESZAKp5JdzHrpXhx_X3bgjeLBhSs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "401088561477-voehschkaqoqi7fgvf7h25kgocv840b2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

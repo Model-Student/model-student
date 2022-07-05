@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -28,6 +29,13 @@ android {
 }
 
 dependencies {
+    //파이어베이스 연동
+    implementation 'com.google.gms:google-services:4.3.13'
+    //파이어 스토어 가져오기
+    implementation 'com.google.firebase:firebase-firestore'
+    //파이어베이스 연동?
+    implementation platform('com.google.firebase:firebase-bom:30.2.0')
+
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
