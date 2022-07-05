@@ -24,9 +24,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.14"
-            app:layout_constraintVertical_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5" />
 
 
         <ImageView
@@ -37,9 +37,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.9"
-            app:layout_constraintVertical_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
@@ -47,10 +47,11 @@
         android:layout_height="match_parent"
         android:layout_weight="1.35"
         android:orientation="horizontal">
+
         <View
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="4"/>
+            android:layout_weight="4" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -168,18 +169,70 @@
                     android:textColor="@color/black"
                     android:textSize="23dp" />
 
-                <EditText
-                    android:id="@+id/et_sigh_up_number_text"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1.3"
                     android:background="@drawable/border_edit_bottom"
-                    android:hint="Number"
-                    android:inputType="phone"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:textColor="@color/black"
-                    android:textColorHint="#8F8E8E" />
+                    android:gravity="center">
+
+                    <EditText
+                        android:id="@+id/et_sigh_up_number_text_1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:gravity="center"
+                        android:hint="010"
+                        android:inputType="phone"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textColorHint="#8F8E8E" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.2"
+                        android:background="#777777" />
+
+                    <EditText
+                        android:id="@+id/et_sigh_up_number_text_2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:gravity="center"
+                        android:hint="1234"
+                        android:inputType="phone"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textColorHint="#8F8E8E" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.2"
+                        android:background="#777777" />
+
+                    <EditText
+                        android:id="@+id/et_sigh_up_number_text_3"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:gravity="center"
+                        android:hint="5678"
+                        android:inputType="phone"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textColorHint="#8F8E8E" />
+                </LinearLayout>
+
 
                 <View
                     android:layout_width="match_parent"
@@ -188,10 +241,11 @@
             </LinearLayout>
 
         </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="4"/>
+            android:layout_weight="4" />
     </LinearLayout>
 
     <LinearLayout
