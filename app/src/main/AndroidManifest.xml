@@ -25,9 +25,16 @@
             </intent-filter>
         </activity>
 <!--        SplashActivity-->
-        <activity android:name=".MainActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".SignUpActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".UserSelectActivity" android:screenOrientation="portrait"/>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".SignUpActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".UserSelectActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.ModelStudentSplash"/>
     </application>
 
 </manifest>
