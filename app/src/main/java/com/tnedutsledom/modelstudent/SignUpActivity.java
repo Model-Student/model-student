@@ -12,8 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    EditText et_sigh_up_name_text,et_sigh_up_password_text,et_sigh_up_number_text;
-    Button bt_sign_up_login;
+    EditText et_sigh_up_name_text,et_sigh_up_password_text,et_sigh_up_number_text; //사용자 작성 부분
+    Button bt_sign_up_login; //로그인 버튼
+    String name,phone_number;// 데이터베이스에 올릴 값
+    boolean parent_child_check = false;// 부모인지 아이인지 확인
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +30,7 @@ public class SignUpActivity extends AppCompatActivity {
         et_sigh_up_number_text = findViewById(R.id.et_sigh_up_number_text);
         bt_sign_up_login = findViewById(R.id.bt_sign_up_login);
 
-        //글자 길이와 한글만 입력되게 하는 필터
+        //글자 길이 지정
         InputFilter lengthFilter = new InputFilter.LengthFilter(4);
         InputFilter[] filters = new InputFilter[]{lengthFilter};
         et_sigh_up_name_text.setFilters(filters);
@@ -44,5 +46,11 @@ public class SignUpActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+    void UploadToFirebaseParent(String name){
+
+    }
+    void UploadToFirebaseChild(String name,String phone_number){
+
     }
 }
