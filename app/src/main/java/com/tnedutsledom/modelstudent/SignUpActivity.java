@@ -38,9 +38,15 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        getInfo();
         init();
         onClick();
         setEtLengthLimit();
+    }
+    void getInfo(){
+        //전 엑티비티에서 값 가져오기
+        Intent get_intent = getIntent();
+        parent_or_child = get_intent.getStringExtra("User_select");
     }
 
     void init(){

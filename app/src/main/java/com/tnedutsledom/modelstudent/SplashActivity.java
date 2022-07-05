@@ -68,7 +68,7 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 //작은 텍스트 애니메이션 초기화
                 tv_small_text.startAnimation(noneAnim);
-                Intent intent_view_change = new Intent(SplashActivity.this, SignUpActivity.class);
+                Intent intent_view_change = new Intent(SplashActivity.this, UserSelectActivity.class);
                 startActivity(intent_view_change);
                 intent_view_change.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
