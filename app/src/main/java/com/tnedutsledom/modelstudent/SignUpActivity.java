@@ -28,10 +28,9 @@ public class SignUpActivity extends AppCompatActivity {
             et_sigh_up_first_number_text,et_sigh_up_second_number_text,et_sigh_up_third_number_text; //사용자 작성 부분
     Button bt_sign_up_login; //로그인 버튼
     String parent_or_child = "child";// 부모인지 아이인지 확인
-    String phone_number = "";
+    String phone_number = "";//전화번호
+    private FirebaseFirestore firebase_firestore = FirebaseFirestore.getInstance();//파이어스토어 연결
 
-    //파이어스토어 연결
-    private FirebaseFirestore firebase_firestore = FirebaseFirestore.getInstance();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,12 +62,15 @@ public class SignUpActivity extends AppCompatActivity {
                         ||et_sigh_up_first_number_text.getText().toString().equals("")
                         ||et_sigh_up_second_number_text.getText().toString().equals("")
                         ||et_sigh_up_third_number_text.getText().toString().equals("")){
+                    //공백 입력칸이 하나라도 있을 시
                     Toast.makeText(SignUpActivity.this,"입력값을 확인해주세요",Toast.LENGTH_SHORT).show();
 
                 }else {
                     if (parent_or_child == "parent"){
+                        //부모의 폰에서 올라가는 거
                         uploadToFirebaseParent(et_sigh_up_name_text.getText().toString());
                     }else {
+                        //자녀의 폰에서 올라가는 거
                         uploadToFirebaseChild(et_sigh_up_name_text.getText().toString(),phone_number);
                     }
 
@@ -82,11 +84,13 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
     void uploadToFirebaseParent(String name){
+        //부모의 폰에서 올라가는 거
         ParentAdapter parent_adapter = new ParentAdapter(name);
         firebase_firestore.collection("User").document(et_sigh_up_password_text.getText().toString())
                 .collection(parent_or_child).document("info").set(parent_adapter);
     }
     void uploadToFirebaseChild(String name,String phone_number){
+        //자녀의 폰에서 올라가는 거
         ChildAdapter childAdapter = new ChildAdapter(name,phone_number);
         firebase_firestore.collection("User").document(et_sigh_up_password_text.getText().toString())
                 .collection(parent_or_child).document("info").set(childAdapter);
