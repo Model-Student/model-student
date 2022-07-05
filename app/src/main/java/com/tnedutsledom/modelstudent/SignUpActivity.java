@@ -2,7 +2,6 @@ package com.tnedutsledom.modelstudent;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -16,8 +15,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.PagerAdapter;
-
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.tnedutsledom.modelstudent.FirebaseAdapter.ChildAdapter;
 import com.tnedutsledom.modelstudent.FirebaseAdapter.ParentAdapter;
