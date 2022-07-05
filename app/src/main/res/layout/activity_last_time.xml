@@ -4,58 +4,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LastTimeActivity"
+    android:background="#ffffff"
     android:orientation="vertical"
-    android:background="#ffffff">
+    tools:context=".LastTimeActivity">
 
-        <!--    상단바-->
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="5.9"
-            android:orientation="horizontal"
-            android:layout_marginBottom="4dp"
-            android:background="@color/Theme_Indigo"
-            android:elevation="5dp"
-            >
+    <!--    상단바-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="4dp"
+        android:layout_weight="5.9"
+        android:background="@color/Theme_Indigo"
+        android:elevation="5dp"
+        android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/jalnan_font"
-                android:gravity="center"
-                android:text="Model Student"
-                android:textColor="#ffffff"
-                android:textSize="21dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.5" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/jalnan_font"
+            android:gravity="center"
+            android:text="Model Student"
+            android:textColor="#ffffff"
+            android:textSize="21dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <!--    메인화면-->
+    <!--    메인화면-->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
             android:background="#A6EFF1F2"
+            android:orientation="vertical"
             android:paddingTop="2dp"
-            android:paddingBottom="2dp"
-            >
+            android:paddingBottom="2dp">
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1.87"/>
+                android:layout_weight="1.7"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#777777"
                 android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"/>
+                android:layout_marginRight="50dp"
+                android:background="#777777" />
+
             <com.prolificinteractive.materialcalendarview.MaterialCalendarView
                 android:id="@+id/cv_last_time_calender"
                 android:layout_width="match_parent"
@@ -65,56 +69,94 @@
                 app:mcv_dateTextAppearance="@style/CalenderViewDateCustomText"
                 app:mcv_weekDayTextAppearance="@style/CalenderViewWeekCustomText"
                 />
-            <LinearLayout
+            <View
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1.3">
-
-            </LinearLayout>
+                android:layout_weight="1.3"/>
 
         </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_test"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="180dp">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#DCDADA"/>
-        <!--    하단바-->
-        <LinearLayout
+                <LinearLayout
+                    android:id="@+id/ll_last_time_diary"
+                    android:layout_width="match_parent"
+                    android:layout_height="600dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/last_time_diary_background"
+                    android:elevation="10dp"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp">
+
+                        <TextView
+                            android:id="@+id/tv_diary_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/inter_extrabold_font"
+                            android:text="Tuesday August 2"
+                            android:textColor="@color/Theme_Indigo"
+                            android:textSize="26dp" />
+
+                        <View
+                            android:layout_width="250dp"
+                            android:layout_height="2dp"
+                            android:layout_gravity="bottom"
+                            android:background="@color/Theme_Indigo" />
+                    </FrameLayout>
+                </LinearLayout>
+            </LinearLayout>
+    </FrameLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#DCDADA" /><!--    하단바-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="6"
+        android:background="@color/Theme_Indigo"
+        android:orientation="horizontal">
+        <!--        도움말 아이콘-->
+        <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="6"
-            android:orientation="horizontal"
-            android:background="@color/Theme_Indigo"
-            >
-            <!--        도움말 아이콘-->
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@drawable/ic_help_not_fill"
-                android:backgroundTint="@color/white"
-                android:backgroundTintMode="src_over"
-                android:padding="10dp"
-                android:gravity="center"/>
-            <!--        홈 아이콘-->
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@drawable/ic_home_not_fill"
-                android:backgroundTint="@color/Theme_Indigo"
-                android:padding="10dp"
-                android:gravity="center"/>
-            <!--        설정 아이콘-->
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@drawable/ic_settings_not_fill"
-                android:backgroundTint="@color/Theme_Indigo"
-                android:padding="10dp"
-                android:gravity="center"/>
+            android:layout_weight="1"
+            android:backgroundTint="@color/white"
+            android:backgroundTintMode="src_over"
+            android:gravity="center"
+            android:padding="10dp"
+            android:src="@drawable/ic_help_not_fill" />
+        <!--        홈 아이콘-->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="@color/Theme_Indigo"
+            android:gravity="center"
+            android:padding="10dp"
+            android:src="@drawable/ic_home_not_fill" />
+        <!--        설정 아이콘-->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="@color/Theme_Indigo"
+            android:gravity="center"
+            android:padding="10dp"
+            android:src="@drawable/ic_settings_not_fill" />
 
-
-        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

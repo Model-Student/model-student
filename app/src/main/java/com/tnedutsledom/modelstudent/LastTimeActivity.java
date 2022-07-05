@@ -3,8 +3,14 @@ package com.tnedutsledom.modelstudent;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.graphics.Color;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
@@ -23,6 +29,8 @@ import java.util.Calendar;
 public class LastTimeActivity extends AppCompatActivity {
 
     private MaterialCalendarView cv_calender;
+    TextView tv_diary_date;
+    LinearLayout ll_diary, ll_test;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +38,56 @@ public class LastTimeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_last_time);
         init();
         calenderDesignInit();
+        selectDate();
+        dragDiary();
+    }
+
+
+    @SuppressLint("ClickableViewAccessibility")
+    void dragDiary() {
+        int view_y_size = getResources().getDisplayMetrics().heightPixels;
+        ll_diary.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    // 뷰 누름7
+                    float oldYvalue = event.getY();
+                    Log.d("상태", "onTouch: 누름");
+                } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
+                        if (v.getY() < 0) {
+                            Log.d("상태", "onTouch: 드래그mmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
+                            v.setY(0 + (view_y_size / 3));
+                        } else {
+                            v.setY(v.getY() + (event.getY()) - (v.getHeight() / 2) + (view_y_size / 3));
+                            Log.d("상태", "onTouch: 드래그");
+                        }
+                } else if(event.getAction() == MotionEvent.ACTION_UP) {
+
+                }
+                return true;
+            }
+        });
+    }
+
+    // 요일 선택 시
+    void selectDate() {
+        cv_calender.setOnDateChangedListener(new OnDateSelectedListener() {
+            @Override
+            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
+                tv_diary_date.setText(date.getDate().toString());
+                Log.d("캘린더 선택", "onDateSelected: " + date.getDate());
+            }
+        });
     }
 
     void init() {
         cv_calender = findViewById(R.id.cv_last_time_calender);
+        tv_diary_date = findViewById(R.id.tv_diary_date);
+        ll_diary = findViewById(R.id.ll_last_time_diary);
+        ll_test = findViewById(R.id.ll_test);
     }
 
+    // 캘린더뷰 디자인 초기세팅
     void calenderDesignInit() {
         // 첫 시작 요일이 일요일이 되도록 설정
         cv_calender.state()
@@ -51,19 +103,14 @@ public class LastTimeActivity extends AppCompatActivity {
         // 좌우 화살표 사이 연, 월의 폰트 스타일 설정
         cv_calender.setHeaderTextAppearance(R.style.CalendarWidgetHeader);
 
-        // 요일 선택 시
-        cv_calender.setOnDateChangedListener(new OnDateSelectedListener() {
-            @Override
-            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
+        cv_calender.setCurrentDate(CalendarDay.today());
 
-            }
-        });
 
         // 일자 선택 시 내가 정의한 드로어블이 적용되도록 한다
         cv_calender.addDecorators(
                 new SelectDayDecorator(this),
                 new SundayDecorator()
-                );
+        );
 
         // 좌우 화살표 가운데의 연/월이 보이는 방식 커스텀
         cv_calender.setTitleFormatter(new TitleFormatter() {
