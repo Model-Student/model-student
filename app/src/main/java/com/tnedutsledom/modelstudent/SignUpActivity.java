@@ -8,9 +8,12 @@ import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -26,6 +29,9 @@ public class SignUpActivity extends AppCompatActivity {
     Button bt_sign_up_login; //로그인 버튼
     String parent_or_child = "child";// 부모인지 아이인지 확인
     String phone_number = "";//전화번호
+    LinearLayout LL_sigh_up_step2;//step 2
+    LinearLayout LL_sigh_up_step3_child,LL_sigh_up_step3_parent; //아이,부모 Step3 달라지게
+    Animation fade_in,fade_out;//애니메이션
     private FirebaseFirestore firebase_firestore = FirebaseFirestore.getInstance();//파이어스토어 연결
 
     @Override
@@ -44,6 +50,15 @@ public class SignUpActivity extends AppCompatActivity {
         et_sigh_up_second_number_text = findViewById(R.id.et_sigh_up_number_text_2);
         et_sigh_up_third_number_text = findViewById(R.id.et_sigh_up_number_text_3);
         bt_sign_up_login = findViewById(R.id.bt_sign_up_login);
+
+        //Step1,2,3
+        LL_sigh_up_step2 = findViewById(R.id.LL_sigh_up_step2);
+        LL_sigh_up_step3_child = findViewById(R.id.LL_sigh_up_step3_child);
+        LL_sigh_up_step3_parent = findViewById(R.id.LL_sigh_up_step3_parent);
+
+        //애니메이션 지정
+        fade_in = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_in);
+        fade_out = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_out);
 
         //글자 길이 지정
         InputFilter lengthFilter = new InputFilter.LengthFilter(4);
@@ -158,6 +173,50 @@ public class SignUpActivity extends AppCompatActivity {
 
 
     }
+    //Step이 순서대로 나오는 함수
+    void stepEvent(){
+        et_sigh_up_name_text.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                LL_sigh_up_step2.startAnimation(fade_in);
+                LL_sigh_up_step2.setVisibility(View.VISIBLE);
+            }
+        });
+        et_sigh_up_password_text.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (parent_or_child.equals("parent")){
+                    LL_sigh_up_step3_child.setVisibility(View.GONE);
+                    LL_sigh_up_step3_parent.startAnimation(fade_in);
+                    LL_sigh_up_step3_parent.setVisibility(View.VISIBLE);
+                }else {
+                    LL_sigh_up_step3_parent.setVisibility(View.GONE);
+                    LL_sigh_up_step3_child.startAnimation(fade_in);
+                    LL_sigh_up_step3_child.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+    }
 
     // 키보드 숨기기
     private void hideKeyboard() {
@@ -172,7 +231,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
 
-//    editText가 포커스되고있을때 다른부분 터치시 화면 내려감감
+//    editText가 포커스되고있을때 다른부분 터치시 키보드 내려감
    @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         hideKeyboard();
