@@ -52,8 +52,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="4" />
-
+<!--STEP 1 시작-->
         <LinearLayout
+            android:id="@+id/LL_sigh_up_step1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.8"
@@ -63,12 +64,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="visible">
                 <!--STEP 1-->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1.4"
+                    android:layout_weight="1.35"
                     android:fontFamily="@font/inter_extrabold_font"
                     android:text="STEP 1."
                     android:textColor="@color/black"
@@ -77,7 +79,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1.2"
+                    android:layout_weight="1.1"
                     android:fontFamily="@font/inter_medium_font"
                     android:text="사용자의 이름을 \n입력해주세요."
                     android:textColor="@color/black"
@@ -93,6 +95,8 @@
                     android:hint="Name"
                     android:maxLength="4"
                     android:maxLines="1"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
                     android:singleLine="true"
                     android:textColor="@color/black"
                     android:textColorHint="#8F8E8E" />
@@ -102,17 +106,19 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1" />
             </LinearLayout>
-
+<!--STEP 2 시작-->
             <LinearLayout
+                android:id="@+id/LL_sigh_up_step2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="invisible">
                 <!--STEP 2-->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1.4"
+                    android:layout_weight="1.35"
                     android:fontFamily="@font/inter_extrabold_font"
                     android:text="STEP 2."
                     android:textColor="@color/black"
@@ -121,7 +127,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1.2"
+                    android:layout_weight="1.1"
                     android:fontFamily="@font/inter_medium_font"
                     android:text="비밀번호를\n입력해주세요."
                     android:textColor="@color/black"
@@ -134,7 +140,9 @@
                     android:layout_weight="1.3"
                     android:background="@drawable/border_edit_bottom"
                     android:hint="Password"
+                    android:inputType="text"
                     android:maxLines="1"
+                    android:imeOptions="actionNext"
                     android:singleLine="true"
                     android:textColor="@color/black"
                     android:textColorHint="#8F8E8E" />
@@ -144,17 +152,19 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1" />
             </LinearLayout>
-
+<!--STEP 3-1(자녀) 시작-->
             <LinearLayout
+                android:id="@+id/LL_sigh_up_step3_child"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="vertical">
-                <!--STEP 3-->
+                android:orientation="vertical"
+                android:visibility="invisible">
+                <!--STEP 3-1(자녀)-->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1.4"
+                    android:layout_weight="1.35"
                     android:fontFamily="@font/inter_extrabold_font"
                     android:text="STEP 3."
                     android:textColor="@color/black"
@@ -163,7 +173,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1.2"
+                    android:layout_weight="1.1"
                     android:fontFamily="@font/inter_medium_font"
                     android:text="보호자의 전화번호를 \n입력해주세요."
                     android:textColor="@color/black"
@@ -232,7 +242,48 @@
                         android:textColor="@color/black"
                         android:textColorHint="#8F8E8E" />
                 </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+            </LinearLayout>
+<!--STEP 3-2(부모) 시작-->
+            <LinearLayout
+                android:id="@+id/LL_sigh_up_step3_parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:visibility="gone">
+                <!--STEP 3-2(부모)-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.35"
+                    android:fontFamily="@font/inter_extrabold_font"
+                    android:text="STEP 3."
+                    android:textColor="@color/black"
+                    android:textSize="25dp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.1"
+                    android:fontFamily="@font/inter_medium_font"
+                    android:text="자녀의 이름을 \n입력해주세요."
+                    android:textColor="@color/black"
+                    android:textSize="23dp" />
 
+                <EditText
+                    android:id="@+id/et_sigh_up_child_name_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.3"
+                    android:background="@drawable/border_edit_bottom"
+                    android:hint="Name"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textColorHint="#8F8E8E" />
 
                 <View
                     android:layout_width="match_parent"
@@ -257,7 +308,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1.4" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -268,7 +319,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_weight="4" />
+                android:layout_weight="4.4" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/bt_sign_up_login"
@@ -285,12 +336,12 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_weight="4" />
+                android:layout_weight="4.4" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1.4" />
     </LinearLayout>
 </LinearLayout>
