@@ -1,25 +1,21 @@
 package com.tnedutsledom.modelstudent;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -29,18 +25,17 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.tnedutsledom.modelstudent.FirebaseAdapter.ChildAdapter;
 import com.tnedutsledom.modelstudent.FirebaseAdapter.ParentAdapter;
 
-import java.util.Stack;
-
 public class SignUpActivity extends AppCompatActivity {
 
     EditText et_sigh_up_name_text, et_sigh_up_password_text,
-            et_sigh_up_first_number_text, et_sigh_up_second_number_text, et_sigh_up_third_number_text,et_sigh_up_child_name_text; //사용자 작성 부분
+            et_sigh_up_first_number_text, et_sigh_up_second_number_text, et_sigh_up_third_number_text, et_sigh_up_child_name_text; //사용자 작성 부분
     Button bt_sign_up_login; //로그인 버튼
     String parent_or_child = "child";// 부모인지 아이인지 확인
     String phone_number = "";//전화번호
     LinearLayout LL_sigh_up_step2;//step 2
     LinearLayout LL_sigh_up_step3_child, LL_sigh_up_step3_parent; //아이,부모 Step3 달라지게
     Animation fade_in, fade_out, none;//애니메이션
+    ImageView iv_sign_up_first_banana, iv_sign_up_second_banana, iv_sign_up_third_banana_parent, iv_sign_up_third_banana_child;//바나나 이미지
     private FirebaseFirestore firebase_firestore = FirebaseFirestore.getInstance();//파이어스토어 연결
 
     @Override
@@ -82,6 +77,12 @@ public class SignUpActivity extends AppCompatActivity {
         InputFilter lengthFilter = new InputFilter.LengthFilter(4);
         InputFilter[] filters = new InputFilter[]{lengthFilter};
         et_sigh_up_name_text.setFilters(filters);
+
+
+        iv_sign_up_first_banana= findViewById(R.id.iv_sign_up_first_banana);
+        iv_sign_up_second_banana = findViewById(R.id.iv_sign_up_second_banana);
+        iv_sign_up_third_banana_parent = findViewById(R.id.iv_sign_up_third_banana_parent);
+        iv_sign_up_third_banana_child = findViewById(R.id.iv_sign_up_third_banana_child);
     }
 
     void onClick() {
@@ -118,8 +119,8 @@ public class SignUpActivity extends AppCompatActivity {
                         }
                     }
                 }
-                if (login_success == true){
-                    Toast.makeText(SignUpActivity.this,"ModelStudent에 오신 것을 환영합니다.",Toast.LENGTH_SHORT).show();
+                if (login_success == true) {
+                    Toast.makeText(SignUpActivity.this, "ModelStudent에 오신 것을 환영합니다.", Toast.LENGTH_SHORT).show();
                     Intent intent_view_change = new Intent(SignUpActivity.this, MainActivity.class);
                     startActivity(intent_view_change);
                     intent_view_change.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -222,24 +223,38 @@ public class SignUpActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 //천지인 방지 꼼수(입력할 시간 지연)
                 Handler handler_delayed2 = new Handler();
-                        handler_delayed2.postDelayed(new Runnable() {
+                handler_delayed2.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         if (s.length() >= 3) {
                             if (LL_sigh_up_step2.getVisibility() != View.VISIBLE) {
+                                //바나나 애니메이션
+                                iv_sign_up_second_banana.setImageResource(R.drawable.sign_up_banana2_iv);
+                                iv_sign_up_second_banana.startAnimation(fade_in);
+                                //첫번쨰 바나나 퇴장
+                                iv_sign_up_first_banana.startAnimation(fade_out);
+
+                                //질문 애니메이션
                                 LL_sigh_up_step2.startAnimation(fade_in);
                                 LL_sigh_up_step2.setVisibility(View.VISIBLE);
                                 Handler handler_delayed = new Handler();
                                 handler_delayed.postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
+                                        //첫 번쨰 바나나와 두 번째 질문 애니메이션 초기화
                                         LL_sigh_up_step2.startAnimation(none);
+                                        iv_sign_up_second_banana.startAnimation(none);
+                                        iv_sign_up_first_banana.setImageResource(0);
+                                        iv_sign_up_first_banana.startAnimation(none);
+
+
+
                                     }
-                                }, 1000);
+                                }, 800);
                             }
                         }
                     }
-                },1000);
+                }, 1000);
 
             }
 
@@ -260,6 +275,13 @@ public class SignUpActivity extends AppCompatActivity {
                     if (parent_or_child.equals("parent")) {
                         //부모 권한일 때
                         if (LL_sigh_up_step3_parent.getVisibility() != View.VISIBLE) {
+                            //바나나 애니메이션
+                            iv_sign_up_third_banana_parent.setImageResource(R.drawable.sign_up_banana3_iv);
+                            iv_sign_up_third_banana_parent.startAnimation(fade_in);
+                            //두 번째 바나나 퇴장
+                            iv_sign_up_second_banana.startAnimation(fade_out);
+
+                            //질문
                             LL_sigh_up_step3_child.setVisibility(View.GONE);
                             LL_sigh_up_step3_parent.startAnimation(fade_in);
                             LL_sigh_up_step3_parent.setVisibility(View.VISIBLE);
@@ -270,14 +292,24 @@ public class SignUpActivity extends AppCompatActivity {
                             handler.postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
+                                    //두 번째 바나나와 세 번째 질문 애니메이션 초기화
                                     LL_sigh_up_step3_parent.startAnimation(none);
+                                    iv_sign_up_third_banana_parent.startAnimation(none);
+                                    iv_sign_up_second_banana.setImageResource(0);
+                                    iv_sign_up_second_banana.startAnimation(none);
                                 }
-                            }, 1000);
+                            }, 800);
                         }
 
                     } else {
                         //자녀 권한일 때
                         if (LL_sigh_up_step3_child.getVisibility() != View.VISIBLE) {
+                            //바나나 애니메이션
+                            iv_sign_up_third_banana_child.setImageResource(R.drawable.sign_up_banana3_iv);
+                            iv_sign_up_third_banana_child.startAnimation(fade_in);
+                            //두 번째 바나나 퇴장
+                            iv_sign_up_second_banana.startAnimation(fade_out);
+                            //질문 애니메이션
                             LL_sigh_up_step3_parent.setVisibility(View.GONE);
                             LL_sigh_up_step3_child.startAnimation(fade_in);
                             LL_sigh_up_step3_child.setVisibility(View.VISIBLE);
@@ -288,9 +320,14 @@ public class SignUpActivity extends AppCompatActivity {
                             handler.postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
+                                    //두 번째 바나나와 세 번째 질문 애니메이션 초기화
                                     LL_sigh_up_step3_child.startAnimation(none);
+                                    iv_sign_up_third_banana_child.startAnimation(none);
+                                    iv_sign_up_second_banana.setImageResource(0);
+                                    iv_sign_up_second_banana.startAnimation(none);
+
                                 }
-                            }, 2000);
+                            }, 800);
                         }
                     }
                 }
