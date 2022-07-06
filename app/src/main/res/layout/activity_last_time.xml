@@ -92,11 +92,33 @@
                     android:background="@drawable/last_time_diary_background"
                     android:elevation="10dp"
                     android:orientation="vertical"
-                    android:padding="20dp">
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="5.5dp"
+                        android:orientation="horizontal">
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"/>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1.4"
+                            android:background="@drawable/last_time_diary_hole"/>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"/>
+                    </LinearLayout>
 
                     <FrameLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="50dp">
+                        android:layout_height="50dp"
+                        android:layout_marginTop="6dp">
 
                         <TextView
                             android:id="@+id/tv_diary_date"
@@ -105,7 +127,7 @@
                             android:layout_marginTop="10dp"
                             android:fontFamily="@font/inter_extrabold_font"
                             android:text="Tuesday August 2"
-                            android:textColor="@color/Theme_Indigo"
+                            android:textColor="@color/Theme_Indigo_Text"
                             android:textSize="26dp" />
 
                         <View
@@ -114,6 +136,15 @@
                             android:layout_gravity="bottom"
                             android:background="@color/Theme_Indigo" />
                     </FrameLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="20dp"
+                        android:text="오늘은 비가 많이 오길레\n그냥 자퇴해버렸다."
+                        android:textSize="20dp"
+                        android:fontFamily="@font/inter_bold"
+                        android:textColor="#707070"/>
                 </LinearLayout>
             </LinearLayout>
     </FrameLayout>
@@ -126,7 +157,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="6"
+        android:layout_weight="5.9"
         android:background="@color/Theme_Indigo"
         android:orientation="horizontal">
         <!--        도움말 아이콘-->

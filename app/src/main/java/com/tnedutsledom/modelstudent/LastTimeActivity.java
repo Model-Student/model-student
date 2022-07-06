@@ -28,41 +28,56 @@ import java.util.Calendar;
 
 public class LastTimeActivity extends AppCompatActivity {
 
-    private MaterialCalendarView cv_calender;
-    TextView tv_diary_date;
-    LinearLayout ll_diary, ll_test;
+    private MaterialCalendarView cv_calender; // 캘린더
+    private TextView tv_diary_date; // 일기 날짜 표시 텍스트뷰
+    private LinearLayout ll_diary; // 일기장 바탕 레이아웃
+    private boolean drag = false; // 일기장 터치가 가능한 상태인지 아닌지 ( false = 가능 / true = 불가능 )
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_last_time);
-        init();
-        calenderDesignInit();
-        selectDate();
-        dragDiary();
+        init(); // 초기세팅
+        calenderDesignInit(); // 캘린더 디자인 세팅
+        selectDate(); // 날짜 선택시 실행하는 메소두
+        dragDiary(); // 일기장 창을 드래그할 때
     }
 
 
+//    일기장 창을 드래그할 때
     @SuppressLint("ClickableViewAccessibility")
     void dragDiary() {
+//        일기장 사이즈
         int view_y_size = getResources().getDisplayMetrics().heightPixels;
         ll_diary.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+//                사용자가 터치를 시작하였을 때
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    // 뷰 누름7
-                    float oldYvalue = event.getY();
-                    Log.d("상태", "onTouch: 누름");
+//                    일기장 영역 내부 (터치가 가능한 곳)를 터치하였을 경우 터치가 가능하도록 설정
+                    if (v.getY() >= 0) {
+                        drag = false;
+                    }
+//                    사용자가 화면을 드래그 할 때
                 } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
+//                    화면터치를 허용한 상태일 경우
+                    if (drag == false) {
+//                        터치 영역이 일기장 영역보다 위로 올라갔을 경우 위치를 고정하고 더이상의 터치를 불가하도록 변경
                         if (v.getY() < 0) {
-                            Log.d("상태", "onTouch: 드래그mmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
-                            v.setY(0 + (view_y_size / 3));
+                            v.setY(20);
+                            drag = true;
+//                            터치 영역이 일기장 영역보다 아래로 내려갔을 경우 위치를 고정하고 더이상의 터치를 불가하도록 변경
+                        } else if (v.getY() > 1250) {
+                            v.setY(550);
+                            drag = true;
                         } else {
+//                            드래그가 일기장 영역 내부에서 일어났을 경우 손 위치로 일기장 위치를 변경
                             v.setY(v.getY() + (event.getY()) - (v.getHeight() / 2) + (view_y_size / 3));
-                            Log.d("상태", "onTouch: 드래그");
                         }
-                } else if(event.getAction() == MotionEvent.ACTION_UP) {
-
+                    }
+//                    예기치 못하게 터치가 끊겼을 경우 터치가 가능한 상태로 변경
+                } else if (event.getAction() == MotionEvent.ACTION_CANCEL) {
+                    drag = false;
                 }
                 return true;
             }
@@ -84,7 +99,7 @@ public class LastTimeActivity extends AppCompatActivity {
         cv_calender = findViewById(R.id.cv_last_time_calender);
         tv_diary_date = findViewById(R.id.tv_diary_date);
         ll_diary = findViewById(R.id.ll_last_time_diary);
-        ll_test = findViewById(R.id.ll_test);
+        ll_diary.setY(550);
     }
 
     // 캘린더뷰 디자인 초기세팅
