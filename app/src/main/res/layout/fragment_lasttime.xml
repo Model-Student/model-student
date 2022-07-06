@@ -10,7 +10,7 @@
         android:layout_marginTop="33dp"
         android:layout_marginBottom="33dp"
         android:orientation="vertical"
-        android:background="#7C83FD"
+        android:background="@drawable/btn_image_last_time"
         android:elevation="5dp">
 
     </RelativeLayout>

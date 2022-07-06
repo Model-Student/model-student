@@ -11,7 +11,7 @@
         android:layout_marginTop="33dp"
         android:layout_marginBottom="33dp"
         android:orientation="vertical"
-        android:background="#A9EEFA"
+        android:background="@drawable/btn_image_house_work"
         android:elevation="5dp">
 
     </RelativeLayout>
