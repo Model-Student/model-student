@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    tools:context=".LastTimeActivity">
+
+    <!--    상단바-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="4dp"
+        android:layout_weight="5.9"
+        android:background="@color/Theme_Indigo"
+        android:elevation="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/jalnan_font"
+            android:gravity="center"
+            android:text="Model Student"
+            android:textColor="#ffffff"
+            android:textSize="21dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--    메인화면-->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#A6EFF1F2"
+            android:orientation="vertical"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.7"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:background="#777777" />
+
+            <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+                android:id="@+id/cv_last_time_calender"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:theme="@style/CalenderViewCustom"
+                app:mcv_dateTextAppearance="@style/CalenderViewDateCustomText"
+                app:mcv_weekDayTextAppearance="@style/CalenderViewWeekCustomText"
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.3"/>
+
+        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_test"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="180dp">
+
+                <LinearLayout
+                    android:id="@+id/ll_last_time_diary"
+                    android:layout_width="match_parent"
+                    android:layout_height="600dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/last_time_diary_background"
+                    android:elevation="10dp"
+                    android:orientation="vertical"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="5.5dp"
+                        android:orientation="horizontal">
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"/>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1.4"
+                            android:background="@drawable/last_time_diary_hole"/>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"/>
+                    </LinearLayout>
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="6dp">
+
+                        <TextView
+                            android:id="@+id/tv_diary_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/inter_extrabold_font"
+                            android:text="Tuesday August 2"
+                            android:textColor="@color/Theme_Indigo_Text"
+                            android:textSize="26dp" />
+
+                        <View
+                            android:layout_width="250dp"
+                            android:layout_height="2dp"
+                            android:layout_gravity="bottom"
+                            android:background="@color/Theme_Indigo" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="20dp"
+                        android:text="오늘은 비가 많이 오길레\n그냥 자퇴해버렸다."
+                        android:textSize="20dp"
+                        android:fontFamily="@font/inter_bold"
+                        android:textColor="#707070"/>
+                </LinearLayout>
+            </LinearLayout>
+    </FrameLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#DCDADA" /><!--    하단바-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="5.9"
+        android:background="@color/Theme_Indigo"
+        android:orientation="horizontal">
+        <!--        도움말 아이콘-->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="@color/white"
+            android:backgroundTintMode="src_over"
+            android:gravity="center"
+            android:padding="10dp"
+            android:src="@drawable/ic_help_not_fill" />
+        <!--        홈 아이콘-->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="@color/Theme_Indigo"
+            android:gravity="center"
+            android:padding="10dp"
+            android:src="@drawable/ic_home_not_fill" />
+        <!--        설정 아이콘-->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="@color/Theme_Indigo"
+            android:gravity="center"
+            android:padding="10dp"
+            android:src="@drawable/ic_settings_not_fill" />
+
+    </LinearLayout>
+</LinearLayout>
