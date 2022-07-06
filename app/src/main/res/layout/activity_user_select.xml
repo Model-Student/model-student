@@ -68,7 +68,7 @@
                         android:text="보호자"
                         android:layout_weight="1"
                         android:gravity="center|bottom"
-                        android:layout_marginBottom="35dp"
+                        android:layout_marginBottom="29dp"
                         android:layout_marginRight="10dp"
                         android:fontFamily="@font/inter_extrabold_font"
                         android:textSize="25dp"
@@ -79,7 +79,7 @@
                         android:text="자녀"
                         android:layout_weight="1"
                         android:gravity="center|bottom"
-                        android:layout_marginBottom="35dp"
+                        android:layout_marginBottom="29dp"
                         android:fontFamily="@font/inter_extrabold_font"
                         android:textSize="25dp"
                         android:textColor="@color/Theme_Indigo_Text"/>

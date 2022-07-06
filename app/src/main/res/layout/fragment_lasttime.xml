@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/btn_main_last_time"
         android:layout_width="match_parent"
         android:layout_marginLeft="@dimen/pageMarginAndOffset"
         android:layout_marginRight="@dimen/pageMarginAndOffset"
@@ -10,8 +11,8 @@
         android:layout_marginTop="33dp"
         android:layout_marginBottom="33dp"
         android:orientation="vertical"
-        android:background="#7C83FD"
+        android:background="@drawable/btn_image_last_time"
         android:elevation="5dp">
 
-    </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>
