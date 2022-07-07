@@ -135,14 +135,14 @@ public class SignUpActivity extends AppCompatActivity {
         //부모의 폰에서 올라가는 거
         ParentAdapter parent_adapter = new ParentAdapter(name);
         firebase_firestore.collection("User").document(et_sigh_up_password_text.getText().toString())
-                .collection(parent_or_child).document("info").set(parent_adapter);
+                .collection("SignUp").document(parent_or_child).set(parent_adapter);
     }
 
     void uploadToFirebaseChild(String name, String phone_number) {
         //자녀의 폰에서 올라가는 거
         ChildAdapter childAdapter = new ChildAdapter(name, phone_number);
         firebase_firestore.collection("User").document(et_sigh_up_password_text.getText().toString())
-                .collection(parent_or_child).document("info").set(childAdapter);
+                .collection("SignUp").document(parent_or_child).set(childAdapter);
     }
 
     // 전화번호 글자수에따라 이벤트 발생
@@ -336,6 +336,24 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
 
+
+            }
+        });
+        et_sigh_up_child_name_text.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() >= 3){
+                    hideKeyboard();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
 
             }
         });
