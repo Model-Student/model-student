@@ -2,6 +2,7 @@ package com.tnedutsledom.modelstudent;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -28,15 +29,16 @@ import com.tnedutsledom.modelstudent.FirebaseAdapter.ParentAdapter;
 public class SignUpActivity extends AppCompatActivity {
 
     EditText et_sigh_up_name_text, et_sigh_up_password_text,
-            et_sigh_up_first_number_text, et_sigh_up_second_number_text, et_sigh_up_third_number_text, et_sigh_up_child_name_text; //사용자 작성 부분
-    Button bt_sign_up_login; //로그인 버튼
+            et_sigh_up_first_number_text, et_sigh_up_second_number_text, et_sigh_up_third_number_text, et_sigh_up_child_name_text; // 사용자 작성 부분
+    Button bt_sign_up_login; // 로그인 버튼
     String parent_or_child = "child";// 부모인지 아이인지 확인
-    String phone_number = "";//전화번호
-    LinearLayout LL_sigh_up_step2;//step 2
-    LinearLayout LL_sigh_up_step3_child, LL_sigh_up_step3_parent; //아이,부모 Step3 달라지게
-    Animation fade_in, fade_out, none;//애니메이션
-    ImageView iv_sign_up_first_banana, iv_sign_up_second_banana, iv_sign_up_third_banana_parent, iv_sign_up_third_banana_child;//바나나 이미지
-    private FirebaseFirestore firebase_firestore = FirebaseFirestore.getInstance();//파이어스토어 연결
+    String phone_number = "";// 전화번호
+    LinearLayout LL_sigh_up_step2;// step 2
+    LinearLayout LL_sigh_up_step3_child, LL_sigh_up_step3_parent; // 아이,부모 Step3 달라지게
+    Animation fade_in, fade_out, none;// 애니메이션
+    ImageView iv_sign_up_first_banana, iv_sign_up_second_banana, iv_sign_up_third_banana_parent, iv_sign_up_third_banana_child;// 바나나 이미지
+    private FirebaseFirestore firebase_firestore = FirebaseFirestore.getInstance();// 파이어스토어 연결
+    private SharedPreferences preferences;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,12 +79,12 @@ public class SignUpActivity extends AppCompatActivity {
         InputFilter lengthFilter = new InputFilter.LengthFilter(4);
         InputFilter[] filters = new InputFilter[]{lengthFilter};
         et_sigh_up_name_text.setFilters(filters);
-
-
+        //바나나 애니메이션 이미지 뷰 지정
         iv_sign_up_first_banana= findViewById(R.id.iv_sign_up_first_banana);
         iv_sign_up_second_banana = findViewById(R.id.iv_sign_up_second_banana);
         iv_sign_up_third_banana_parent = findViewById(R.id.iv_sign_up_third_banana_parent);
         iv_sign_up_third_banana_child = findViewById(R.id.iv_sign_up_third_banana_child);
+
     }
 
     void onClick() {
@@ -102,7 +104,7 @@ public class SignUpActivity extends AppCompatActivity {
                             Toast.makeText(SignUpActivity.this, "입력값을 확인해주세요", Toast.LENGTH_SHORT).show();
                         } else {
                             //부모의 폰에서 올라가는 거
-                            uploadToFirebaseParent(et_sigh_up_name_text.getText().toString());
+                            uploadToFirebaseParent(et_sigh_up_name_text.getText().toString(),et_sigh_up_child_name_text.getText().toString());
                             login_success = true;
                         }
                     } else {
@@ -120,7 +122,11 @@ public class SignUpActivity extends AppCompatActivity {
                     }
                 }
                 if (login_success == true) {
+                    //toast 메세지 띄움
                     Toast.makeText(SignUpActivity.this, "ModelStudent에 오신 것을 환영합니다.", Toast.LENGTH_SHORT).show();
+                    //내부에 값 저장
+                    saveInfoSharedPreferences();
+                    //화면전환
                     Intent intent_view_change = new Intent(SignUpActivity.this, MainActivity.class);
                     startActivity(intent_view_change);
                     intent_view_change.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -130,18 +136,33 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
     }
+    //SharedPreferences 로 앱에 필요한 정보 저장
+    void saveInfoSharedPreferences(){
+//        SharedPreferences 저장 값
+//        키 = "user_info"
+//        값 ="parent_or_child" 사용자 권한이 부모인지 자녀인지 확인(String으로 parent, child 둘 중 하나 들어있음)
+//        값 = "password" 비밀번호 고유 값 들어있음
+        preferences = getSharedPreferences("user_info",MODE_PRIVATE);
+        //Editor를 preferences에 쓰겠다고 연결
+        SharedPreferences.Editor editor = preferences.edit();
+        //putString(KEY,VALUE)
+        editor.putString("parent_or_child",parent_or_child);
+        editor.putString("password",et_sigh_up_password_text.getText().toString());
+        //항상 commit & apply 를 해주어야 저장이 된다.
+        editor.commit();
+    }
 
-    void uploadToFirebaseParent(String name) {
+    void uploadToFirebaseParent(String name, String child_name) {
         //부모의 폰에서 올라가는 거
-        ParentAdapter parent_adapter = new ParentAdapter(name);
-        firebase_firestore.collection("User").document(et_sigh_up_password_text.getText().toString())
+        ParentAdapter parent_adapter = new ParentAdapter(name,child_name);
+        firebase_firestore.collection("model_student").document(et_sigh_up_password_text.getText().toString())
                 .collection("SignUp").document(parent_or_child).set(parent_adapter);
     }
 
     void uploadToFirebaseChild(String name, String phone_number) {
         //자녀의 폰에서 올라가는 거
         ChildAdapter childAdapter = new ChildAdapter(name, phone_number);
-        firebase_firestore.collection("User").document(et_sigh_up_password_text.getText().toString())
+        firebase_firestore.collection("model_student").document(et_sigh_up_password_text.getText().toString())
                 .collection("SignUp").document(parent_or_child).set(childAdapter);
     }
 
@@ -213,6 +234,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     //Step이 순서대로 나오는 함수
     void stepEvent() {
+        //사용자 이름
         et_sigh_up_name_text.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -221,7 +243,7 @@ public class SignUpActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //천지인 방지 꼼수(입력할 시간 지연)
+                //천지인 방지 편법(입력할 시간 지연)
                 Handler handler_delayed2 = new Handler();
                 handler_delayed2.postDelayed(new Runnable() {
                     @Override
@@ -247,8 +269,6 @@ public class SignUpActivity extends AppCompatActivity {
                                         iv_sign_up_first_banana.setImageResource(0);
                                         iv_sign_up_first_banana.startAnimation(none);
 
-
-
                                     }
                                 }, 800);
                             }
@@ -263,6 +283,7 @@ public class SignUpActivity extends AppCompatActivity {
 
             }
         });
+        //비밀번호 입력(고유 코드)
         et_sigh_up_password_text.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -339,6 +360,7 @@ public class SignUpActivity extends AppCompatActivity {
 
             }
         });
+        //부모 권한일 때 자녀 이름 입력
         et_sigh_up_child_name_text.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -348,7 +370,14 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() >= 3){
-                    hideKeyboard();
+                    //자녀 이름까지 입력하고 1초뒤 키보드 내려감
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            hideKeyboard();
+                        }
+                    }, 1000);
                 }
             }
 

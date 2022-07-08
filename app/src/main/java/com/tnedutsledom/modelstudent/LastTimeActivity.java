@@ -32,6 +32,7 @@ public class LastTimeActivity extends AppCompatActivity {
     private TextView tv_diary_date; // 일기 날짜 표시 텍스트뷰
     private LinearLayout ll_diary; // 일기장 바탕 레이아웃
     private boolean drag = false; // 일기장 터치가 가능한 상태인지 아닌지 ( false = 가능 / true = 불가능 )
+    private TextView tv_last_time_diary_value; // 일기가 표시될 텍스트 뷰
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +101,7 @@ public class LastTimeActivity extends AppCompatActivity {
         tv_diary_date = findViewById(R.id.tv_diary_date);
         ll_diary = findViewById(R.id.ll_last_time_diary);
         ll_diary.setY(550);
+        tv_last_time_diary_value = findViewById(R.id.tv_last_time_diary_value);
     }
 
     // 캘린더뷰 디자인 초기세팅
