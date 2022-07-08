@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center">
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/btn_main_house_work"
         android:layout_width="match_parent"
         android:layout_marginLeft="@dimen/pageMarginAndOffset"
         android:layout_marginRight="@dimen/pageMarginAndOffset"
@@ -14,5 +15,5 @@
         android:background="@drawable/btn_image_house_work"
         android:elevation="5dp">
 
-    </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>

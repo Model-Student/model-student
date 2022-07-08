@@ -12,11 +12,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ModelStudent"
-        tools:targetApi="31" >
+        tools:targetApi="31">
+        <activity
+            android:name=".HouseWorkActivity"
+            android:exported="false" />
         <activity
             android:name=".LastTimeActivity"
             android:exported="false"
-            android:theme="@style/Theme.ModelStudentLastTime"/>
+            android:theme="@style/Theme.ModelStudentLastTime" />
         <activity
             android:name=".SplashActivity"
             android:exported="true"
@@ -27,18 +30,17 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-<!--        SplashActivity-->
+        </activity> <!-- SplashActivity -->
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SignUpActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UserSelectActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.ModelStudentSplash"/>
+            android:theme="@style/Theme.ModelStudentSplash" />
     </application>
 
 </manifest>
