@@ -35,8 +35,6 @@ public class LastTimeActivity extends AppCompatActivity {
     private LinearLayout ll_diary; // 일기장 바탕 레이아웃
     private boolean drag = false; // 일기장 터치가 가능한 상태인지 아닌지 ( false = 가능 / true = 불가능 )
 
-    SQLiteHelper dbHelper = new SQLiteHelper(LastTimeActivity.this);//SQL
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -148,18 +146,5 @@ public class LastTimeActivity extends AppCompatActivity {
                 return calendarHeaderBuilder.toString();
             }
         });
-    }
-
-    void SQLFUCK(){
-        // Gets the data repository in write mode
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-// Create a new map of values, where column names are the keys
-        ContentValues values = new ContentValues();
-        values.put(TableSecurity.FeedEntry.COLUMN_DATE,"2022-07-08");
-        values.put(TableSecurity.FeedEntry.COLUMN_TEXT, "안녕하세요");
-
-// Insert the new row, returning the primary key value of the new row
-        long newRowId = db.insert(TableSecurity.FeedEntry.TABLE_NAME, null, values);
     }
 }
