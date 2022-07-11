@@ -138,10 +138,11 @@
                     </FrameLayout>
 
                     <TextView
+                        android:id="@+id/tv_last_time_main_text"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="20dp"
-                        android:text="오늘은 비가 많이 오길레\n그냥 자퇴해버렸다."
+                        android:text="Null"
                         android:textSize="20dp"
                         android:fontFamily="@font/inter_bold"
                         android:textColor="#707070"/>

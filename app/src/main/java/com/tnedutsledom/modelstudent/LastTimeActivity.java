@@ -5,15 +5,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.model.Document;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
@@ -35,17 +41,23 @@ public class LastTimeActivity extends AppCompatActivity {
     private LinearLayout ll_diary; // 일기장 바탕 레이아웃
     private boolean drag = false; // 일기장 터치가 가능한 상태인지 아닌지 ( false = 가능 / true = 불가능 )
 
-    SQLiteHelper dbHelper = new SQLiteHelper(LastTimeActivity.this);//SQL
+    TextView tv_last_time_main_text; // 일기 내용 표시 텍스트뷰
+
+    private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance(); //파이어스토어 연결
+    DocumentReference AppRef; //파이어 스토어 Document 접근
+
+    SQLiteHelper dbHelper = new SQLiteHelper(LastTimeActivity.this); //SQLite 데이터 셋 설정
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_last_time);
         init(); // 초기세팅
+        getFireBaseLastTime();// 파이어베이스 라스트 타임값 복사
         calenderDesignInit(); // 캘린더 디자인 세팅
         selectDate(); // 날짜 선택시 실행하는 메소두
         dragDiary(); // 일기장 창을 드래그할 때
-//        SQLFUCK();// SQL 메소두
+
     }
 
 
@@ -96,6 +108,7 @@ public class LastTimeActivity extends AppCompatActivity {
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
                 tv_diary_date.setText(date.getDate().toString());
                 Log.d("캘린더 선택", "onDateSelected: " + date.getDate());
+                getSQLValue(date.getDate().toString());
             }
         });
     }
@@ -105,6 +118,31 @@ public class LastTimeActivity extends AppCompatActivity {
         tv_diary_date = findViewById(R.id.tv_diary_date);
         ll_diary = findViewById(R.id.ll_last_time_diary);
         ll_diary.setY(550);
+        tv_last_time_main_text = findViewById(R.id.tv_last_time_main_text);
+        //파이어 스토어 디렉토리 접근(여기서 어디를 참조할지 정함)
+        AppRef = firebaseFirestore.collection("LastTime").document();
+    }
+    void getFireBaseLastTime(){
+        //앱에서 보낸 값 가져오기(실시간x 한번만)
+        AppRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                //성공
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        //성공
+
+                    } else {
+                        //값이 비어있음
+                        Log.d("1", "No such document");
+                    }
+                } else {
+                    //가져오기 실패
+                    Log.d("1", "get failed with ", task.getException());
+                }
+            }
+        });
     }
 
     // 캘린더뷰 디자인 초기세팅
@@ -149,17 +187,26 @@ public class LastTimeActivity extends AppCompatActivity {
             }
         });
     }
+    //SQL 일기 가져오기
+    void getSQLValue(String date_value){
+        // Create a new map of values, where column names are the keys
+        ContentValues values = new ContentValues();
+//        values.put(TableInfo.COLUMN_DATE_TEXT,value.getString("Text"));
 
-    void SQLFUCK(){
         // Gets the data repository in write mode
         SQLiteDatabase db = dbHelper.getWritableDatabase();
+        long newRowId = db.insert(TableInfo.TABLE_NAME, null, values);
+        Log.d("1","new row ID"+newRowId);
 
-// Create a new map of values, where column names are the keys
-        ContentValues values = new ContentValues();
-        values.put(TableSecurity.FeedEntry.COLUMN_DATE,"2022-07-08");
-        values.put(TableSecurity.FeedEntry.COLUMN_TEXT, "안녕하세요");
 
-// Insert the new row, returning the primary key value of the new row
-        long newRowId = db.insert(TableSecurity.FeedEntry.TABLE_NAME, null, values);
+        //SELECT * FROM 테이블명 WHERE 필드='조건' AND 필드2='조건2'
+        Cursor cursor = db.rawQuery("SELECT * FROM "+TableInfo.TABLE_NAME, null);
+        if (cursor.moveToFirst()){
+            do{
+                tv_last_time_main_text.setText(cursor.getString(1));
+
+            }while (cursor.moveToNext());
+        }
+        cursor.close();
     }
 }
