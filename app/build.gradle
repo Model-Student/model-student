@@ -34,10 +34,11 @@ android {
 dependencies {
     //파이어베이스 연동
     implementation 'com.google.gms:google-services:4.3.13'
+    implementation platform('com.google.firebase:firebase-bom:30.2.0')
+
     //파이어 스토어 가져오기
     implementation 'com.google.firebase:firebase-firestore'
-    //파이어베이스 연동?
-    implementation platform('com.google.firebase:firebase-bom:30.2.0')
+
 
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'

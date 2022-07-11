@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -57,7 +58,7 @@ public class LastTimeActivity extends AppCompatActivity {
         calenderDesignInit(); // 캘린더 디자인 세팅
         selectDate(); // 날짜 선택시 실행하는 메소두
         dragDiary(); // 일기장 창을 드래그할 때
-
+//        SQLFUCK();// SQL 메소두
     }
 
 
