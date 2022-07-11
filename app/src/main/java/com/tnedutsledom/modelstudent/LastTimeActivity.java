@@ -44,10 +44,11 @@ public class LastTimeActivity extends AppCompatActivity {
 
     TextView tv_last_time_main_text; // 일기 내용 표시 텍스트뷰
 
-    private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance(); //파이어스토어 연결
-    DocumentReference AppRef; //파이어 스토어 Document 접근
+    private FirebaseFirestore firebase_firestore = FirebaseFirestore.getInstance(); //파이어스토어 연결
+    DocumentReference app_ref; //파이어 스토어 Document 접근
 
-    SQLiteHelper dbHelper = new SQLiteHelper(LastTimeActivity.this); //SQLite 데이터 셋 설정
+    SQLiteHelper db_helper = new SQLiteHelper(LastTimeActivity.this); //SQLite 데이터 셋 설정
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +59,6 @@ public class LastTimeActivity extends AppCompatActivity {
         calenderDesignInit(); // 캘린더 디자인 세팅
         selectDate(); // 날짜 선택시 실행하는 메소두
         dragDiary(); // 일기장 창을 드래그할 때
-//        SQLFUCK();// SQL 메소두
     }
 
 
@@ -121,11 +121,14 @@ public class LastTimeActivity extends AppCompatActivity {
         ll_diary.setY(550);
         tv_last_time_main_text = findViewById(R.id.tv_last_time_main_text);
         //파이어 스토어 디렉토리 접근(여기서 어디를 참조할지 정함)
-        AppRef = firebaseFirestore.collection("LastTime").document();
+        app_ref = firebase_firestore.collection("User")
+                .document("12345678")
+                .collection("LastTime")
+                .document("2022-07-10");
     }
     void getFireBaseLastTime(){
         //앱에서 보낸 값 가져오기(실시간x 한번만)
-        AppRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        app_ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 //성공
@@ -133,7 +136,9 @@ public class LastTimeActivity extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         //성공
-
+                        Log.d("1",document.getString("Text"));
+                        Log.d("1",document.getString("Date"));
+                        setSQLValue(document.getString("Date"),document.getString("Text"));
                     } else {
                         //값이 비어있음
                         Log.d("1", "No such document");
@@ -188,25 +193,32 @@ public class LastTimeActivity extends AppCompatActivity {
             }
         });
     }
-    //SQL 일기 가져오기
-    void getSQLValue(String date_value){
-        // Create a new map of values, where column names are the keys
+    //SQL 일기 가져와 넣어주기
+    void setSQLValue(String value,String main_text){
+        // DB 쓰기 권한 가져오기
+        SQLiteDatabase sql_db_writer = db_helper.getWritableDatabase();
+        // 데이터 셋 생성 (테이블 이름,값)
         ContentValues values = new ContentValues();
-//        values.put(TableInfo.COLUMN_DATE_TEXT,value.getString("Text"));
+        values.put(TableInfo.COLUMN_DATE_TEXT, value);
+        values.put(TableInfo.COLUMN_MAIN_TEXT, main_text);
 
-        // Gets the data repository in write mode
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        long newRowId = db.insert(TableInfo.TABLE_NAME, null, values);
+        long newRowId = sql_db_writer.insert(TableInfo.TABLE_NAME, null, values);
         Log.d("1","new row ID"+newRowId);
-
-
+        Log.d("1","main_text"+main_text);
+        Log.d("1","date"+value);
+    }
+    // SQL에서 오늘 날짜 테이블 검색
+    void getSQLValue(String date){
+        SQLiteDatabase sql_db_reader = db_helper.getReadableDatabase();
         //SELECT * FROM 테이블명 WHERE 필드='조건' AND 필드2='조건2'
-        Cursor cursor = db.rawQuery("SELECT * FROM "+TableInfo.TABLE_NAME, null);
-        if (cursor.moveToFirst()){
-            do{
-                tv_last_time_main_text.setText(cursor.getString(1));
-
-            }while (cursor.moveToNext());
+        Cursor cursor = sql_db_reader.rawQuery("SELECT * FROM "+ TableInfo.TABLE_NAME+" WHERE DATE = "+"'"+date+"'", null);
+        try {
+            if (cursor != null && cursor.moveToFirst()) {
+                Log.d("1", "getString(2)" + cursor.getString(2));
+                tv_last_time_main_text.setText(cursor.getString(2));
+            }
+        }catch (Exception e) {
+            Log.d("1","오류오류오류오류오류오류");
         }
         cursor.close();
     }
