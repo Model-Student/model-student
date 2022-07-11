@@ -9,4 +9,16 @@
     <color name="white">#FFFFFFFF</color>
     <color name="Theme_Indigo">#083C60</color>
     <color name="Theme_Indigo_Text">#285E79</color>
+
+
+    <!--
+    1.집안일
+    2.공부(숙제)
+    3.밥/간식
+    4.기타(여가시간)
+    -->
+    <color name="hw_house_work">#FD8A69</color>
+    <color name="hw_home_work">#FFE470</color>
+    <color name="hw_eating">#E0BFE6</color>
+    <color name="hw_etc">#6FB0D5</color>
 </resources>

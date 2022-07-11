@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:padding="30dp"
+    android:background="#F0EFF1F2">
+
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="70dp"
+        android:background="@drawable/house_work_category_mark"
+        android:backgroundTint="@color/hw_etc"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:background="@drawable/house_work_item_background">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:src="@drawable/ic_check"
+            android:padding="8dp"/>
+        <View
+            android:layout_width="4dp"
+            android:layout_height="match_parent"
+            android:background="#D6D6D6"
+            android:layout_marginTop="9dp"
+            android:layout_marginBottom="9dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="진선이한테 빠큐 날리기"
+            android:fontFamily="@font/inter_bold"
+            android:gravity="center|left"
+            android:textColor="#878787"
+            android:textSize="19dp"
+            android:paddingLeft="10dp"/>
+    </LinearLayout>
+
+</LinearLayout>
