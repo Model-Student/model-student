@@ -55,7 +55,7 @@ public class LastTimeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_last_time);
         init(); // 초기세팅
-        getFireBaseLastTime();// 파이어베이스 라스트 타임값 복사
+        getFireBaseLastTime();// 파이어베이스 라스트 타임값 SQL에 복사
         calenderDesignInit(); // 캘린더 디자인 세팅
         selectDate(); // 날짜 선택시 실행하는 메소두
         dragDiary(); // 일기장 창을 드래그할 때
@@ -109,6 +109,7 @@ public class LastTimeActivity extends AppCompatActivity {
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
                 tv_diary_date.setText(date.getDate().toString());
                 Log.d("캘린더 선택", "onDateSelected: " + date.getDate());
+                //요일 누를때마다 SQL에 쿼리
                 getSQLValue(date.getDate().toString());
             }
         });
@@ -136,8 +137,6 @@ public class LastTimeActivity extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         //성공
-                        Log.d("1",document.getString("Text"));
-                        Log.d("1",document.getString("Date"));
                         setSQLValue(document.getString("Date"),document.getString("Text"));
                     } else {
                         //값이 비어있음
@@ -199,27 +198,36 @@ public class LastTimeActivity extends AppCompatActivity {
         SQLiteDatabase sql_db_writer = db_helper.getWritableDatabase();
         // 데이터 셋 생성 (테이블 이름,값)
         ContentValues values = new ContentValues();
+        //날짜
         values.put(TableInfo.COLUMN_DATE_TEXT, value);
+        //아이의 일기
         values.put(TableInfo.COLUMN_MAIN_TEXT, main_text);
-
+        //고유 ID에 insert
         long newRowId = sql_db_writer.insert(TableInfo.TABLE_NAME, null, values);
-        Log.d("1","new row ID"+newRowId);
-        Log.d("1","main_text"+main_text);
-        Log.d("1","date"+value);
+//        Log.d("1","new row ID"+newRowId);
+//        Log.d("1","main_text"+main_text);
+//        Log.d("1","date"+value);
     }
     // SQL에서 오늘 날짜 테이블 검색
     void getSQLValue(String date){
+        //읽기 권한 설정
         SQLiteDatabase sql_db_reader = db_helper.getReadableDatabase();
-        //SELECT * FROM 테이블명 WHERE 필드='조건' AND 필드2='조건2'
+        //SELECT * FROM 테이블명 WHERE 필드='조건' SQL문 작성
         Cursor cursor = sql_db_reader.rawQuery("SELECT * FROM "+ TableInfo.TABLE_NAME+" WHERE DATE = "+"'"+date+"'", null);
+        //오류가 나도 앱 구동에는 지장 없게
         try {
+            //커서가 있고 가장 위 아이템에 있을 때(기본값)
             if (cursor != null && cursor.moveToFirst()) {
                 Log.d("1", "getString(2)" + cursor.getString(2));
+                //일기 텍스트뷰에 검색 결과 두번째 열의 값(일기 텍스트) 넣기 / 첫 번째 값은 날짜임
                 tv_last_time_main_text.setText(cursor.getString(2));
             }
         }catch (Exception e) {
+            //오류
             Log.d("1","오류오류오류오류오류오류");
+            tv_last_time_main_text.setText("Null");
         }
+        //커서 실행 종료
         cursor.close();
     }
 }
