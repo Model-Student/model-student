@@ -235,7 +235,7 @@ public class LastTimeActivity extends AppCompatActivity {
                 tv_last_time_diary_text.setText(cursor.getString(2));
             }else {
                 //관련 값이 없으면 텍스트뷰를 NUll로 바꾸고 데이터베이스에 쿼리
-                tv_last_time_diary_text.setText("Null");
+                tv_last_time_diary_text.setText("일기가 비어있어요.");
                 getFireBaseLastTime(date);
             }
             //커서 실행 종료

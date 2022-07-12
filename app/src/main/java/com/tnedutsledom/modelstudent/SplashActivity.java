@@ -80,10 +80,6 @@ public class SplashActivity extends AppCompatActivity {
         boolean checkFirst = pref.getBoolean("checkFirst", false);
         if(checkFirst==false){
             // 앱 최초 실행시 하고 싶은 작업
-            SharedPreferences.Editor editor = pref.edit();
-            editor.putBoolean("checkFirst",true);
-            editor.commit();
-
             Intent intent_view_change = new Intent(SplashActivity.this, UserSelectActivity.class);
             startActivity(intent_view_change);
             intent_view_change.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);

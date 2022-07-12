@@ -7,6 +7,8 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,9 +28,16 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
+        firstCheck();
         initCarousel();
 
 
+    }
+    void firstCheck(){
+        SharedPreferences pref = getSharedPreferences("checkFirst", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putBoolean("checkFirst",true);
+        editor.commit();
     }
 
 //    캐러셀 초기설정
