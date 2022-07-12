@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DDEAEF"
+    android:orientation="vertical"
+    tools:context=".UserSelectActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!--배경 연필,자,책 등 이미지-->
+        <ImageView
+            android:id="@+id/iv_splash_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/splash_background_img" />
+        <!--노란 배경 이미지-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2.2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:background="@drawable/user_select_white_iv"
+                android:orientation="vertical"
+                android:padding="30dp">
+
+                <!-- 가로 일자선-->
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/inter_extrabold_font"
+                    android:gravity="center"
+                    android:text="사용자 타입을 선택해주세요."
+                    android:textColor="@color/Theme_Indigo_Text"
+                    android:textSize="25dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/Theme_Indigo_Text" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="보호자"
+                        android:layout_weight="1"
+                        android:gravity="center|bottom"
+                        android:layout_marginBottom="29dp"
+                        android:layout_marginRight="10dp"
+                        android:fontFamily="@font/inter_extrabold_font"
+                        android:textSize="25dp"
+                        android:textColor="@color/Theme_Indigo_Text"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="자녀"
+                        android:layout_weight="1"
+                        android:gravity="center|bottom"
+                        android:layout_marginBottom="29dp"
+                        android:fontFamily="@font/inter_extrabold_font"
+                        android:textSize="25dp"
+                        android:textColor="@color/Theme_Indigo_Text"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+
+                        <ImageView
+                            android:id="@+id/iv_user_select_parent"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:src="@drawable/user_select_parent_iv" />
+
+                        <ImageView
+                            android:id="@+id/iv_user_select_child"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:src="@drawable/user_select_child_iv" />
+                    </LinearLayout>
+                </FrameLayout>
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.2" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <!--찐원숭 이미지-->
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:scaleType="fitStart"
+                android:src="@drawable/user_select_mascot_iv" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

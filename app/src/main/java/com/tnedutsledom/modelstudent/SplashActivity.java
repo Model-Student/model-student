@@ -1,6 +1,8 @@
 package com.tnedutsledom.modelstudent;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -24,7 +26,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         init();
-        Delayed();
+        delayed();
     }
 
     void init(){
@@ -39,8 +41,8 @@ public class SplashActivity extends AppCompatActivity {
         ll_splash_layout = findViewById(R.id.ll_splash_layout);
         ll_splash_layout.startAnimation(fadeInAnim);
     }
-
-    void Delayed(){
+    //화면전환 딜레이 주기
+    void delayed(){
         //딜레이 후 화면전환
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -68,12 +70,32 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 //작은 텍스트 애니메이션 초기화
                 tv_small_text.startAnimation(noneAnim);
-                Intent intent_view_change = new Intent(SplashActivity.this, MainActivity.class);
-                startActivity(intent_view_change);
-                intent_view_change.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
-                finish();
+                firstTimeCheck();
             }
         }, 4000);
+    }
+    void firstTimeCheck(){
+        //        최초 실행 여부를 판단 ->>>
+        SharedPreferences pref = getSharedPreferences("checkFirst", Activity.MODE_PRIVATE);
+        boolean checkFirst = pref.getBoolean("checkFirst", false);
+        if(checkFirst==false){
+            // 앱 최초 실행시 하고 싶은 작업
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putBoolean("checkFirst",true);
+            editor.commit();
+
+            Intent intent_view_change = new Intent(SplashActivity.this, UserSelectActivity.class);
+            startActivity(intent_view_change);
+            intent_view_change.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+            finish();
+        }else{
+            // 최초 실행이 아닐때 진행할 작업
+            Intent intent_view_change = new Intent(SplashActivity.this, MainActivity.class);
+            startActivity(intent_view_change);
+            intent_view_change.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+            finish();
+        }
     }
 }
