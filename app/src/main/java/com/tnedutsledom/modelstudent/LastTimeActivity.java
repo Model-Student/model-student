@@ -42,7 +42,7 @@ public class LastTimeActivity extends AppCompatActivity {
     private LinearLayout ll_diary; // 일기장 바탕 레이아웃
     private boolean drag = false; // 일기장 터치가 가능한 상태인지 아닌지 ( false = 가능 / true = 불가능 )
 
-    TextView tv_last_time_main_text; // 일기 내용 표시 텍스트뷰
+    TextView tv_last_time_diary_text; // 일기 내용 표시 텍스트뷰
 
     private FirebaseFirestore firebase_firestore = FirebaseFirestore.getInstance(); //파이어스토어 연결
     DocumentReference app_ref; //파이어 스토어 Document 접근
@@ -55,7 +55,6 @@ public class LastTimeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_last_time);
         init(); // 초기세팅
-//        getFireBaseLastTime();// 파이어베이스 라스트 타임값 SQL에 복사
         calenderDesignInit(); // 캘린더 디자인 세팅
         selectDate(); // 날짜 선택시 실행하는 메소두
         dragDiary(); // 일기장 창을 드래그할 때
@@ -120,10 +119,10 @@ public class LastTimeActivity extends AppCompatActivity {
         tv_diary_date = findViewById(R.id.tv_diary_date);
         ll_diary = findViewById(R.id.ll_last_time_diary);
         ll_diary.setY(550);
-        tv_last_time_main_text = findViewById(R.id.tv_last_time_main_text);
+        tv_last_time_diary_text = findViewById(R.id.tv_last_time_main_text);//일기 표시 텍스트 뷰
 
     }
-
+    //선택한 날짜가 SQL에 없으면 파이어베이스에 쿼리
     void getFireBaseLastTime(String get_date_to_firebase) {
         Log.d("1", "파이어베이스에 쿼리");
         //파이어 스토어 디렉토리 접근(여기서 어디를 참조할지 정함)
@@ -140,7 +139,9 @@ public class LastTimeActivity extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         //성공
+                        //DB가 꼬여도 앱이 멈추지 않게끔 Try catch로 방지
                         try {
+                            // SQL에 넣어주기
                             setSQLValue(document.getString("Date"), document.getString("Text"));
                         } catch (Exception e) {
                             //가져올 값이 없는 경우
@@ -202,46 +203,47 @@ public class LastTimeActivity extends AppCompatActivity {
         });
     }
 
-    //SQL 일기 가져와 넣어주기
-    void setSQLValue(String value, String main_text) {
+    //SQL에 일기 넣어주기
+    void setSQLValue(String Date, String main_text) {
         // DB 쓰기 권한 가져오기
         SQLiteDatabase sql_db_writer = db_helper.getWritableDatabase();
         // 데이터 셋 생성 (테이블 이름,값)
         ContentValues values = new ContentValues();
         //날짜
-        values.put(TableInfo.COLUMN_DATE_TEXT, value);
-        //아이의 일기
+        values.put(TableInfo.COLUMN_DATE_TEXT, Date);
+        //아이의 일기 내용
         values.put(TableInfo.COLUMN_MAIN_TEXT, main_text);
         //고유 ID에 insert
         long newRowId = sql_db_writer.insert(TableInfo.TABLE_NAME, null, values);
-        //처음 SQL에 들어올 때 텍스트뷰에 셋
-        tv_last_time_main_text.setText(main_text);
+        //처음 SQL에 들어올 때도 텍스트뷰에 셋
+        tv_last_time_diary_text.setText(main_text);
     }
 
-    // SQL에서 오늘 날짜 테이블 검색
+    // 날짜 선택할 때마다 SQL에 오늘 날짜 테이블 쿼리
     void getSQLValue(String date) {
         //읽기 권한 설정
         SQLiteDatabase sql_db_reader = db_helper.getReadableDatabase();
-        //SELECT * FROM 테이블명 WHERE 필드='조건' SQL문 작성
 
+            //SELECT * FROM 테이블명 WHERE 필드='조건' SQL문 작성
             Cursor cursor = sql_db_reader.rawQuery("SELECT * FROM " + TableInfo.TABLE_NAME + " WHERE DATE = " + "'" + date + "'", null);
-            //오류가 나도 앱 구동에는 지장 없게
+            //DB에서 오류가 나도 앱 구동에는 지장 없게 Try,catch
         try {
             //커서가 있고 가장 위 아이템에 있을 때(기본값)
             if (cursor != null && cursor.moveToFirst()) {
                 Log.d("1", "getString(2)" + cursor.getString(2));
-                //일기 텍스트뷰에 검색 결과 두번째 열의 값(일기 텍스트) 넣기 / 첫 번째 값은 날짜임
-                tv_last_time_main_text.setText(cursor.getString(2));
+                //일기 텍스트뷰에 검색 결과 두 번째 열의 값(일기 텍스트) 넣기 / 첫 번째 값은 날짜임
+                tv_last_time_diary_text.setText(cursor.getString(2));
             }else {
-                tv_last_time_main_text.setText("Null");
+                //관련 값이 없으면 텍스트뷰를 NUll로 바꾸고 데이터베이스에 쿼리
+                tv_last_time_diary_text.setText("Null");
                 getFireBaseLastTime(date);
             }
             //커서 실행 종료
             cursor.close();
         } catch (Exception e) {
-            //오류
+            //DB 실행 오류
             Log.d("1", "오류오류오류오류오류오류");
-            tv_last_time_main_text.setText("Null");
+            tv_last_time_diary_text.setText("Null");
         }
 
     }
