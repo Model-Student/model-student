@@ -17,37 +17,34 @@ public class UserSelectActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_select);
 
         init();
-        onClick();
+        setOnClick();
     }
     void init(){
         iv_user_select_child= findViewById(R.id.iv_user_select_child);
         iv_user_select_parent = findViewById(R.id.iv_user_select_parent);
     }
-    void onClick(){
-        iv_user_select_child.setOnTouchListener(new View.OnTouchListener() {
+    void setOnClick(){
+        iv_user_select_child.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Intent intent_view_change = new Intent(getApplicationContext(),SignUpActivity.class);
-                intent_view_change.putExtra("User_select","child");
-                startActivity(intent_view_change);
-                intent_view_change.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
-                finish();
-                return false;
+            public void onClick(View view) {
+                startSignUpActivity("child");
             }
         });
 
-        iv_user_select_parent.setOnTouchListener(new View.OnTouchListener() {
+        iv_user_select_parent.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Intent intent_view_change = new Intent(getApplicationContext(),SignUpActivity.class);
-                intent_view_change.putExtra("User_select","parent");
-                startActivity(intent_view_change);
-                intent_view_change.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
-                finish();
-                return false;
+            public void onClick(View view) {
+                startSignUpActivity("parent");
             }
         });
+    }
+
+    void startSignUpActivity(String category) {
+        Intent intent_view_change = new Intent(getApplicationContext(),SignUpActivity.class);
+        intent_view_change.putExtra("User_select",category);
+        startActivity(intent_view_change);
+        intent_view_change.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+        finish();
     }
 }
