@@ -1,4 +1,4 @@
-package com.tnedutsledom.modelstudent;
+package com.tnedutsledom.modelstudent.SQL;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

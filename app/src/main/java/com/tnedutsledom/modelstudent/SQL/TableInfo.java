@@ -1,4 +1,4 @@
-package com.tnedutsledom.modelstudent;
+package com.tnedutsledom.modelstudent.SQL;
 
 
 public class TableInfo {
