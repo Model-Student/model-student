@@ -3,32 +3,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:padding="30dp"
-    android:background="#F0EFF1F2">
+    android:paddingLeft="25dp"
+    android:paddingRight="25dp"
+    android:paddingBottom="25dp">
 
     <ImageView
-        android:layout_width="25dp"
-        android:layout_height="70dp"
-        android:background="@drawable/house_work_category_mark"
-        android:backgroundTint="@color/hw_etc"/>
+        android:id="@+id/iv_hw_category"
+        android:layout_width="18dp"
+        android:layout_height="50dp"
+        android:src="@drawable/house_work_category_mark"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="50dp"
         android:orientation="horizontal"
         android:background="@drawable/house_work_item_background">
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="3"
+            android:layout_weight="4.4"
             android:src="@drawable/ic_check"
-            android:padding="8dp"/>
+            android:padding="4dp"/>
         <View
-            android:layout_width="4dp"
+            android:layout_width="2.5dp"
             android:layout_height="match_parent"
             android:background="#D6D6D6"
-            android:layout_marginTop="9dp"
-            android:layout_marginBottom="9dp"/>
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"/>
         <TextView
+            android:id="@+id/tv_hw_work_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"

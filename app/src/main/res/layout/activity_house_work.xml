@@ -96,8 +96,18 @@
                     app:layout_constraintVertical_bias="0.3"/>
 
             </LinearLayout>
+            
+            <TextView
+                android:id="@+id/tv_item_count"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="1 / 5"
+                android:gravity="center"
+                android:textColor="#777777"
+                android:fontFamily="@font/inter_semi_bold"/>
 
             <ListView
+                android:id="@+id/recycleV_hw_work_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -113,7 +123,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="5.85"
+            android:layout_weight="5.89"
             android:background="#ffffff"
             android:orientation="horizontal">
             <!--        홈 아이콘-->
@@ -150,7 +160,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.985">
+        app:layout_constraintVertical_bias="0.99">
         <View
             android:layout_width="match_parent"
             android:layout_height="130dp"
@@ -159,10 +169,10 @@
             android:id="@+id/ll_house_work_add"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:layout_weight="1.05"
+            android:layout_weight="1.08"
             android:background="@drawable/house_work_btn_add_background"
             android:orientation="vertical"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="5dp"
             android:elevation="4dp">
             <View
                 android:layout_width="match_parent"
