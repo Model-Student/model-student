@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_main_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#edeff2"
+    tools:context=".HouseWorkActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <!--    상단바-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="4dp"
+            android:layout_weight="6"
+            android:background="#ffffff"
+            android:elevation="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/jalnan_font"
+                android:gravity="center"
+                android:text="Model Student"
+                android:textColor="@color/Theme_Indigo"
+                android:textSize="21dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--    메인화면-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#edeff2"
+            android:orientation="vertical"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2.7"
+                android:background="#ADFBFBFB"
+                android:elevation="3dp"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tv_hw_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="06.23"
+                    android:gravity="center"
+                    android:fontFamily="@font/inter_semi_bold"
+                    android:textColor="#000000"
+                    android:textSize="35dp"
+                    android:textStyle="bold"
+                    android:includeFontPadding="false"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_hw_day"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.7"/>
+
+                <TextView
+                    android:id="@+id/tv_hw_day"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="MONDAY"
+                    android:gravity="center"
+                    android:fontFamily="@font/inter_bold"
+                    android:textColor="#000000"
+                    android:textSize="35dp"
+                    android:includeFontPadding="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_hw_date"
+                    app:layout_constraintVertical_bias="0.3"/>
+
+            </LinearLayout>
+            
+            <TextView
+                android:id="@+id/tv_item_count"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="1 / 5"
+                android:gravity="center"
+                android:textColor="#777777"
+                android:fontFamily="@font/inter_semi_bold"/>
+
+            <ListView
+                android:id="@+id/recycleV_hw_work_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#F0EFF1F2"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#DCDADA" />
+        <!--    하단바-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="5.89"
+            android:background="#ffffff"
+            android:orientation="horizontal">
+            <!--        홈 아이콘-->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="@color/Theme_Indigo"
+                android:gravity="center"
+                android:padding="16dp"
+                android:src="@drawable/ic_home_not_fill" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="10dp" />
+            <!--        설정 아이콘-->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="@color/Theme_Indigo"
+                android:gravity="center"
+                android:padding="16dp"
+                android:src="@drawable/ic_settings_not_fill" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.99">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:layout_weight="1"/>
+        <LinearLayout
+            android:id="@+id/ll_house_work_add"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_weight="1.08"
+            android:background="@drawable/house_work_btn_add_background"
+            android:orientation="vertical"
+            android:layout_marginBottom="5dp"
+            android:elevation="4dp">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3.5"
+                android:src="@drawable/ic_plus"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
