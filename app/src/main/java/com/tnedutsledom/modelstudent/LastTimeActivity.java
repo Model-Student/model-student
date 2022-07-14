@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -49,7 +50,7 @@ public class LastTimeActivity extends AppCompatActivity {
 
     SQLiteHelper db_helper = new SQLiteHelper(LastTimeActivity.this); //SQLite 데이터 셋 설정
 
-
+    private SharedPreferences preferences;// 비밀번호 내부에 저장
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,12 +125,17 @@ public class LastTimeActivity extends AppCompatActivity {
     }
     //선택한 날짜가 SQL에 없으면 파이어베이스에 쿼리
     void getFireBaseLastTime(String get_date_to_firebase) {
+        //내부에 저장된 비밀번호로 참조
+        preferences = getSharedPreferences("user_info",MODE_PRIVATE);
+
         Log.d("1", "파이어베이스에 쿼리");
+
         //파이어 스토어 디렉토리 접근(여기서 어디를 참조할지 정함)
-        app_ref = firebase_firestore.collection("User")
-                .document("12345678")
+        app_ref = firebase_firestore.collection("model_student")
+                .document(preferences.getString("password",""))
                 .collection("LastTime")
                 .document(get_date_to_firebase);
+        Log.d("1",preferences.getString("password",""));
         //앱에서 보낸 값 가져오기(실시간x 한번만)
         app_ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override

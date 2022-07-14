@@ -38,7 +38,7 @@ public class SignUpActivity extends AppCompatActivity {
     Animation fade_in, fade_out, none;// 애니메이션
     ImageView iv_sign_up_first_banana, iv_sign_up_second_banana, iv_sign_up_third_banana_parent, iv_sign_up_third_banana_child;// 바나나 이미지
     private FirebaseFirestore firebase_firestore = FirebaseFirestore.getInstance();// 파이어스토어 연결
-    private SharedPreferences preferences;
+    private SharedPreferences preferences;// 비밀번호 내부에 저장
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
