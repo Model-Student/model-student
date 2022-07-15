@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:layout_weight="3.9"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingLeft="5dp">
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="80dp"
+            android:background="#1677A5" />
+
+        <ImageButton
+            android:id="@+id/btn_chat_tts"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="#DF3737"
+            android:scaleType="centerCrop"/>
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="240dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:fontFamily="@font/inter_bold"
+                android:gravity="center|left"
+                android:text="Mr.다아라"
+                android:textColor="#91B8B4"
+                android:textSize="20dp" />
+
+            <FrameLayout
+                android:layout_width="250dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:background="#A2ECD4"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_daara"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/inter_bold"
+                    android:gravity="center"
+                    android:paddingLeft="15dp"
+                    android:text="会話を始めましょう。"
+                    android:textColor="@color/white"
+                    android:textSize="18dp" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/translate"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="#5ACF11"
+            android:scaleType="centerCrop"
+            android:backgroundTint="#91B8B4"
+            app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+            app:layout_constraintTop_toTopOf="@+id/linearLayout2"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintVertical_bias="0.9"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

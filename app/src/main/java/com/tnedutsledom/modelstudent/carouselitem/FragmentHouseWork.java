@@ -26,8 +26,10 @@ public class FragmentHouseWork extends Fragment {
         ll_house_work.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), HouseWorkActivity.class);
-                startActivity(intent);
+                Intent intent_view_change = new Intent(getActivity(), HouseWorkActivity.class);
+                startActivity(intent_view_change);
+                intent_view_change.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                getActivity().overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
             }
         });
         return rootView;
