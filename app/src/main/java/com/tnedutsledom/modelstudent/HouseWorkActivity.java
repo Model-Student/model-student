@@ -21,9 +21,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.tnedutsledom.modelstudent.house_work.CustomAdaptor;
+import com.tnedutsledom.modelstudent.house_work.SpinnerAdaptor;
 import com.tnedutsledom.modelstudent.house_work.Work;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HouseWorkActivity extends AppCompatActivity {
 
@@ -83,8 +85,16 @@ public class HouseWorkActivity extends AppCompatActivity {
         dl_add_work.show();
         dl_add_work.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
+        List<String> category_list = new ArrayList<>();
+        category_list.add("집안일");
+        category_list.add("숙제");
+        category_list.add("음식");
+        category_list.add("기타");
         EditText et_value = dl_add_work.findViewById(R.id.et_hw_text);
         Spinner spinner = dl_add_work.findViewById(R.id.spinner_hw_category);
+        TextView tv = findViewById(R.id.spinner_hw_outer_text);
+        SpinnerAdaptor spinnerAdaptor = new SpinnerAdaptor(getApplicationContext(), category_list);
+        spinner.setAdapter(spinnerAdaptor);
         ImageView iv_dialog_close, iv_dialog_check;
         iv_dialog_check = dl_add_work.findViewById(R.id.iv_btn_dl_check);
         iv_dialog_close = dl_add_work.findViewById(R.id.iv_btn_dl_close);
