@@ -26,7 +26,8 @@ import java.util.Locale;
 public class CustomAdaptor extends BaseAdapter {
     Context context = null;
     LayoutInflater layoutInflater = null;
-    ArrayList<Work> workArrayList;
+    public ArrayList<Work> workArrayList;
+    public View house_work_item;
 
     public CustomAdaptor(Context context, ArrayList<Work> data) {
         this.context = context;
@@ -51,7 +52,7 @@ public class CustomAdaptor extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        View house_work_item = layoutInflater.inflate(R.layout.house_work_item, null);
+        house_work_item = layoutInflater.inflate(R.layout.house_work_item, null);
         TextView tv_work_name = house_work_item.findViewById(R.id.tv_hw_work_name);
         ImageView iv_category = house_work_item.findViewById(R.id.iv_hw_category);
 

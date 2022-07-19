@@ -142,13 +142,14 @@
                 android:padding="10dp" />
             <!--        설정 아이콘-->
             <ImageView
+                android:id="@+id/iv_hw_delete"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:backgroundTint="@color/Theme_Indigo"
                 android:gravity="center"
                 android:padding="16dp"
-                android:src="@drawable/ic_settings_not_fill" />
+                android:src="@drawable/ic_delete_not_fill" />
 
         </LinearLayout>
     </LinearLayout>

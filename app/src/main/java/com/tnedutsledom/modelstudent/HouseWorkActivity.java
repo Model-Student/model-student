@@ -12,6 +12,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -34,6 +37,8 @@ public class HouseWorkActivity extends AppCompatActivity {
     ListView lv_work_list;
     ArrayList<Work> workList;
     Dialog dl_add_work;
+    ImageView iv_hw_delete;
+    boolean delete = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +46,35 @@ public class HouseWorkActivity extends AppCompatActivity {
         setContentView(R.layout.activity_house_work);
         init();
         popUpAddDialog();
+        setToggleDelete();
+        setListTouch();
+    }
+
+    void setToggleDelete() {
+        iv_hw_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!delete) {
+                    iv_hw_delete.setImageResource(R.drawable.ic_delete_fill);
+                    delete = true;
+                } else {
+                    iv_hw_delete.setImageResource(R.drawable.ic_delete_not_fill);
+                    delete = false;
+                }
+            }
+        });
+    }
+
+    void setListTouch() {
+        lv_work_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (delete) {
+                    workList.remove(i);
+                    updateListView();
+                }
+            }
+        });
     }
 
     void popUpAddDialog() {
@@ -125,5 +159,6 @@ public class HouseWorkActivity extends AppCompatActivity {
         dl_add_work.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dl_add_work.setContentView(R.layout.dialog_add_house_work);
         workList = new ArrayList<>();
+        iv_hw_delete = findViewById(R.id.iv_hw_delete);
     }
 }
