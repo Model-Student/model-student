@@ -35,10 +35,11 @@ public class HouseWorkActivity extends AppCompatActivity {
     LinearLayout ll_btn_add;
     TextView tv_item_count;
     ListView lv_work_list;
-    ArrayList<Work> workList;
+    ArrayList<Work> workList, house_work_list, home_work_list, eating_list, etc_list;
     Dialog dl_add_work;
-    ImageView iv_hw_delete;
+    ImageView iv_hw_delete, iv_category;
     boolean delete = false;
+    int category = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,7 @@ public class HouseWorkActivity extends AppCompatActivity {
         popUpAddDialog();
         setToggleDelete();
         setListTouch();
+        setChangeCategory();
     }
 
     void setToggleDelete() {
@@ -65,13 +67,29 @@ public class HouseWorkActivity extends AppCompatActivity {
         });
     }
 
+    void setChangeCategory() {
+        iv_category.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (category) {
+                    case 0: category = 1; break;
+                    case 1: category = 2; break;
+                    case 2: category = 3; break;
+                    case 3: category = 4; break;
+                    case 4: category = 0; break;
+                }
+                updateListView(category);
+            }
+        });
+    }
+
     void setListTouch() {
         lv_work_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (delete) {
                     workList.remove(i);
-                    updateListView();
+                    updateListView(category);
                 }
             }
         });
@@ -92,21 +110,40 @@ public class HouseWorkActivity extends AppCompatActivity {
     }
 
     void addWorkList(String data, String category) {
-        Log.d("데이터 추가", "addWorkList: " + data + category);
         workList.add(new Work(data, category));
     }
 
-    void updateListView() {
-        final CustomAdaptor adapter = new CustomAdaptor(this,workList);
+    void updateListView(int category) {
+        final CustomAdaptor adapter = new CustomAdaptor(this, getProperList(category));
         lv_work_list.setAdapter(adapter);
         lv_work_list.setSelection(adapter.getCount()-1);
         setItemCountView(adapter);
+    }
+
+    ArrayList getProperList(int category) {
+        switch (category) {
+            case 0: return workList;
+            case 1: return house_work_list;
+            case 2: return home_work_list;
+            case 3: return eating_list;
+            case 4: return etc_list;
+            default: return null;
+        }
     }
 
     void setAddBtnSize() {
         int view_x_size = ll_btn_add.getWidth();
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(view_x_size, view_x_size);
         ll_btn_add.setLayoutParams(params);
+    }
+
+    void addCategoryList(String data, String category) {
+        switch (category) {
+            case "집안일": house_work_list.add(new Work(data, category)); break;
+            case "숙제": home_work_list.add(new Work(data, category)); break;
+            case "음식": eating_list.add(new Work(data, category)); break;
+            case "기타": etc_list.add(new Work(data, category)); break;
+        }
     }
 
     @Override
@@ -144,7 +181,8 @@ public class HouseWorkActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 addWorkList(et_value.getText().toString(), spinner.getSelectedItem().toString());
-                updateListView();
+                addCategoryList(et_value.getText().toString(), spinner.getSelectedItem().toString());
+                updateListView(category);
                 dl_add_work.dismiss();
             }
         });
@@ -159,6 +197,11 @@ public class HouseWorkActivity extends AppCompatActivity {
         dl_add_work.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dl_add_work.setContentView(R.layout.dialog_add_house_work);
         workList = new ArrayList<>();
+        house_work_list = new ArrayList<>();
+        home_work_list = new ArrayList<>();
+        eating_list = new ArrayList<>();
+        etc_list = new ArrayList<>();
         iv_hw_delete = findViewById(R.id.iv_hw_delete);
+        iv_category = findViewById(R.id.iv_hw_category);
     }
 }
