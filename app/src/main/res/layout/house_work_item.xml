@@ -18,11 +18,13 @@
         android:orientation="horizontal"
         android:background="@drawable/house_work_item_background">
         <ImageView
+            android:id="@+id/iv_hw_selected"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="4.4"
             android:src="@drawable/ic_check"
-            android:padding="5.5dp"/>
+            android:padding="5.5dp"
+            android:visibility="visible"/>
         <View
             android:layout_width="2.5dp"
             android:layout_height="match_parent"
