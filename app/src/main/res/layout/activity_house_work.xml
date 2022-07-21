@@ -19,10 +19,9 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="4dp"
             android:layout_weight="6"
             android:background="#ffffff"
-            android:elevation="5dp"
+            android:layout_marginBottom="4dp"
             android:orientation="horizontal">
 
             <TextView
@@ -48,16 +47,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="#edeff2"
-            android:orientation="vertical"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp">
+            android:background="#ffffff"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="2.7"
-                android:background="#ADFBFBFB"
+                android:background="#F2FBFBFB"
                 android:elevation="3dp"
                 android:orientation="vertical"
                 android:gravity="center">
@@ -104,6 +101,7 @@
                 android:text="1 / 5"
                 android:gravity="center"
                 android:textColor="#777777"
+                android:background="#F0EFF1F2"
                 android:fontFamily="@font/inter_semi_bold"/>
 
             <ListView
