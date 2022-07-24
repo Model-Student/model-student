@@ -1,24 +1,17 @@
 package com.tnedutsledom.modelstudent;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -36,7 +29,7 @@ public class HouseWorkActivity extends AppCompatActivity {
     TextView tv_item_count;
     ListView lv_work_list;
     ArrayList<Work> workList, house_work_list, home_work_list, eating_list, etc_list;
-    Dialog dl_add_work;
+    Dialog dl_add_work, dl_category;
     ImageView iv_hw_delete, iv_category;
     boolean delete = false;
     int category = 0;
@@ -49,7 +42,7 @@ public class HouseWorkActivity extends AppCompatActivity {
         popUpAddDialog();
         setToggleDelete();
         setListTouch();
-        setChangeCategory();
+        setCategoryDialog();
     }
 
     void setToggleDelete() {
@@ -67,18 +60,11 @@ public class HouseWorkActivity extends AppCompatActivity {
         });
     }
 
-    void setChangeCategory() {
+    void setCategoryDialog() {
         iv_category.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switch (category) {
-                    case 0: category = 1; break;
-                    case 1: category = 2; break;
-                    case 2: category = 3; break;
-                    case 3: category = 4; break;
-                    case 4: category = 0; break;
-                }
-                updateListView(category);
+                showDialogCategory();
             }
         });
     }
@@ -99,7 +85,7 @@ public class HouseWorkActivity extends AppCompatActivity {
         ll_btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showDialog();
+                showDialogAdd();
             }
         });
     }
@@ -152,7 +138,38 @@ public class HouseWorkActivity extends AppCompatActivity {
         setAddBtnSize();
     }
 
-    void showDialog() {
+    void showDialogCategory() {
+        dl_category.show();
+        dl_category.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        LinearLayout[] ll_btn_category = new LinearLayout[5];
+        ll_btn_category[0] = dl_category.findViewById(R.id.ll_hw_category_all);
+        ll_btn_category[1] = dl_category.findViewById(R.id.ll_hw_category_house_work);
+        ll_btn_category[2] = dl_category.findViewById(R.id.ll_hw_category_home_work);
+        ll_btn_category[3] = dl_category.findViewById(R.id.ll_hw_category_eat);
+        ll_btn_category[4] = dl_category.findViewById(R.id.ll_hw_category_etc);
+
+        for (int i = 0; i < ll_btn_category.length; i++) {
+            int finalI = i;
+            ll_btn_category[finalI].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    switch (view.getId()) {
+                        case R.id.ll_hw_category_all: category = 0; break;
+                        case R.id.ll_hw_category_house_work: category = 1; break;
+                        case R.id.ll_hw_category_home_work: category = 2; break;
+                        case R.id.ll_hw_category_eat: category = 3; break;
+                        case R.id.ll_hw_category_etc: category = 4; break;
+                    }
+                    updateListView(category);
+                    dl_category.dismiss();
+                }
+            });
+        }
+
+    }
+
+    void showDialogAdd() {
         dl_add_work.show();
         dl_add_work.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
@@ -195,7 +212,10 @@ public class HouseWorkActivity extends AppCompatActivity {
         tv_item_count = findViewById(R.id.tv_item_count);
         dl_add_work = new Dialog(HouseWorkActivity.this);
         dl_add_work.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dl_add_work.setContentView(R.layout.dialog_add_house_work);
+        dl_add_work.setContentView(R.layout.dialog_hw_add);
+        dl_category = new Dialog(HouseWorkActivity.this);
+        dl_category.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dl_category.setContentView(R.layout.dialog_hw_category);
         workList = new ArrayList<>();
         house_work_list = new ArrayList<>();
         home_work_list = new ArrayList<>();
