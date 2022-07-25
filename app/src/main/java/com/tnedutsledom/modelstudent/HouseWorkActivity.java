@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.tnedutsledom.modelstudent.house_work.CustomAdaptor;
 import com.tnedutsledom.modelstudent.house_work.SpinnerAdaptor;
 import com.tnedutsledom.modelstudent.house_work.Work;
+import com.tnedutsledom.modelstudent.house_work.WorkList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,7 @@ public class HouseWorkActivity extends AppCompatActivity {
     LinearLayout ll_btn_add;
     TextView tv_item_count;
     ListView lv_work_list;
-    ArrayList<Work> workList, house_work_list, home_work_list, eating_list, etc_list;
+    WorkList wl;
     Dialog dl_add_work, dl_category;
     ImageView iv_hw_delete, iv_category;
     boolean delete = false;
@@ -74,7 +75,7 @@ public class HouseWorkActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (delete) {
-                    workList.remove(i);
+                    wl.workList.remove(i);
                     updateListView(category);
                 }
             }
@@ -96,25 +97,14 @@ public class HouseWorkActivity extends AppCompatActivity {
     }
 
     void addWorkList(String data, String category) {
-        workList.add(new Work(data, category));
+        wl.workList.add(new Work(data, category));
     }
 
     void updateListView(int category) {
-        final CustomAdaptor adapter = new CustomAdaptor(this, getProperList(category));
+        final CustomAdaptor adapter = new CustomAdaptor(this, category);
         lv_work_list.setAdapter(adapter);
         lv_work_list.setSelection(adapter.getCount()-1);
         setItemCountView(adapter);
-    }
-
-    ArrayList getProperList(int category) {
-        switch (category) {
-            case 0: return workList;
-            case 1: return house_work_list;
-            case 2: return home_work_list;
-            case 3: return eating_list;
-            case 4: return etc_list;
-            default: return null;
-        }
     }
 
     void setAddBtnSize() {
@@ -125,10 +115,10 @@ public class HouseWorkActivity extends AppCompatActivity {
 
     void addCategoryList(String data, String category) {
         switch (category) {
-            case "집안일": house_work_list.add(new Work(data, category)); break;
-            case "숙제": home_work_list.add(new Work(data, category)); break;
-            case "음식": eating_list.add(new Work(data, category)); break;
-            case "기타": etc_list.add(new Work(data, category)); break;
+            case "집안일": wl.house_work_list.add(new Work(data, category)); break;
+            case "숙제": wl.home_work_list.add(new Work(data, category)); break;
+            case "음식": wl.eating_list.add(new Work(data, category)); break;
+            case "기타": wl.etc_list.add(new Work(data, category)); break;
         }
     }
 
@@ -216,11 +206,11 @@ public class HouseWorkActivity extends AppCompatActivity {
         dl_category = new Dialog(HouseWorkActivity.this);
         dl_category.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dl_category.setContentView(R.layout.dialog_hw_category);
-        workList = new ArrayList<>();
-        house_work_list = new ArrayList<>();
-        home_work_list = new ArrayList<>();
-        eating_list = new ArrayList<>();
-        etc_list = new ArrayList<>();
+        wl.workList = new ArrayList<>();
+        wl.house_work_list = new ArrayList<>();
+        wl.home_work_list = new ArrayList<>();
+        wl.eating_list = new ArrayList<>();
+        wl.etc_list = new ArrayList<>();
         iv_hw_delete = findViewById(R.id.iv_hw_delete);
         iv_category = findViewById(R.id.iv_hw_category);
     }
