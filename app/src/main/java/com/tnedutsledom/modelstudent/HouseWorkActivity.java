@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tnedutsledom.modelstudent.house_work.CustomAdaptor;
 import com.tnedutsledom.modelstudent.house_work.SpinnerAdaptor;
@@ -98,12 +99,13 @@ public class HouseWorkActivity extends AppCompatActivity {
 
     void addWorkList(String data, String category) {
         wl.workList.add(new Work(data, category));
+        wl.strList.add(data);
     }
 
     void updateListView(int category) {
         final CustomAdaptor adapter = new CustomAdaptor(this, category);
         lv_work_list.setAdapter(adapter);
-        lv_work_list.setSelection(adapter.getCount()-1);
+        lv_work_list.setSelection(adapter.getCount() - 1);
         setItemCountView(adapter);
     }
 
@@ -115,10 +117,18 @@ public class HouseWorkActivity extends AppCompatActivity {
 
     void addCategoryList(String data, String category) {
         switch (category) {
-            case "집안일": wl.house_work_list.add(new Work(data, category)); break;
-            case "숙제": wl.home_work_list.add(new Work(data, category)); break;
-            case "음식": wl.eating_list.add(new Work(data, category)); break;
-            case "기타": wl.etc_list.add(new Work(data, category)); break;
+            case "집안일":
+                wl.house_work_list.add(new Work(data, category));
+                break;
+            case "숙제":
+                wl.home_work_list.add(new Work(data, category));
+                break;
+            case "음식":
+                wl.eating_list.add(new Work(data, category));
+                break;
+            case "기타":
+                wl.etc_list.add(new Work(data, category));
+                break;
         }
     }
 
@@ -145,11 +155,21 @@ public class HouseWorkActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     switch (view.getId()) {
-                        case R.id.ll_hw_category_all: category = 0; break;
-                        case R.id.ll_hw_category_house_work: category = 1; break;
-                        case R.id.ll_hw_category_home_work: category = 2; break;
-                        case R.id.ll_hw_category_eat: category = 3; break;
-                        case R.id.ll_hw_category_etc: category = 4; break;
+                        case R.id.ll_hw_category_all:
+                            category = 0;
+                            break;
+                        case R.id.ll_hw_category_house_work:
+                            category = 1;
+                            break;
+                        case R.id.ll_hw_category_home_work:
+                            category = 2;
+                            break;
+                        case R.id.ll_hw_category_eat:
+                            category = 3;
+                            break;
+                        case R.id.ll_hw_category_etc:
+                            category = 4;
+                            break;
                     }
                     updateListView(category);
                     dl_category.dismiss();
@@ -187,10 +207,21 @@ public class HouseWorkActivity extends AppCompatActivity {
         iv_dialog_check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addWorkList(et_value.getText().toString(), spinner.getSelectedItem().toString());
-                addCategoryList(et_value.getText().toString(), spinner.getSelectedItem().toString());
-                updateListView(category);
-                dl_add_work.dismiss();
+                String value = et_value.getText().toString();
+                String categoryTmp = spinner.getSelectedItem().toString();
+
+                if (!wl.strList.contains(value) && value.length() != 0) {
+                    addWorkList(value, categoryTmp);
+                    addCategoryList(value, categoryTmp);
+                    updateListView(category);
+                    dl_add_work.dismiss();
+
+                } else if(wl.strList.contains(value)){
+                    Toast.makeText(HouseWorkActivity.this, "이미 존재하는 할일입니다", Toast.LENGTH_SHORT).show();
+
+                } else if (value.length() == 0) {
+                    Toast.makeText(HouseWorkActivity.this, "할일을 입력해주세요", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -211,6 +242,7 @@ public class HouseWorkActivity extends AppCompatActivity {
         wl.home_work_list = new ArrayList<>();
         wl.eating_list = new ArrayList<>();
         wl.etc_list = new ArrayList<>();
+        wl.strList = new ArrayList<>();
         iv_hw_delete = findViewById(R.id.iv_hw_delete);
         iv_category = findViewById(R.id.iv_hw_category);
     }
