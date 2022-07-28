@@ -1,45 +1,35 @@
 package com.tnedutsledom.modelstudent.house_work;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.rpc.context.AttributeContext;
+import com.tnedutsledom.modelstudent.HouseWorkActivity;
 import com.tnedutsledom.modelstudent.R;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class CustomAdaptor extends BaseAdapter {
     Context context = null;
     LayoutInflater layoutInflater = null;
-    WorkList wl;
+    StaticElement se;
     public ArrayList<Work> workArrayList;
     public View house_work_item;
     Animation anim_alpha_100, anim_alpha_0;
     int nowCategory;
 
     public CustomAdaptor(Context context, int category) {
-        wl = new WorkList();
+        se = new StaticElement();
         this.context = context;
         this.nowCategory = category;
         this.workArrayList = getProperList(category);
@@ -59,15 +49,15 @@ public class CustomAdaptor extends BaseAdapter {
     ArrayList getProperList(int category) {
         switch (category) {
             case 0:
-                return wl.workList;
+                return se.workList;
             case 1:
-                return wl.house_work_list;
+                return se.house_work_list;
             case 2:
-                return wl.home_work_list;
+                return se.home_work_list;
             case 3:
-                return wl.eating_list;
+                return se.eating_list;
             case 4:
-                return wl.etc_list;
+                return se.etc_list;
             default:
                 return null;
         }
@@ -77,42 +67,90 @@ public class CustomAdaptor extends BaseAdapter {
         if (nowCategory == 0) {
             switch (category2) {
                 case "집안일":
-                    for (int j = 0; j < wl.house_work_list.size(); j++) {
-                        if (wl.house_work_list.get(j).getWork_name().equals(name)) {
-                            wl.house_work_list.get(j).setSelected(selected);
+                    for (int j = 0; j < se.house_work_list.size(); j++) {
+                        if (se.house_work_list.get(j).getWork_name().equals(name)) {
+                            se.house_work_list.get(j).setSelected(selected);
                             break;
                         }
                     }
                 case "숙제":
-                    for (int j = 0; j < wl.home_work_list.size(); j++) {
-                        if (wl.home_work_list.get(j).getWork_name().equals(name)) {
-                            wl.home_work_list.get(j).setSelected(selected);
+                    for (int j = 0; j < se.home_work_list.size(); j++) {
+                        if (se.home_work_list.get(j).getWork_name().equals(name)) {
+                            se.home_work_list.get(j).setSelected(selected);
                             break;
                         }
                     }
                 case "음식":
-                    for (int j = 0; j < wl.eating_list.size(); j++) {
-                        if (wl.eating_list.get(j).getWork_name().equals(name)) {
-                            wl.eating_list.get(j).setSelected(selected);
+                    for (int j = 0; j < se.eating_list.size(); j++) {
+                        if (se.eating_list.get(j).getWork_name().equals(name)) {
+                            se.eating_list.get(j).setSelected(selected);
                             break;
                         }
                     }
                 case "기타":
-                    for (int j = 0; j < wl.etc_list.size(); j++) {
-                        if (wl.etc_list.get(j).getWork_name().equals(name)) {
-                            wl.etc_list.get(j).setSelected(selected);
+                    for (int j = 0; j < se.etc_list.size(); j++) {
+                        if (se.etc_list.get(j).getWork_name().equals(name)) {
+                            se.etc_list.get(j).setSelected(selected);
                             break;
                         }
                     }
             }
         } else {
-            for (int j = 0; j < wl.workList.size(); j++) {
-                if (wl.workList.get(j).getWork_name().equals(name)) {
-                    wl.workList.get(j).setSelected(selected);
+            for (int j = 0; j < se.workList.size(); j++) {
+                if (se.workList.get(j).getWork_name().equals(name)) {
+                    se.workList.get(j).setSelected(selected);
                     break;
                 }
             }
         }
+    }
+
+    void deleteOtherCategory(String category2, String name) {
+        if (nowCategory == 0) {
+            switch (category2) {
+                case "집안일":
+                    for (int j = 0; j < se.house_work_list.size(); j++) {
+                        Log.d("1123", "deleteOtherCategory: " + j);
+                        if (se.house_work_list.get(j).getWork_name().equals(name)) {
+                            Log.d("1111111111111111", "deleteOtherCategory: " + j);
+                            se.house_work_list.remove(j);
+                            break;
+                        }
+                    }
+                case "숙제":
+                    for (int j = 0; j < se.home_work_list.size(); j++) {
+                        if (se.home_work_list.get(j).getWork_name().equals(name)) {
+                            se.home_work_list.remove(j);
+                            break;
+                        }
+                    }
+                case "음식":
+                    for (int j = 0; j < se.eating_list.size(); j++) {
+                        if (se.eating_list.get(j).getWork_name().equals(name)) {
+                            se.eating_list.remove(j);
+                            break;
+                        }
+                    }
+                case "기타":
+                    for (int j = 0; j < se.etc_list.size(); j++) {
+                        if (se.etc_list.get(j).getWork_name().equals(name)) {
+                            se.etc_list.remove(j);
+                            break;
+                        }
+                    }
+            }
+        } else {
+            for (int j = 0; j < se.workList.size(); j++) {
+                if (se.workList.get(j).getWork_name().equals(name)) {
+                    se.workList.remove(j);
+                    break;
+                }
+            }
+        }
+    }
+
+    void deleteStrList(String name) {
+        se.strList.remove(se.strList.indexOf(name));
     }
 
     @Override
@@ -136,8 +174,21 @@ public class CustomAdaptor extends BaseAdapter {
         ImageView iv_category = house_work_item.findViewById(R.id.iv_hw_category);
         TextView tv_work_name = house_work_item.findViewById(R.id.tv_hw_work_name);
         ImageView iv_selected = house_work_item.findViewById(R.id.iv_hw_selected);
+        LinearLayout ll_item = house_work_item.findViewById(R.id.ll_hw_item);
 
         iv_selected.startAnimation(setVisible(i));
+
+        ll_item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (se.getDelete()) {
+                    deleteOtherCategory(workArrayList.get(i).getCategory(), workArrayList.get(i).getWork_name());
+                    deleteStrList(workArrayList.get(i).getWork_name());
+                    workArrayList.remove(i);
+                    HouseWorkActivity.updateListView(nowCategory);
+                }
+            }
+        });
 
         iv_selected.setOnClickListener(new View.OnClickListener() {
             @Override
