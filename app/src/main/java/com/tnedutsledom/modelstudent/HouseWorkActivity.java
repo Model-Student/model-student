@@ -31,7 +31,7 @@ public class HouseWorkActivity extends AppCompatActivity {
     LinearLayout ll_btn_add;
     static TextView tv_item_count;
     static ListView lv_work_list;
-    StaticElement se;
+    static StaticElement se;
     Dialog dl_add_work, dl_category;
     ImageView iv_hw_delete, iv_category;
     int category = 0;
@@ -82,7 +82,31 @@ public class HouseWorkActivity extends AppCompatActivity {
 
     static void setItemCountView(CustomAdaptor adaptor) {
         String count = String.valueOf(adaptor.getCount());
-        tv_item_count.setText(count);
+        int checkCount = 0;
+        ArrayList<Work> tmpList = getProperList(adaptor.getNowCategory());
+        for (int i = 0; i < adaptor.getCount(); i++) {
+            if (tmpList.get(i).getSelected()) {
+                checkCount++;
+            }
+        }
+        tv_item_count.setText(checkCount + " " + "/" + " " + count);
+    }
+
+    static ArrayList getProperList(int category) {
+        switch (category) {
+            case 0:
+                return se.workList;
+            case 1:
+                return se.house_work_list;
+            case 2:
+                return se.home_work_list;
+            case 3:
+                return se.eating_list;
+            case 4:
+                return se.etc_list;
+            default:
+                return null;
+        }
     }
 
     void addWorkList(String data, String category) {

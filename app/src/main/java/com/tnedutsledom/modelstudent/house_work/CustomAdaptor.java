@@ -38,6 +38,10 @@ public class CustomAdaptor extends BaseAdapter {
         anim_alpha_0 = AnimationUtils.loadAnimation(context, R.anim.alpha0);
     }
 
+    public int getNowCategory() {
+        return nowCategory;
+    }
+
     Animation setVisible(int i) {
         if (!workArrayList.get(i).getSelected()) {
             return anim_alpha_0;
@@ -198,11 +202,13 @@ public class CustomAdaptor extends BaseAdapter {
                     workArrayList.get(i).setSelected(false);
                     setOtherCategory(false, workArrayList.get(i).getCategory(), workArrayList.get(i).getWork_name());
                     Log.d("sdsadda", "onClick: " + workArrayList.get(i).getSelected());
+                    HouseWorkActivity.updateListView(nowCategory);
                 } else if (!workArrayList.get(i).getSelected()) {
                     iv_selected.startAnimation(anim_alpha_100);
                     workArrayList.get(i).setSelected(true);
                     setOtherCategory(true, workArrayList.get(i).getCategory(), workArrayList.get(i).getWork_name());
                     Log.d("sdsadda", "onClick: " + workArrayList.get(i).getSelected());
+                    HouseWorkActivity.updateListView(nowCategory);
                 }
             }
         });
