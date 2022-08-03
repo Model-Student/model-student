@@ -9,8 +9,7 @@ import android.widget.LinearLayout;
 
 import androidx.fragment.app.Fragment;
 
-import com.tnedutsledom.modelstudent.HouseWorkActivity;
-import com.tnedutsledom.modelstudent.LastTimeActivity;
+import com.tnedutsledom.modelstudent.house_work.HouseWorkActivity;
 import com.tnedutsledom.modelstudent.R;
 
 

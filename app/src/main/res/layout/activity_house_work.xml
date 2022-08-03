@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#edeff2"
-    tools:context=".HouseWorkActivity">
+    tools:context=".house_work.HouseWorkActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"
