@@ -13,16 +13,19 @@
         android:layout_height="50dp"
         android:src="@drawable/house_work_category_mark"/>
     <LinearLayout
+        android:id="@+id/ll_hw_item"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
         android:background="@drawable/house_work_item_background">
         <ImageView
+            android:id="@+id/iv_hw_selected"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="4.4"
             android:src="@drawable/ic_check"
-            android:padding="4dp"/>
+            android:padding="5.5dp"
+            android:visibility="visible"/>
         <View
             android:layout_width="2.5dp"
             android:layout_height="match_parent"
@@ -34,7 +37,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="진선이한테 빠큐 날리기"
             android:fontFamily="@font/inter_bold"
             android:gravity="center|left"
             android:textColor="#878787"
