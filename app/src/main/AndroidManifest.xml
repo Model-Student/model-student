@@ -14,7 +14,7 @@
         android:theme="@style/Theme.ModelStudent"
         tools:targetApi="31">
         <activity
-            android:name=".HouseWorkActivity"
+            android:name=".house_work.HouseWorkActivity"
             android:exported="false" />
         <activity
             android:name=".LastTimeActivity"
