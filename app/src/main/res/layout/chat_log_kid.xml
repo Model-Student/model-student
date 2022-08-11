@@ -3,98 +3,68 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:background="#A68597A5">
-
+    android:orientation="horizontal">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_weight="0.7">
+        android:layout_height="100dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:gravity="right">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/tv_cl_kid_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PM 2:10"
+            android:fontFamily="@font/inter_extra_light"
+            android:textColor="#000000"
+            android:textSize="10dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"/>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingBottom="15dp"
+            android:paddingTop="10dp">
+            <ImageView
+                android:id="@+id/iv_cl_kid_text_back"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/chat_log_kid_text_back"
+                android:scaleType="fitXY"/>
+            <TextView
+                android:id="@+id/tv_cl_kid_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="어서와 반가워 동민아 오랜"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_marginBottom="8dp"
+                android:textColor="#ffffff"
+                android:textSize="15dp"
+                android:fontFamily="@font/inter_bold"/>
+        </FrameLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_weight="6"
+        android:orientation="vertical">
+        <View
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginVertical="0.8dp"
-                    android:layout_marginLeft="40dp"
-                    android:paddingTop="5dp"
-                    android:paddingRight="10dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/chat_log_kid_text_back"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/textView"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:fontFamily="@font/inter_bold"
-                    android:gravity="center"
-                    android:paddingBottom="15dp"
-                    android:text="지민이 지분: 99%"
-                    android:textColor="@color/white"
-                    android:textSize="30dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
-
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:fontFamily="@font/inter_extrabold_font"
-                    android:gravity="left"
-                    android:paddingRight="17dp"
-                    android:text="11:17"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.063"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.769" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </LinearLayout>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="110dp"
-        android:layout_height="190dp"
-        android:orientation="vertical"
-        android:paddingLeft="5dp">
-
+            android:layout_weight="1"/>
         <ImageView
-            android:layout_width="110dp"
-            android:layout_height="110dp"
-            android:layout_weight="2"
-            android:background="" />
-
-        <ImageView
-            android:layout_width="110dp"
-            android:layout_height="120dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background=""
+            android:src="@drawable/chat_log_kid_profile"
             android:scaleType="centerCrop"
-            android:paddingRight="10dp"
-            android:src="@drawable/chat_log_kid_profile" />
-
+            />
     </LinearLayout>
 
 </LinearLayout>
