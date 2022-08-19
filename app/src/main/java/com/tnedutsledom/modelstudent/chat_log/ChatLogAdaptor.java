@@ -17,6 +17,7 @@ import com.tnedutsledom.modelstudent.R;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
 public class ChatLogAdaptor extends BaseAdapter {
 
@@ -49,12 +50,14 @@ public class ChatLogAdaptor extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
+        Log.d("아이템 종류", chat_log_list.get(i).getNugu_or_kid());
         if (i == 0) {
             item_date = layoutInflater.inflate(R.layout.chat_log_date, null);
             TextView tv_date = item_date.findViewById(R.id.tv_cl_date);
             tv_date.setText(getDate());
             return item_date;
-        } else if (chat_log_list.get(i).getNugu_or_kid() == "nugu") {
+        } else if (Objects.equals(chat_log_list.get(i).getNugu_or_kid(), "nugu")) {
+            Log.d("누구 아이템 추가", "getView: 111111111111111111");
             item_nugu = layoutInflater.inflate(R.layout.chat_log_nugu, null);
             TextView tv_value = item_nugu.findViewById(R.id.tv_cl_nugu_text);
             ImageView iv_back = item_nugu.findViewById(R.id.iv_cl_nugu_text_back);
@@ -66,6 +69,7 @@ public class ChatLogAdaptor extends BaseAdapter {
 
             return item_nugu;
         } else {
+            Log.d("아이 아이템 추가", "getView: 2222222222222222222");
             item_kid = layoutInflater.inflate(R.layout.chat_log_kid, null);
             TextView tv_value = item_kid.findViewById(R.id.tv_cl_kid_text);
             ImageView iv_back = item_kid.findViewById(R.id.iv_cl_kid_text_back);
