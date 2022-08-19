@@ -3,6 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/User/AndroidStudioProjects/model-student/app/src/main/res/layout/activity_chat_log.xml" value="0.2" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/model-student/app/src/main/res/layout/activity_house_work.xml" value="0.2128623188405797" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/model-student/app/src/main/res/layout/activity_main.xml" value="0.2128623188405797" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/model-student/app/src/main/res/layout/activity_voice_setting.xml" value="0.2128623188405797" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/model-student/app/src/main/res/layout/chat_log_date.xml" value="0.264" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/model-student/app/src/main/res/layout/chat_log_nugu.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/model-student/app/src/main/res/layout/example.xml" value="0.2128623188405797" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/model-student/app/src/main/res/layout/house_work_item.xml" value="0.21965579710144928" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/model-student/app/src/main/res/layout/setting.xml" value="0.1125" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/model-student/app/src/main/res/layout/setting_color.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/art10/StudioProjects/model-student/app/src/main/res/layout/activity_main.xml" value="0.20364583333333333" />
         <entry key="..\:/Users/art10/StudioProjects/model-student/app/src/main/res/layout/activity_splash.xml" value="0.1671654553227875" />
         <entry key="..\:/Users/art10/StudioProjects/model-student/app/src/main/res/layout/activity_user_select.xml" value="0.1671654553227875" />

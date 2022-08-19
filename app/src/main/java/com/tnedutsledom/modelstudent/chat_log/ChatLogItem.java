@@ -23,4 +23,15 @@ public class ChatLogItem {
         return time;
     }
 
+    public void setChat_data(String chat_data) {
+        this.chat_data = chat_data;
+    }
+
+    public void setNugu_or_kid(String nugu_or_kid) {
+        this.nugu_or_kid = nugu_or_kid;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 }
