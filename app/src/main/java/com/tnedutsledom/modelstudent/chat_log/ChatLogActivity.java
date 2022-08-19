@@ -23,14 +23,14 @@ import java.util.ArrayList;
 
 public class ChatLogActivity extends AppCompatActivity {
 
-    ListView lv_chat;
-    ArrayList<ChatLogItem> chat_log_list;
-    private SharedPreferences preferences;// 비밀번호 내부에 저장
+    ListView lv_chat;                       // 대화가 표시될 리스트뷰
+    ArrayList<ChatLogItem> chat_log_list;   // 대화 아이템 리스트
+    private SharedPreferences preferences;  // 유저 정보가 저장되어있는 SharedPreferences
 
     //파이어스토어 연결
     private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
-    CollectionReference ColRef; //Document를 모두 참조할 때
+    CollectionReference ColRef;             //Document를 모두 참조
 
 
     @Override
@@ -38,15 +38,17 @@ public class ChatLogActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_log);
         init();
-        popUpDate();
+        addDateItem();
         getToFirebase();
         updateListView();
     }
 
-    void popUpDate() {
+    // 어뎁터에서 리스트 아이템중 첫번째 아이템은 시간표시로 띄우기 때문에 임시 아이템을 추가
+    void addDateItem() {
         chat_log_list.add(new ChatLogItem("temp", "temp", "temp"));
     }
 
+    // 리스트뷰 상태 업데이트
     void updateListView() {
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -58,6 +60,7 @@ public class ChatLogActivity extends AppCompatActivity {
         }, 1000);
     }
 
+    // 객체, 변수 초기화
     void init() {
         lv_chat = findViewById(R.id.lv_chat);
         chat_log_list = new ArrayList<>();
@@ -65,16 +68,14 @@ public class ChatLogActivity extends AppCompatActivity {
         ColRef = firebaseFirestore.collection("model_student").document(preferences.getString("email", "")).collection("chat_log");
     }
 
+    // 파이어베이스에서 순서대로 받아와서 아이템 리스트에 추가해주는 코드
     void getToFirebase() {
         ColRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
-//                        Log.d("Document 이름과 들어있는 값 모두", document.getId() + " => " + document.getData());
-//                        Log.d("나이 값 보기",String.valueOf(document.get("age")));
                         chat_log_list.add(new ChatLogItem(document.getString("chat_data"), document.getString("time"), document.getString("nugu_or_kid")));
-                        Log.d("리스트 사이즈 : ", String.valueOf(chat_log_list.size()));
                     }
                 } else {
                     //실패했을 경우
