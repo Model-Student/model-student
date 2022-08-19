@@ -43,12 +43,7 @@ public class ChatLogActivity extends AppCompatActivity {
 
     void test() {
         chat_log_list.add(new ChatLogItem("안녕하세요.", "AM 5:58", "nugu"));
-        chat_log_list.add(new ChatLogItem("안녕하세요.", "AM 5:58", "nugu"));
-        chat_log_list.add(new ChatLogItem("만나서 반가워요.", "AM 5:58", "nugu"));
-        chat_log_list.add(new ChatLogItem("반가워 nugu야!", "AM 5:58", "kid"));
-        chat_log_list.add(new ChatLogItem("저도 반가워요.", "AM 5:58", "nugu"));
-        chat_log_list.add(new ChatLogItem("가장 높은산이 어디야?", "AM 5:58", "kid"));
-        chat_log_list.add(new ChatLogItem("신디리댕동댕민둥산이 가장 높아요.", "AM 5:59", "nugu"));
+
     }
 
     void updateListView() {
