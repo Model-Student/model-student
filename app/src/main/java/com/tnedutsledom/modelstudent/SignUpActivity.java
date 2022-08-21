@@ -31,10 +31,11 @@ public class SignUpActivity extends AppCompatActivity {
     EditText et_sigh_up_name_text, et_sigh_up_password_text,
             et_sigh_up_first_number_text, et_sigh_up_second_number_text, et_sigh_up_third_number_text, et_sigh_up_child_name_text; // 사용자 작성 부분
     Button bt_sign_up_login; // 로그인 버튼
-    String parent_or_child = "child";// 부모인지 아이인지 확인
     String phone_number = "";// 전화번호
+    String parent_or_child = "parent";
+    String user_email;
     LinearLayout LL_sigh_up_step2;// step 2
-    LinearLayout LL_sigh_up_step3_child, LL_sigh_up_step3_parent; // 아이,부모 Step3 달라지게
+    LinearLayout LL_sigh_up_step3_parent, LL_sigh_up_step3_child; // 아이,부모 Step3 달라지게
     Animation fade_in, fade_out, none;// 애니메이션
     ImageView iv_sign_up_first_banana, iv_sign_up_second_banana, iv_sign_up_third_banana_parent, iv_sign_up_third_banana_child;// 바나나 이미지
     private FirebaseFirestore firebase_firestore = FirebaseFirestore.getInstance();// 파이어스토어 연결
@@ -54,7 +55,7 @@ public class SignUpActivity extends AppCompatActivity {
     void getInfo() {
         //전 엑티비티에서 값 가져오기
         Intent get_intent = getIntent();
-        parent_or_child = get_intent.getStringExtra("User_select");
+        user_email = get_intent.getStringExtra("user_email");
     }
 
     void init() {
@@ -141,13 +142,13 @@ public class SignUpActivity extends AppCompatActivity {
 //        SharedPreferences 저장 값
 //        키 = "user_info"
 //        값 ="parent_or_child" 사용자 권한이 부모인지 자녀인지 확인(String으로 parent, child 둘 중 하나 들어있음)
-//        값 = "password" 비밀번호 고유 값 들어있음
+//        값 = "email" 유저 이메일
         preferences = getSharedPreferences("user_info",MODE_PRIVATE);
         //Editor를 preferences에 쓰겠다고 연결
         SharedPreferences.Editor editor = preferences.edit();
         //putString(KEY,VALUE)
         editor.putString("parent_or_child",parent_or_child);
-        editor.putString("password",et_sigh_up_password_text.getText().toString());
+        editor.putString("email",user_email);
         //항상 commit & apply 를 해주어야 저장이 된다.
         editor.commit();
     }
@@ -155,14 +156,14 @@ public class SignUpActivity extends AppCompatActivity {
     void uploadToFirebaseParent(String name, String child_name) {
         //부모의 폰에서 올라가는 거
         ParentAdapter parent_adapter = new ParentAdapter(name,child_name);
-        firebase_firestore.collection("model_student").document(et_sigh_up_password_text.getText().toString())
+        firebase_firestore.collection("model_student").document(user_email)
                 .collection("SignUp").document(parent_or_child).set(parent_adapter);
     }
 
     void uploadToFirebaseChild(String name, String phone_number) {
         //자녀의 폰에서 올라가는 거
         ChildAdapter childAdapter = new ChildAdapter(name, phone_number);
-        firebase_firestore.collection("model_student").document(et_sigh_up_password_text.getText().toString())
+        firebase_firestore.collection("model_student").document(user_email)
                 .collection("SignUp").document(parent_or_child).set(childAdapter);
     }
 

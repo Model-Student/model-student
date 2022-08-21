@@ -14,6 +14,11 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+
 public class SplashActivity extends AppCompatActivity {
     //Splash FadeIn 애니메이션
     Animation fadeInAnim,noneAnim,fadeoutAnim;
@@ -76,26 +81,43 @@ public class SplashActivity extends AppCompatActivity {
     }
     void firstTimeCheck(){
         //        최초 실행 여부를 판단 ->>>
-        SharedPreferences pref = getSharedPreferences("checkFirst", Activity.MODE_PRIVATE);
-        boolean checkFirst = pref.getBoolean("checkFirst", false);
-        if(checkFirst==false){
-            // 앱 최초 실행시 하고 싶은 작업
-            SharedPreferences.Editor editor = pref.edit();
-            editor.putBoolean("checkFirst",true);
-            editor.commit();
+        // 기존에 로그인 했던 계정을 확인한다.
+        GoogleSignInAccount gsa = GoogleSignIn.getLastSignedInAccount(SplashActivity.this);
 
-            Intent intent_view_change = new Intent(SplashActivity.this, UserSelectActivity.class);
-            startActivity(intent_view_change);
-            intent_view_change.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-            overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
-            finish();
-        }else{
-            // 최초 실행이 아닐때 진행할 작업
+        // 로그인 되있는 경우
+        if (gsa != null) {
             Intent intent_view_change = new Intent(SplashActivity.this, MainActivity.class);
             startActivity(intent_view_change);
             intent_view_change.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
             overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
             finish();
+        } else {
+            Intent intent_view_change = new Intent(SplashActivity.this, UserSelectActivity.class);
+            startActivity(intent_view_change);
+            intent_view_change.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+            finish();
         }
+//        SharedPreferences pref = getSharedPreferences("checkFirst", Activity.MODE_PRIVATE);
+//        boolean checkFirst = pref.getBoolean("checkFirst", false);
+//        if(checkFirst==false){
+//            // 앱 최초 실행시 하고 싶은 작업
+//            SharedPreferences.Editor editor = pref.edit();
+//            editor.putBoolean("checkFirst",true);
+//            editor.commit();
+//
+//            Intent intent_view_change = new Intent(SplashActivity.this, UserSelectActivity.class);
+//            startActivity(intent_view_change);
+//            intent_view_change.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//            overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+//            finish();
+//        }else{
+//            // 최초 실행이 아닐때 진행할 작업
+//            Intent intent_view_change = new Intent(SplashActivity.this, MainActivity.class);
+//            startActivity(intent_view_change);
+//            intent_view_change.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//            overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+//            finish();
+//        }
     }
 }
