@@ -22,6 +22,22 @@
           }
         },
         {
+          "client_id": "401088561477-3vgkun27u2iffs3mqv6oo60hoc5acjuu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tnedutsledom.modelstudent",
+            "certificate_hash": "4ee6962f89b6845f3ce38fdf516ec7f69fef015e"
+          }
+        },
+        {
+          "client_id": "401088561477-9jdnn8vntqvubmhmbkjkqo2pvn829mi9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tnedutsledom.modelstudent",
+            "certificate_hash": "35708d097e0f84007a0392f46ffcd569fb3cdff8"
+          }
+        },
+        {
           "client_id": "401088561477-voehschkaqoqi7fgvf7h25kgocv840b2.apps.googleusercontent.com",
           "client_type": 3
         }
