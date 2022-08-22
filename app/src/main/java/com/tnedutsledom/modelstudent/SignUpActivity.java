@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -17,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -28,14 +30,16 @@ import com.tnedutsledom.modelstudent.FirebaseAdapter.ParentAdapter;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    EditText et_sigh_up_name_text, et_sigh_up_password_text,
-            et_sigh_up_first_number_text, et_sigh_up_second_number_text, et_sigh_up_third_number_text, et_sigh_up_child_name_text; // 사용자 작성 부분
+    EditText et_sign_up_name_text, et_sign_up_first_number_text, et_sign_up_second_number_text,
+            et_sign_up_third_number_text, et_sign_up_child_name_text; // 사용자 작성 부분
     Button bt_sign_up_login; // 로그인 버튼
+    RadioGroup rag_sign_up_mother_or_father;
     String phone_number = "";// 전화번호
     String parent_or_child = "parent";
     String user_email;
-    LinearLayout LL_sigh_up_step2;// step 2
-    LinearLayout LL_sigh_up_step3_parent, LL_sigh_up_step3_child; // 아이,부모 Step3 달라지게
+    String mother_or_father = null;
+    LinearLayout LL_sign_up_step2;// step 2
+    LinearLayout LL_sign_up_step3_parent, LL_sign_up_step3_child; // 아이,부모 Step3 달라지게
     Animation fade_in, fade_out, none;// 애니메이션
     ImageView iv_sign_up_first_banana, iv_sign_up_second_banana, iv_sign_up_third_banana_parent, iv_sign_up_third_banana_child;// 바나나 이미지
     private FirebaseFirestore firebase_firestore = FirebaseFirestore.getInstance();// 파이어스토어 연결
@@ -47,7 +51,7 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
         getInfo();
         init();
-        onClick();
+        setBt_sign_up_login();
         setEtLengthLimit();
         stepEvent();
     }
@@ -59,18 +63,18 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     void init() {
-        et_sigh_up_name_text = findViewById(R.id.et_sigh_up_name_text);
-        et_sigh_up_password_text = findViewById(R.id.et_sigh_up_password_text);
-        et_sigh_up_first_number_text = findViewById(R.id.et_sigh_up_number_text_1);
-        et_sigh_up_second_number_text = findViewById(R.id.et_sigh_up_number_text_2);
-        et_sigh_up_third_number_text = findViewById(R.id.et_sigh_up_number_text_3);
+        et_sign_up_name_text = findViewById(R.id.et_sign_up_name_text);
+        et_sign_up_first_number_text = findViewById(R.id.et_sign_up_number_text_1);
+        et_sign_up_second_number_text = findViewById(R.id.et_sign_up_number_text_2);
+        et_sign_up_third_number_text = findViewById(R.id.et_sign_up_number_text_3);
         bt_sign_up_login = findViewById(R.id.bt_sign_up_login);
-        et_sigh_up_child_name_text = findViewById(R.id.et_sigh_up_child_name_text);
+        et_sign_up_child_name_text = findViewById(R.id.et_sign_up_child_name_text);
+        rag_sign_up_mother_or_father = findViewById(R.id.rag_mother_or_father);
 
         //Step1,2,3
-        LL_sigh_up_step2 = findViewById(R.id.LL_sigh_up_step2);
-        LL_sigh_up_step3_child = findViewById(R.id.LL_sigh_up_step3_child);
-        LL_sigh_up_step3_parent = findViewById(R.id.LL_sigh_up_step3_parent);
+        LL_sign_up_step2 = findViewById(R.id.LL_sign_up_step2);
+        LL_sign_up_step3_child = findViewById(R.id.LL_sign_up_step3_child);
+        LL_sign_up_step3_parent = findViewById(R.id.LL_sign_up_step3_parent);
 
         //애니메이션 지정
         fade_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
@@ -79,7 +83,7 @@ public class SignUpActivity extends AppCompatActivity {
         //글자 길이 지정
         InputFilter lengthFilter = new InputFilter.LengthFilter(4);
         InputFilter[] filters = new InputFilter[]{lengthFilter};
-        et_sigh_up_name_text.setFilters(filters);
+        et_sign_up_name_text.setFilters(filters);
         //바나나 애니메이션 이미지 뷰 지정
         iv_sign_up_first_banana= findViewById(R.id.iv_sign_up_first_banana);
         iv_sign_up_second_banana = findViewById(R.id.iv_sign_up_second_banana);
@@ -87,36 +91,63 @@ public class SignUpActivity extends AppCompatActivity {
         iv_sign_up_third_banana_child = findViewById(R.id.iv_sign_up_third_banana_child);
 
     }
+    
+    void showStep3() {
+        //바나나 애니메이션
+        iv_sign_up_third_banana_parent.setImageResource(R.drawable.sign_up_banana3_iv);
+        iv_sign_up_third_banana_parent.startAnimation(fade_in);
+        //두 번째 바나나 퇴장
+        iv_sign_up_second_banana.startAnimation(fade_out);
 
-    void onClick() {
+        //질문
+        LL_sign_up_step3_child.setVisibility(View.GONE);
+        LL_sign_up_step3_parent.startAnimation(fade_in);
+        LL_sign_up_step3_parent.setVisibility(View.VISIBLE);
+
+        et_sign_up_child_name_text.requestFocus();
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //두 번째 바나나와 세 번째 질문 애니메이션 초기화
+                LL_sign_up_step3_parent.startAnimation(none);
+                iv_sign_up_third_banana_parent.startAnimation(none);
+                iv_sign_up_second_banana.setImageResource(0);
+                iv_sign_up_second_banana.startAnimation(none);
+            }
+        }, 800);
+    }
+
+    void setBt_sign_up_login() {
         bt_sign_up_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 boolean login_success = false;
-                if (et_sigh_up_name_text.getText().toString().equals("")
-                        || et_sigh_up_password_text.getText().toString().equals("")) {
+                if (et_sign_up_name_text.getText().toString().equals("")
+                        || mother_or_father == null) {
                     //공통 질문에 공백 입력칸이 하나라도 있을 시
                     Toast.makeText(SignUpActivity.this, "입력값을 확인해주세요", Toast.LENGTH_SHORT).show();
-
                 } else {
                     if (parent_or_child.equals("parent")) {
-                        if (et_sigh_up_child_name_text.getText().toString().equals("")) {
+                        if (et_sign_up_child_name_text.getText().toString().equals("")) {
                             //부모 전용 입력칸에 공백 입력칸이 하나라도 있을 시
                             Toast.makeText(SignUpActivity.this, "입력값을 확인해주세요", Toast.LENGTH_SHORT).show();
                         } else {
                             //부모의 폰에서 올라가는 거
-                            uploadToFirebaseParent(et_sigh_up_name_text.getText().toString(),et_sigh_up_child_name_text.getText().toString());
+                            Log.d("1111111111", "adsad" + user_email);
+                            uploadToFirebaseParent(et_sign_up_name_text.getText().toString(),et_sign_up_child_name_text.getText().toString());
                             login_success = true;
                         }
                     } else {
-                        if (et_sigh_up_first_number_text.getText().toString().equals("") ||
-                                et_sigh_up_second_number_text.getText().toString().equals("") ||
-                                et_sigh_up_third_number_text.getText().toString().equals("")) {
+                        if (et_sign_up_first_number_text.getText().toString().equals("") ||
+                                et_sign_up_second_number_text.getText().toString().equals("") ||
+                                et_sign_up_third_number_text.getText().toString().equals("")) {
                             //자녀 전용 입력칸에 공백 입력칸이 하나라도 있을 시
                             Toast.makeText(SignUpActivity.this, "입력값을 확인해주세요", Toast.LENGTH_SHORT).show();
                         } else {
                             //자녀의 폰에서 올라가는 거
-                            uploadToFirebaseChild(et_sigh_up_name_text.getText().toString(), phone_number);
+                            uploadToFirebaseChild(et_sign_up_name_text.getText().toString(), phone_number);
                             login_success = true;
 
                         }
@@ -141,14 +172,16 @@ public class SignUpActivity extends AppCompatActivity {
     void saveInfoSharedPreferences(){
 //        SharedPreferences 저장 값
 //        키 = "user_info"
-//        값 ="parent_or_child" 사용자 권한이 부모인지 자녀인지 확인(String으로 parent, child 둘 중 하나 들어있음)
-//        값 = "email" 유저 이메일
+//        값 = "mother_or_father" : 사용자가 아빠인지 엄마인지
+//        값 = "email" : 유저 이메일
+//        값 = "already_account" : 계정이 이미 존재하는지
         preferences = getSharedPreferences("user_info",MODE_PRIVATE);
         //Editor를 preferences에 쓰겠다고 연결
         SharedPreferences.Editor editor = preferences.edit();
         //putString(KEY,VALUE)
-        editor.putString("parent_or_child",parent_or_child);
+        editor.putString("mother_or_father",mother_or_father);
         editor.putString("email",user_email);
+        editor.putBoolean("already_account", true);
         //항상 commit & apply 를 해주어야 저장이 된다.
         editor.commit();
     }
@@ -157,19 +190,19 @@ public class SignUpActivity extends AppCompatActivity {
         //부모의 폰에서 올라가는 거
         ParentAdapter parent_adapter = new ParentAdapter(name,child_name);
         firebase_firestore.collection("model_student").document(user_email)
-                .collection("SignUp").document(parent_or_child).set(parent_adapter);
+                .collection("SignUp").document(mother_or_father).set(parent_adapter);
     }
 
     void uploadToFirebaseChild(String name, String phone_number) {
         //자녀의 폰에서 올라가는 거
         ChildAdapter childAdapter = new ChildAdapter(name, phone_number);
         firebase_firestore.collection("model_student").document(user_email)
-                .collection("SignUp").document(parent_or_child).set(childAdapter);
+                .collection("SignUp").document(mother_or_father).set(childAdapter);
     }
 
     // 전화번호 글자수에따라 이벤트 발생
     void setEtLengthLimit() {
-        et_sigh_up_first_number_text.addTextChangedListener(new TextWatcher() {
+        et_sign_up_first_number_text.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -177,9 +210,9 @@ public class SignUpActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String text_tmp = et_sigh_up_first_number_text.getText().toString();
+                String text_tmp = et_sign_up_first_number_text.getText().toString();
                 if (text_tmp.length() >= 3) {
-                    et_sigh_up_second_number_text.requestFocus();
+                    et_sign_up_second_number_text.requestFocus();
                     phone_number += text_tmp;
                 }
             }
@@ -189,7 +222,7 @@ public class SignUpActivity extends AppCompatActivity {
 
             }
         });
-        et_sigh_up_second_number_text.addTextChangedListener(new TextWatcher() {
+        et_sign_up_second_number_text.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -197,9 +230,9 @@ public class SignUpActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String text_tmp = et_sigh_up_second_number_text.getText().toString();
+                String text_tmp = et_sign_up_second_number_text.getText().toString();
                 if (text_tmp.length() >= 4) {
-                    et_sigh_up_third_number_text.requestFocus();
+                    et_sign_up_third_number_text.requestFocus();
                     phone_number += text_tmp;
                 }
             }
@@ -209,7 +242,7 @@ public class SignUpActivity extends AppCompatActivity {
 
             }
         });
-        et_sigh_up_third_number_text.addTextChangedListener(new TextWatcher() {
+        et_sign_up_third_number_text.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -217,7 +250,7 @@ public class SignUpActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String text_tmp = et_sigh_up_third_number_text.getText().toString();
+                String text_tmp = et_sign_up_third_number_text.getText().toString();
                 if (text_tmp.length() >= 4) {
                     phone_number += text_tmp;
                     hideKeyboard();
@@ -236,7 +269,7 @@ public class SignUpActivity extends AppCompatActivity {
     //Step이 순서대로 나오는 함수
     void stepEvent() {
         //사용자 이름
-        et_sigh_up_name_text.addTextChangedListener(new TextWatcher() {
+        et_sign_up_name_text.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -250,7 +283,7 @@ public class SignUpActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         if (s.length() >= 3) {
-                            if (LL_sigh_up_step2.getVisibility() != View.VISIBLE) {
+                            if (LL_sign_up_step2.getVisibility() != View.VISIBLE) {
                                 //바나나 애니메이션
                                 iv_sign_up_second_banana.setImageResource(R.drawable.sign_up_banana2_iv);
                                 iv_sign_up_second_banana.startAnimation(fade_in);
@@ -258,14 +291,14 @@ public class SignUpActivity extends AppCompatActivity {
                                 iv_sign_up_first_banana.startAnimation(fade_out);
 
                                 //질문 애니메이션
-                                LL_sigh_up_step2.startAnimation(fade_in);
-                                LL_sigh_up_step2.setVisibility(View.VISIBLE);
+                                LL_sign_up_step2.startAnimation(fade_in);
+                                LL_sign_up_step2.setVisibility(View.VISIBLE);
                                 Handler handler_delayed = new Handler();
                                 handler_delayed.postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
                                         //첫 번쨰 바나나와 두 번째 질문 애니메이션 초기화
-                                        LL_sigh_up_step2.startAnimation(none);
+                                        LL_sign_up_step2.startAnimation(none);
                                         iv_sign_up_second_banana.startAnimation(none);
                                         iv_sign_up_first_banana.setImageResource(0);
                                         iv_sign_up_first_banana.startAnimation(none);
@@ -284,85 +317,29 @@ public class SignUpActivity extends AppCompatActivity {
 
             }
         });
-        //비밀번호 입력(고유 코드)
-        et_sigh_up_password_text.addTextChangedListener(new TextWatcher() {
+
+        rag_sign_up_mother_or_father.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() >= 8) {
-                    if (parent_or_child.equals("parent")) {
-                        //부모 권한일 때
-                        if (LL_sigh_up_step3_parent.getVisibility() != View.VISIBLE) {
-                            //바나나 애니메이션
-                            iv_sign_up_third_banana_parent.setImageResource(R.drawable.sign_up_banana3_iv);
-                            iv_sign_up_third_banana_parent.startAnimation(fade_in);
-                            //두 번째 바나나 퇴장
-                            iv_sign_up_second_banana.startAnimation(fade_out);
-
-                            //질문
-                            LL_sigh_up_step3_child.setVisibility(View.GONE);
-                            LL_sigh_up_step3_parent.startAnimation(fade_in);
-                            LL_sigh_up_step3_parent.setVisibility(View.VISIBLE);
-
-                            et_sigh_up_child_name_text.requestFocus();
-
-                            Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    //두 번째 바나나와 세 번째 질문 애니메이션 초기화
-                                    LL_sigh_up_step3_parent.startAnimation(none);
-                                    iv_sign_up_third_banana_parent.startAnimation(none);
-                                    iv_sign_up_second_banana.setImageResource(0);
-                                    iv_sign_up_second_banana.startAnimation(none);
-                                }
-                            }, 800);
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch (i) {
+                    case R.id.rabtn_father:
+                        if (mother_or_father == null) {
+                            showStep3();
                         }
-
-                    } else {
-                        //자녀 권한일 때
-                        if (LL_sigh_up_step3_child.getVisibility() != View.VISIBLE) {
-                            //바나나 애니메이션
-                            iv_sign_up_third_banana_child.setImageResource(R.drawable.sign_up_banana3_iv);
-                            iv_sign_up_third_banana_child.startAnimation(fade_in);
-                            //두 번째 바나나 퇴장
-                            iv_sign_up_second_banana.startAnimation(fade_out);
-                            //질문 애니메이션
-                            LL_sigh_up_step3_parent.setVisibility(View.GONE);
-                            LL_sigh_up_step3_child.startAnimation(fade_in);
-                            LL_sigh_up_step3_child.setVisibility(View.VISIBLE);
-
-                            et_sigh_up_first_number_text.requestFocus();
-
-                            Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    //두 번째 바나나와 세 번째 질문 애니메이션 초기화
-                                    LL_sigh_up_step3_child.startAnimation(none);
-                                    iv_sign_up_third_banana_child.startAnimation(none);
-                                    iv_sign_up_second_banana.setImageResource(0);
-                                    iv_sign_up_second_banana.startAnimation(none);
-
-                                }
-                            }, 800);
+                        mother_or_father = "부";
+                        break;
+                    case R.id.rabtn_mother:
+                        if (mother_or_father == null) {
+                            showStep3();
                         }
-                    }
+                        mother_or_father = "모";
+                        break;
                 }
             }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-
-            }
         });
+        
         //부모 권한일 때 자녀 이름 입력
-        et_sigh_up_child_name_text.addTextChangedListener(new TextWatcher() {
+        et_sign_up_child_name_text.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 

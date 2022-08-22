@@ -2,6 +2,8 @@ package com.tnedutsledom.modelstudent;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,11 +21,11 @@ import com.google.android.gms.tasks.Task;
 
 public class UserSelectActivity extends AppCompatActivity {
 
-    GoogleSignInOptions gso; // 앱에 필요한 사용자 데이터를 요청할 수 있도록 하는 로그인 옵션
+    GoogleSignInOptions gso;                // 앱에 필요한 사용자 데이터를 요청할 수 있도록 하는 로그인 옵션
     GoogleSignInClient mGoogleSignInClient; // 구글 로그인 객체
-    private final int RC_SIGN_IN = 123;
-    SignInButton sign_in_button;
-    String user_email;
+    private final int RC_SIGN_IN = 123;     // 구글 로그인 고유값 (신경안써도 ㄱㅊ)
+    SignInButton sign_in_button;            // 구글 로그인 버튼
+    String user_email;                      // 유저 gmail 정보
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,7 +62,7 @@ public class UserSelectActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
@@ -80,6 +82,9 @@ public class UserSelectActivity extends AppCompatActivity {
                 user_email = acct.getEmail();
             }
         } catch (ApiException e) {
+            // The ApiException status code indicates the detailed failure reason.
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+            Log.e("구글 로그인 에러", "signInResult:failed code=" + e.getStatusCode());
         }
     }
 }

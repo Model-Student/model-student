@@ -54,7 +54,7 @@
             android:layout_weight="4" />
         <!--STEP 1 시작-->
         <LinearLayout
-            android:id="@+id/LL_sigh_up_step1"
+            android:id="@+id/LL_sign_up_step1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.8"
@@ -106,7 +106,7 @@
                     android:textSize="23dp" />
 
                 <EditText
-                    android:id="@+id/et_sigh_up_name_text"
+                    android:id="@+id/et_sign_up_name_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1.2"
@@ -128,7 +128,7 @@
             </LinearLayout>
             <!--STEP 2 시작-->
             <LinearLayout
-                android:id="@+id/LL_sigh_up_step2"
+                android:id="@+id/LL_sign_up_step2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -169,23 +169,38 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:fontFamily="@font/inter_medium_font"
-                    android:text="비밀번호를\n입력해주세요."
+                    android:text="자녀와의 관계를 \n선택해주세요."
                     android:textColor="@color/black"
                     android:textSize="23dp" />
 
-                <EditText
-                    android:id="@+id/et_sigh_up_password_text"
+                <RadioGroup
+                    android:id="@+id/rag_mother_or_father"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1.2"
-                    android:background="@drawable/border_edit_bottom"
-                    android:hint="Password"
-                    android:imeOptions="actionNext"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:textColor="@color/black"
-                    android:textColorHint="#8F8E8E" />
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rabtn_father"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="부"
+                        android:textColor="@color/black"
+                        android:layout_marginEnd="10dp"
+                        android:textSize="20dp"
+                        android:fontFamily="@font/inter_medium_font"/>
+
+                    <RadioButton
+                        android:id="@+id/rabtn_mother"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="모"
+                        android:textColor="@color/black"
+                        android:layout_marginEnd="10dp"
+                        android:textSize="20dp"
+                        android:fontFamily="@font/inter_medium_font"/>
+                </RadioGroup>
+
 
                 <View
                     android:layout_width="match_parent"
@@ -194,7 +209,7 @@
             </LinearLayout>
             <!--STEP 3-1(자녀) 시작-->
             <LinearLayout
-                android:id="@+id/LL_sigh_up_step3_child"
+                android:id="@+id/LL_sign_up_step3_child"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -247,7 +262,7 @@
                     android:gravity="center">
 
                     <EditText
-                        android:id="@+id/et_sigh_up_number_text_1"
+                        android:id="@+id/et_sign_up_number_text_1"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -268,7 +283,7 @@
                         android:background="#777777" />
 
                     <EditText
-                        android:id="@+id/et_sigh_up_number_text_2"
+                        android:id="@+id/et_sign_up_number_text_2"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -289,7 +304,7 @@
                         android:background="#777777" />
 
                     <EditText
-                        android:id="@+id/et_sigh_up_number_text_3"
+                        android:id="@+id/et_sign_up_number_text_3"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -310,7 +325,7 @@
             </LinearLayout>
             <!--STEP 3-2(부모) 시작-->
             <LinearLayout
-                android:id="@+id/LL_sigh_up_step3_parent"
+                android:id="@+id/LL_sign_up_step3_parent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -357,7 +372,7 @@
                     android:textSize="23dp" />
 
                 <EditText
-                    android:id="@+id/et_sigh_up_child_name_text"
+                    android:id="@+id/et_sign_up_child_name_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1.21"

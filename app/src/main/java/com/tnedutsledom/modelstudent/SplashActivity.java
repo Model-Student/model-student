@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,6 +20,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class SplashActivity extends AppCompatActivity {
     //Splash FadeIn 애니메이션
@@ -26,6 +33,8 @@ public class SplashActivity extends AppCompatActivity {
     TextView tv_logo,tv_small_text;
     //전체를 감싸는 레이아웃
     LinearLayout ll_splash_layout;
+    SharedPreferences preferences;
+    boolean already_account = false;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +54,8 @@ public class SplashActivity extends AppCompatActivity {
         //Splash 레이아웃 연결
         ll_splash_layout = findViewById(R.id.ll_splash_layout);
         ll_splash_layout.startAnimation(fadeInAnim);
+
+        preferences = getSharedPreferences("user_info",MODE_PRIVATE);
     }
     //화면전환 딜레이 주기
     void delayed(){
@@ -79,13 +90,12 @@ public class SplashActivity extends AppCompatActivity {
             }
         }, 4000);
     }
-    void firstTimeCheck(){
-        //        최초 실행 여부를 판단 ->>>
-        // 기존에 로그인 했던 계정을 확인한다.
-        GoogleSignInAccount gsa = GoogleSignIn.getLastSignedInAccount(SplashActivity.this);
 
-        // 로그인 되있는 경우
-        if (gsa != null) {
+    // preferences에 already_account값에 따라 최초실행인지 아닌지 판단
+    // 계정삭제기능 구현시 db유저 정보를 날리고 already_account를 false로 저장하도록 해야함
+    void firstTimeCheck() {
+        already_account = preferences.getBoolean("already_account", false);
+        if (already_account) {
             Intent intent_view_change = new Intent(SplashActivity.this, MainActivity.class);
             startActivity(intent_view_change);
             intent_view_change.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -98,26 +108,5 @@ public class SplashActivity extends AppCompatActivity {
             overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
             finish();
         }
-//        SharedPreferences pref = getSharedPreferences("checkFirst", Activity.MODE_PRIVATE);
-//        boolean checkFirst = pref.getBoolean("checkFirst", false);
-//        if(checkFirst==false){
-//            // 앱 최초 실행시 하고 싶은 작업
-//            SharedPreferences.Editor editor = pref.edit();
-//            editor.putBoolean("checkFirst",true);
-//            editor.commit();
-//
-//            Intent intent_view_change = new Intent(SplashActivity.this, UserSelectActivity.class);
-//            startActivity(intent_view_change);
-//            intent_view_change.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-//            overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
-//            finish();
-//        }else{
-//            // 최초 실행이 아닐때 진행할 작업
-//            Intent intent_view_change = new Intent(SplashActivity.this, MainActivity.class);
-//            startActivity(intent_view_change);
-//            intent_view_change.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-//            overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
-//            finish();
-//        }
     }
 }
