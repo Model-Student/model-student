@@ -43,6 +43,7 @@ public class HouseWorkActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_house_work);
         init();                     // 변수, 객체 초기세팅
+        updateListView(category);   // 리스트뷰 상태 업데이트
         setPopUpAddDialog();        // 할일 추가 버튼 세팅
         setToggleDelete();          // 할일 삭제 토글 버튼 세팅
         setCategoryDialog();        // 카테고리 버튼 세팅
