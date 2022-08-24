@@ -32,7 +32,7 @@ public class WorkListViewAdaptor extends BaseAdapter {
     int nowCategory;                        // 현재 화면에 표시되는 카테고리
 
     public WorkListViewAdaptor(Context context, int category) {
-        se = new StaticElement();
+        se = StaticElement.getInstance();
         this.context = context;
         this.nowCategory = category;
         this.workArrayList = getProperList(category);
@@ -59,15 +59,15 @@ public class WorkListViewAdaptor extends BaseAdapter {
     ArrayList getProperList(int category) {
         switch (category) {
             case 0:
-                return se.workList;
+                return se.getWorkList();
             case 1:
-                return se.house_work_list;
+                return se.getHouse_work_list();
             case 2:
-                return se.home_work_list;
+                return se.getHome_work_list();
             case 3:
-                return se.eating_list;
+                return se.getEating_list();
             case 4:
-                return se.etc_list;
+                return se.getEtc_list();
             default:
                 return null;
         }
@@ -81,32 +81,32 @@ public class WorkListViewAdaptor extends BaseAdapter {
             switch (category2) {
                 case "집안일":
                     // 해당 카테고리 리스트의 전체 요소중
-                    for (int j = 0; j < se.house_work_list.size(); j++) {
+                    for (int j = 0; j < se.getHouse_work_list().size(); j++) {
                         // 유저가 터치한 할일과 같은 이름의 할일을 찾아서
-                        if (se.house_work_list.get(j).getWork_name().equals(name)) {
+                        if (se.getHouse_work_list().get(j).getWork_name().equals(name)) {
                             // 해당 할일의 선택여부를 바꿔준다
-                            se.house_work_list.get(j).setSelected(selected);
+                            se.getHouse_work_list().get(j).setSelected(selected);
                             break;
                         }
                     }
                 case "숙제":
-                    for (int j = 0; j < se.home_work_list.size(); j++) {
-                        if (se.home_work_list.get(j).getWork_name().equals(name)) {
-                            se.home_work_list.get(j).setSelected(selected);
+                    for (int j = 0; j < se.getHome_work_list().size(); j++) {
+                        if (se.getHome_work_list().get(j).getWork_name().equals(name)) {
+                            se.getHome_work_list().get(j).setSelected(selected);
                             break;
                         }
                     }
                 case "음식":
-                    for (int j = 0; j < se.eating_list.size(); j++) {
-                        if (se.eating_list.get(j).getWork_name().equals(name)) {
-                            se.eating_list.get(j).setSelected(selected);
+                    for (int j = 0; j < se.getEating_list().size(); j++) {
+                        if (se.getEating_list().get(j).getWork_name().equals(name)) {
+                            se.getEating_list().get(j).setSelected(selected);
                             break;
                         }
                     }
                 case "기타":
-                    for (int j = 0; j < se.etc_list.size(); j++) {
-                        if (se.etc_list.get(j).getWork_name().equals(name)) {
-                            se.etc_list.get(j).setSelected(selected);
+                    for (int j = 0; j < se.getEtc_list().size(); j++) {
+                        if (se.getEtc_list().get(j).getWork_name().equals(name)) {
+                            se.getEtc_list().get(j).setSelected(selected);
                             break;
                         }
                     }
@@ -114,11 +114,11 @@ public class WorkListViewAdaptor extends BaseAdapter {
         // 만약 현재 표시되는 카테고리가 전체할일이 아니라면
         } else {
             // 전체할일 리스트의 모든 요소중
-            for (int j = 0; j < se.workList.size(); j++) {
+            for (int j = 0; j < se.getWorkList().size(); j++) {
                 // 유저가 터치한 할일과 같은 이름의 할일을 찾아서
-                if (se.workList.get(j).getWork_name().equals(name)) {
+                if (se.getWorkList().get(j).getWork_name().equals(name)) {
                     // 해당 할일의 선택여부를 바꿔준다
-                    se.workList.get(j).setSelected(selected);
+                    se.getWorkList().get(j).setSelected(selected);
                     break;
                 }
             }
@@ -130,38 +130,38 @@ public class WorkListViewAdaptor extends BaseAdapter {
         if (nowCategory == 0) {
             switch (category2) {
                 case "집안일":
-                    for (int j = 0; j < se.house_work_list.size(); j++) {
-                        if (se.house_work_list.get(j).getWork_name().equals(name)) {
-                            se.house_work_list.remove(j);
+                    for (int j = 0; j < se.getHouse_work_list().size(); j++) {
+                        if (se.getHouse_work_list().get(j).getWork_name().equals(name)) {
+                            se.getHouse_work_list().remove(j);
                             break;
                         }
                     }
                 case "숙제":
-                    for (int j = 0; j < se.home_work_list.size(); j++) {
-                        if (se.home_work_list.get(j).getWork_name().equals(name)) {
-                            se.home_work_list.remove(j);
+                    for (int j = 0; j < se.getHome_work_list().size(); j++) {
+                        if (se.getHome_work_list().get(j).getWork_name().equals(name)) {
+                            se.getHome_work_list().remove(j);
                             break;
                         }
                     }
                 case "음식":
-                    for (int j = 0; j < se.eating_list.size(); j++) {
-                        if (se.eating_list.get(j).getWork_name().equals(name)) {
-                            se.eating_list.remove(j);
+                    for (int j = 0; j < se.getEating_list().size(); j++) {
+                        if (se.getEating_list().get(j).getWork_name().equals(name)) {
+                            se.getEating_list().remove(j);
                             break;
                         }
                     }
                 case "기타":
-                    for (int j = 0; j < se.etc_list.size(); j++) {
-                        if (se.etc_list.get(j).getWork_name().equals(name)) {
-                            se.etc_list.remove(j);
+                    for (int j = 0; j < se.getEtc_list().size(); j++) {
+                        if (se.getEtc_list().get(j).getWork_name().equals(name)) {
+                            se.getEtc_list().remove(j);
                             break;
                         }
                     }
             }
         } else {
-            for (int j = 0; j < se.workList.size(); j++) {
-                if (se.workList.get(j).getWork_name().equals(name)) {
-                    se.workList.remove(j);
+            for (int j = 0; j < se.getWorkList().size(); j++) {
+                if (se.getWorkList().get(j).getWork_name().equals(name)) {
+                    se.getWorkList().remove(j);
                     break;
                 }
             }
@@ -169,7 +169,7 @@ public class WorkListViewAdaptor extends BaseAdapter {
     }
 
     void deleteStrList(String name) {
-        se.strList.remove(se.strList.indexOf(name));
+        se.getStrList().remove(se.getStrList().indexOf(name));
     }
 
     @Override

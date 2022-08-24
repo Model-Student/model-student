@@ -51,9 +51,9 @@ public class HouseWorkActivity extends AppCompatActivity {
     // 선택된 할일목록을 반환해주는 메소드
     ArrayList getSelectedWorkList() {
         ArrayList<String> tmpList = new ArrayList<>();
-        for (int i = 0; i < se.workList.size(); i++) {
-            if (se.workList.get(i).getSelected()) {
-                tmpList.add(se.workList.get(i).getWork_name());
+        for (int i = 0; i < se.getWorkList().size(); i++) {
+            if (se.getWorkList().get(i).getSelected()) {
+                tmpList.add(se.getWorkList().get(i).getWork_name());
             }
         }
         return tmpList;
@@ -64,12 +64,12 @@ public class HouseWorkActivity extends AppCompatActivity {
         iv_hw_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!se.delete) {
+                if (!se.getDelete()) {
                     iv_hw_delete.setImageResource(R.drawable.ic_delete_fill);
-                    se.delete = true;
+                    se.setDelete(true);
                 } else {
                     iv_hw_delete.setImageResource(R.drawable.ic_delete_not_fill);
-                    se.delete = false;
+                    se.setDelete(false);
                 }
             }
         });
@@ -114,15 +114,15 @@ public class HouseWorkActivity extends AppCompatActivity {
     static ArrayList getProperList(int category) {
         switch (category) {
             case 0:
-                return se.workList;
+                return se.getWorkList();
             case 1:
-                return se.house_work_list;
+                return se.getHouse_work_list();
             case 2:
-                return se.home_work_list;
+                return se.getHome_work_list();
             case 3:
-                return se.eating_list;
+                return se.getEating_list();
             case 4:
-                return se.etc_list;
+                return se.getEtc_list();
             default:
                 return null;
         }
@@ -130,8 +130,8 @@ public class HouseWorkActivity extends AppCompatActivity {
 
     // 전체 할일리스트에 할일을 추가해준다
     void addWorkList(String data, String category) {
-        se.workList.add(new Work(data, category));
-        se.strList.add(data);
+        se.getWorkList().add(new Work(data, category));
+        se.getStrList().add(data);
     }
 
     // 화면에 표시되는 리스트뷰의 상태를 새로고침 해준다
@@ -153,16 +153,16 @@ public class HouseWorkActivity extends AppCompatActivity {
     void addCategoryList(String data, String category) {
         switch (category) {
             case "집안일":
-                se.house_work_list.add(new Work(data, category));
+                se.getHouse_work_list().add(new Work(data, category));
                 break;
             case "숙제":
-                se.home_work_list.add(new Work(data, category));
+                se.getHome_work_list().add(new Work(data, category));
                 break;
             case "음식":
-                se.eating_list.add(new Work(data, category));
+                se.getEating_list().add(new Work(data, category));
                 break;
             case "기타":
-                se.etc_list.add(new Work(data, category));
+                se.getEtc_list().add(new Work(data, category));
                 break;
         }
     }
@@ -249,13 +249,13 @@ public class HouseWorkActivity extends AppCompatActivity {
                 String value = et_value.getText().toString();
                 String categoryTmp = spinner.getSelectedItem().toString();
 
-                if (!se.strList.contains(value) && value.length() != 0) {
+                if (!se.getStrList().contains(value) && value.length() != 0) {
                     addWorkList(value, categoryTmp);
                     addCategoryList(value, categoryTmp);
                     updateListView(category);
                     dl_add_work.dismiss();
 
-                } else if (se.strList.contains(value)) { // 할일이 중복되어있는지 확인
+                } else if (se.getStrList().contains(value)) { // 할일이 중복되어있는지 확인
                     Toast.makeText(HouseWorkActivity.this, "이미 존재하는 할일입니다", Toast.LENGTH_SHORT).show();
                 } else if (value.length() == 0) { // 입력값이 공백인지 확인
                     Toast.makeText(HouseWorkActivity.this, "할일을 입력해주세요", Toast.LENGTH_SHORT).show();
@@ -275,12 +275,7 @@ public class HouseWorkActivity extends AppCompatActivity {
         dl_category = new Dialog(HouseWorkActivity.this);
         dl_category.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dl_category.setContentView(R.layout.dialog_hw_category);
-        se.workList = new ArrayList<>();
-        se.house_work_list = new ArrayList<>();
-        se.home_work_list = new ArrayList<>();
-        se.eating_list = new ArrayList<>();
-        se.etc_list = new ArrayList<>();
-        se.strList = new ArrayList<>();
+        se = StaticElement.getInstance();
         iv_hw_delete = findViewById(R.id.iv_hw_delete);
         iv_category = findViewById(R.id.iv_hw_category);
         context = HouseWorkActivity.this;
