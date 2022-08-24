@@ -8,13 +8,20 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends FragmentActivity {
 
@@ -22,6 +29,8 @@ public class MainActivity extends FragmentActivity {
     private ViewPager2 vp_carousel; // 캐러셀 뷰페이저
     private CarouselAdapter pager_adapter; // 캐러셀 어뎁터
     private int carousel_size = 3; // 페이지(버튼) 개수
+    ImageView btn_delete_sp_TEST;
+    private FirebaseFirestore firebase_firestore = FirebaseFirestore.getInstance(); //파이어스토어 연결
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +39,44 @@ public class MainActivity extends FragmentActivity {
         init();
         firstCheck();
         initCarousel();
-
+        TEST_DELETE_USER_DATA();
 
     }
+
+    void TEST_DELETE_USER_DATA() {
+        btn_delete_sp_TEST = findViewById(R.id.btn_test_sp_delete);
+        btn_delete_sp_TEST.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences preferences = getSharedPreferences("user_info",MODE_PRIVATE);
+                //파이어베이스의 유저정보 삭제
+                firebase_firestore.collection("model_student").document(preferences.getString("email", ""))
+                        .delete()
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d("파이어베이스 유저정보 삭제 여부", "DocumentSnapshot successfully deleted!");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w("파이어베이스 유저정보 삭제 여부", "Error deleting document", e);
+                            }
+                        });
+                // SharedPreferences의 유저정보 삭제
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.clear();
+                editor.commit();
+
+                // 시작화면으로 돌아가기기
+               Intent intent = new Intent(MainActivity.this, SplashActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
+
     void firstCheck(){
         SharedPreferences pref = getSharedPreferences("checkFirst", Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();

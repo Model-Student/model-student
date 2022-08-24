@@ -175,12 +175,14 @@ public class SignUpActivity extends AppCompatActivity {
 //        값 = "mother_or_father" : 사용자가 아빠인지 엄마인지
 //        값 = "email" : 유저 이메일
 //        값 = "already_account" : 계정이 이미 존재하는지
+//        값 = "child_name" : 아이이름
         preferences = getSharedPreferences("user_info",MODE_PRIVATE);
         //Editor를 preferences에 쓰겠다고 연결
         SharedPreferences.Editor editor = preferences.edit();
         //putString(KEY,VALUE)
         editor.putString("mother_or_father",mother_or_father);
         editor.putString("email",user_email);
+        editor.putString("child_name",et_sign_up_child_name_text.getText().toString());
         editor.putBoolean("already_account", true);
         //항상 commit & apply 를 해주어야 저장이 된다.
         editor.commit();

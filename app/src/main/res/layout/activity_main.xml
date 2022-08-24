@@ -36,21 +36,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="부모\n사용 표시"
-            android:textColor="@color/Theme_Indigo"
-            android:textStyle="bold"
-            android:textSize="17dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.95"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -139,6 +124,7 @@
             android:gravity="center"/>
 <!--        설정 아이콘-->
         <ImageView
+            android:id="@+id/btn_test_sp_delete"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
