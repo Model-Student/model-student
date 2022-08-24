@@ -14,5 +14,46 @@
         android:elevation="5dp"
         android:background="@drawable/btn_image_chat_log">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.35"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_chat_log"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.15"
+                android:text="동민의\n하루"
+                android:gravity="right"
+                android:textSize="43dp"
+                android:textColor="#2E447E"
+                android:paddingRight="22dp"
+                android:paddingTop="3dp"
+                android:fontFamily="@font/inter_bold"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#2E447E"
+                android:layout_marginRight="23dp"
+                android:layout_marginLeft="97dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="3.5"
+                android:text="아이와 NUGU의\n대화를 한눈에"
+                android:gravity="right"
+                android:paddingRight="24dp"
+                android:paddingTop="4dp"
+                android:textSize="11.5dp"
+                android:fontFamily="@font/inter_medium_font"
+                android:textColor="#A6383838"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
     </LinearLayout>
 </LinearLayout>
