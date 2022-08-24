@@ -95,8 +95,14 @@ public class MainActivity extends FragmentActivity {
 
         //뷰페이저 세팅
         vp_carousel.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
-        vp_carousel.setCurrentItem(2);
         vp_carousel.setOffscreenPageLimit(3);
+        vp_carousel.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                vp_carousel.setCurrentItem(1);
+
+            }
+        },10);
 
 //        전환 애니메이션 세팅
         final float page_margin = getResources().getDimensionPixelOffset(R.dimen.pageMargin);
@@ -145,7 +151,6 @@ public class MainActivity extends FragmentActivity {
             }
 
         });
-        vp_carousel.setCurrentItem(2);
 
     }
 
