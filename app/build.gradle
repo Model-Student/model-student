@@ -34,11 +34,15 @@ android {
 dependencies {
     //파이어베이스 연동
     implementation 'com.google.gms:google-services:4.3.13'
-    implementation platform('com.google.firebase:firebase-bom:30.2.0')
 
     //파이어 스토어 가져오기
     implementation 'com.google.firebase:firebase-firestore'
 
+    //파이어베이스 연동?
+    implementation platform('com.google.firebase:firebase-bom:30.2.0')
+    //구글 AUTH
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.android.gms:play-services-auth:20.2.0'
 
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'
@@ -48,7 +52,6 @@ dependencies {
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation 'androidx.navigation:navigation-fragment:2.4.2'
     implementation 'androidx.navigation:navigation-ui:2.4.2'
-    implementation 'com.google.android.gms:play-services-auth:20.2.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
