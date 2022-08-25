@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -17,6 +18,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.tnedutsledom.modelstudent.R;
 
 import java.util.ArrayList;
@@ -37,7 +40,9 @@ public class HouseWorkActivity extends AppCompatActivity {
 
     int category;                   // 카테고리
                                     // 0 = 전체, 1 = 집안일, 2 = 숙제, 3 = 음식, 4 = 기타
-    
+    private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+    SharedPreferences SP = getSharedPreferences("user_info",MODE_PRIVATE);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +52,8 @@ public class HouseWorkActivity extends AppCompatActivity {
         setPopUpAddDialog();        // 할일 추가 버튼 세팅
         setToggleDelete();          // 할일 삭제 토글 버튼 세팅
         setCategoryDialog();        // 카테고리 버튼 세팅
+
+
     }
 
     // 선택된 할일목록을 반환해주는 메소드
@@ -58,6 +65,14 @@ public class HouseWorkActivity extends AppCompatActivity {
             }
         }
         return tmpList;
+    }
+
+
+    void sendToFireBase(ArrayList<Work> list){
+        for (int i = 0; i < list.size(); i++) {
+            list.get(i).getWork_name();
+            firebaseFirestore.collection(SP.getString("email","")).add(list.get(i).getWork_name());
+        }
     }
 
     // 삭제버튼을 누를 때마다 delete 변수의 true|false 값을 바꾸도록 설정
@@ -280,5 +295,23 @@ public class HouseWorkActivity extends AppCompatActivity {
         iv_hw_delete = findViewById(R.id.iv_hw_delete);
         iv_category = findViewById(R.id.iv_hw_category);
         context = HouseWorkActivity.this;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        sendToFireBase(getSelectedWorkList());
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        sendToFireBase(getSelectedWorkList());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        sendToFireBase(getSelectedWorkList());
     }
 }
