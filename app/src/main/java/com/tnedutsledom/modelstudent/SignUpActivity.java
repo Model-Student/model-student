@@ -135,7 +135,7 @@ public class SignUpActivity extends AppCompatActivity {
                             Toast.makeText(SignUpActivity.this, "입력값을 확인해주세요", Toast.LENGTH_SHORT).show();
                         } else {
                             //부모의 폰에서 올라가는 거
-                            Log.d("1111111111", "adsad" + user_email);
+                            Log.d("1", "adsad" + user_email);
                             uploadToFirebaseParent(et_sign_up_name_text.getText().toString(),et_sign_up_child_name_text.getText().toString());
                             login_success = true;
                         }

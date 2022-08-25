@@ -18,6 +18,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class UserSelectActivity extends AppCompatActivity {
 
@@ -26,6 +27,8 @@ public class UserSelectActivity extends AppCompatActivity {
     private final int RC_SIGN_IN = 123;     // 구글 로그인 고유값 (신경안써도 ㄱㅊ)
     SignInButton sign_in_button;            // 구글 로그인 버튼
     String user_email;                      // 유저 gmail 정보
+
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,6 +43,7 @@ public class UserSelectActivity extends AppCompatActivity {
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(UserSelectActivity.this, gso);
         sign_in_button = findViewById(R.id.btn_google_login);
+        mAuth = FirebaseAuth.getInstance();
     }
 
     void signInGoogle(){
@@ -53,6 +57,7 @@ public class UserSelectActivity extends AppCompatActivity {
     }
 
     void startSignUpActivity(String user_email) {
+        Log.d("1",user_email);
         Intent intent_view_change = new Intent(getApplicationContext(),SignUpActivity.class);
         intent_view_change.putExtra("user_email",user_email);
         startActivity(intent_view_change);
@@ -80,12 +85,12 @@ public class UserSelectActivity extends AppCompatActivity {
             GoogleSignInAccount acct = completedTask.getResult(ApiException.class);
             if (acct != null) {
                 user_email = acct.getEmail();
-                Log.d("아아아아아아아", "handleSignInResult: " + user_email);
+                Log.d("1", "handleSignInResult: " + user_email);
             }
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Log.e("구글 로그인 에러", "signInResult:failed code=" + e.getStatusCode());
+            Log.e("1", "signInResult:failed code=" + e.getStatusCode());
         }
     }
 }
