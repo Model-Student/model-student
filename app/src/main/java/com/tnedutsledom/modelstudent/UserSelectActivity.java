@@ -80,6 +80,7 @@ public class UserSelectActivity extends AppCompatActivity {
             GoogleSignInAccount acct = completedTask.getResult(ApiException.class);
             if (acct != null) {
                 user_email = acct.getEmail();
+                Log.d("아아아아아아아", "handleSignInResult: " + user_email);
             }
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
