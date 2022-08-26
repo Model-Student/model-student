@@ -1,5 +1,6 @@
 package com.tnedutsledom.modelstudent.house_work;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
@@ -8,6 +9,8 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
@@ -18,8 +21,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.tnedutsledom.modelstudent.R;
 
 import java.util.ArrayList;
@@ -39,41 +46,83 @@ public class HouseWorkActivity extends AppCompatActivity {
     static ListView lv_work_list;   // 할일 리스트뷰
 
     int category;                   // 카테고리
-                                    // 0 = 전체, 1 = 집안일, 2 = 숙제, 3 = 음식, 4 = 기타
+    // 0 = 전체, 1 = 집안일, 2 = 숙제, 3 = 음식, 4 = 기타
     private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     SharedPreferences SP;
+    CollectionReference ColRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_house_work);
         init();                     // 변수, 객체 초기세팅
-        updateListView(category);   // 리스트뷰 상태 업데이트
+        getToFireBase();            // 파이어베이스에 있는 현재 값 가져오기
         setPopUpAddDialog();        // 할일 추가 버튼 세팅
         setToggleDelete();          // 할일 삭제 토글 버튼 세팅
         setCategoryDialog();        // 카테고리 버튼 세팅
-
+        InitListViewForFireBase();  // 리스트뷰 데이터 초기 세팅
 
     }
 
-    // 선택된 할일목록을 반환해주는 메소드
-    ArrayList getSelectedWorkList() {
-        ArrayList<String> tmpList = new ArrayList<>();
-        for (int i = 0; i < se.getWorkList().size(); i++) {
-            if (se.getWorkList().get(i).getSelected()) {
-                tmpList.add(se.getWorkList().get(i).getWork_name());
+    void InitListViewForFireBase() {
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                updateListView(category);
+
             }
+        },1000);
+    }
+
+    // 선택된 할일목록을 반환해주는 메소드
+    ArrayList getWorkList() {
+        ArrayList<Work> tmpList = new ArrayList<>();
+        for (int i = 0; i < se.getWorkList().size(); i++) {
+            tmpList.add(se.getWorkList().get(i));
         }
         return tmpList;
     }
 
 
+    // 파이어베이스에 할일리스트를 업로드
     void sendToFireBase(ArrayList<Work> list){
         for (int i = 0; i < list.size(); i++) {
-            list.get(i).getWork_name();
-            firebaseFirestore.collection(SP.getString("email","")).add(list.get(i).getWork_name());
+            Log.d("1","리스트 이름 "+ list.get(i));
+            firebaseFirestore.
+                    collection("model_student").
+                    document(SP.getString("email","")).
+                    collection("HouseWork").document("item" + i).set(new FirebaseAdaptor(
+                            list.get(i).getWork_name(),
+                            list.get(i).getCategory(),
+                            list.get(i).getSelected()
+                    ));
         }
     }
+
+    // 파이어베이스에 할일리스트를 업로드
+    void getToFireBase(){
+        ArrayList<Work> tmpList = new ArrayList<>();
+        ColRef.get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                addWorkList(document.getString("work_name"),
+                                        document.getString("category"),
+                                        document.getBoolean("selected"));
+                                addCategoryList(document.getString("work_name"),
+                                        document.getString("category"),
+                                        document.getBoolean("selected"));
+                            }
+                        } else {
+                            //실패했을 경우
+                        }
+                    }
+                });
+    }
+
 
     // 삭제버튼을 누를 때마다 delete 변수의 true|false 값을 바꾸도록 설정
     void setToggleDelete() {
@@ -145,8 +194,8 @@ public class HouseWorkActivity extends AppCompatActivity {
     }
 
     // 전체 할일리스트에 할일을 추가해준다
-    void addWorkList(String data, String category) {
-        se.getWorkList().add(new Work(data, category));
+    void addWorkList(String data, String category, boolean selected) {
+        se.getWorkList().add(new Work(data, category, selected));
         se.getStrList().add(data);
     }
 
@@ -166,19 +215,19 @@ public class HouseWorkActivity extends AppCompatActivity {
     }
 
     // 받아온 카테고리에 해당하는 리스트에 할일을 추가해준다
-    void addCategoryList(String data, String category) {
+    void addCategoryList(String data, String category, boolean selected) {
         switch (category) {
             case "집안일":
-                se.getHouse_work_list().add(new Work(data, category));
+                se.getHouse_work_list().add(new Work(data, category, selected));
                 break;
             case "숙제":
-                se.getHome_work_list().add(new Work(data, category));
+                se.getHome_work_list().add(new Work(data, category, selected));
                 break;
             case "음식":
-                se.getEating_list().add(new Work(data, category));
+                se.getEating_list().add(new Work(data, category, selected));
                 break;
             case "기타":
-                se.getEtc_list().add(new Work(data, category));
+                se.getEtc_list().add(new Work(data, category, selected));
                 break;
         }
     }
@@ -266,8 +315,8 @@ public class HouseWorkActivity extends AppCompatActivity {
                 String categoryTmp = spinner.getSelectedItem().toString();
 
                 if (!se.getStrList().contains(value) && value.length() != 0) {
-                    addWorkList(value, categoryTmp);
-                    addCategoryList(value, categoryTmp);
+                    addWorkList(value, categoryTmp,true);
+                    addCategoryList(value, categoryTmp, true);
                     updateListView(category);
                     dl_add_work.dismiss();
 
@@ -296,23 +345,14 @@ public class HouseWorkActivity extends AppCompatActivity {
         iv_category = findViewById(R.id.iv_hw_category);
         context = HouseWorkActivity.this;
         SP = getSharedPreferences("user_info",MODE_PRIVATE);
+        ColRef = firebaseFirestore.collection("model_student").
+                document(SP.getString("email","")).
+                collection("HouseWork");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        sendToFireBase(getSelectedWorkList());
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        sendToFireBase(getSelectedWorkList());
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        sendToFireBase(getSelectedWorkList());
+        sendToFireBase(getWorkList());
     }
 }

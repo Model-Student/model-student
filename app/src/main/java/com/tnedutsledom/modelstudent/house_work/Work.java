@@ -13,15 +13,25 @@ public class Work {
     boolean selected = true;
 
     // 생성자 메소드
-    public Work(String work_name, String category) {
+    public Work(String work_name, String category, Boolean selected) {
         this.work_name = work_name;
         this.category = category;
+        this.selected = selected;
     }
 
     // 게터 세터 영역
     public void setSelected(boolean selected) {
         this.selected = selected;
     }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void setWork_name(String work_name) {
+        this.work_name = work_name;
+    }
+
     public boolean getSelected() {
         return selected;
     }
