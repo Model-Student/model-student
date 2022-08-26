@@ -41,7 +41,7 @@ public class HouseWorkActivity extends AppCompatActivity {
     int category;                   // 카테고리
                                     // 0 = 전체, 1 = 집안일, 2 = 숙제, 3 = 음식, 4 = 기타
     private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-    SharedPreferences SP = getSharedPreferences("user_info",MODE_PRIVATE);
+    SharedPreferences SP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -295,6 +295,7 @@ public class HouseWorkActivity extends AppCompatActivity {
         iv_hw_delete = findViewById(R.id.iv_hw_delete);
         iv_category = findViewById(R.id.iv_hw_category);
         context = HouseWorkActivity.this;
+        SP = getSharedPreferences("user_info",MODE_PRIVATE);
     }
 
     @Override
