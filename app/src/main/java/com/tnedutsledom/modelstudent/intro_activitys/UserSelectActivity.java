@@ -1,12 +1,9 @@
-package com.tnedutsledom.modelstudent;
+package com.tnedutsledom.modelstudent.intro_activitys;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +16,7 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.tnedutsledom.modelstudent.R;
 
 public class UserSelectActivity extends AppCompatActivity {
 

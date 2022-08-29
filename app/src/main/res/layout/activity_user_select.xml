@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#DDEAEF"
     android:orientation="vertical"
-    tools:context=".UserSelectActivity">
+    tools:context=".intro_activitys.UserSelectActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

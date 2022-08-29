@@ -1,4 +1,4 @@
-package com.tnedutsledom.modelstudent;
+package com.tnedutsledom.modelstudent.intro_activitys;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -27,6 +27,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.tnedutsledom.modelstudent.FirebaseAdapter.ChildAdapter;
 import com.tnedutsledom.modelstudent.FirebaseAdapter.ParentAdapter;
+import com.tnedutsledom.modelstudent.MainActivity;
+import com.tnedutsledom.modelstudent.R;
 
 public class SignUpActivity extends AppCompatActivity {
 

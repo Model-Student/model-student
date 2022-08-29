@@ -24,7 +24,7 @@
             android:exported="false"
             android:theme="@style/Theme.ModelStudentLastTime" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".intro_activitys.SplashActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.ModelStudentSplash">
@@ -38,10 +38,10 @@
             android:name=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SignUpActivity"
+            android:name=".intro_activitys.SignUpActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".UserSelectActivity"
+            android:name=".intro_activitys.UserSelectActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.ModelStudentSplash" />
     </application>

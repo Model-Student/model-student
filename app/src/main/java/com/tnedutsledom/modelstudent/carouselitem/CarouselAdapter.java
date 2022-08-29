@@ -1,4 +1,4 @@
-package com.tnedutsledom.modelstudent;
+package com.tnedutsledom.modelstudent.carouselitem;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
