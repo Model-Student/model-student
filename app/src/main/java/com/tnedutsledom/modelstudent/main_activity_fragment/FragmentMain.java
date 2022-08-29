@@ -10,9 +10,8 @@ import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
-
-import com.tnedutsledom.modelstudent.CarouselAdapter;
 import com.tnedutsledom.modelstudent.R;
+import com.tnedutsledom.modelstudent.carouselitem.CarouselAdapter;
 
 public class FragmentMain extends Fragment {
 

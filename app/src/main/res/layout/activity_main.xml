@@ -67,6 +67,7 @@
         >
 <!--        도움말 아이콘-->
         <ImageView
+            android:id="@+id/iv_btn_help"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"

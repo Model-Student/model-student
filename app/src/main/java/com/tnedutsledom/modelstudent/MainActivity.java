@@ -28,12 +28,14 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.tnedutsledom.modelstudent.intro_activitys.SplashActivity;
+import com.tnedutsledom.modelstudent.main_activity_fragment.FragmentHelp;
 import com.tnedutsledom.modelstudent.main_activity_fragment.FragmentMain;
 
 public class MainActivity extends FragmentActivity {
 
 
-    ImageView btn_delete_sp_TEST, iv_btn_home;
+    ImageView btn_delete_sp_TEST, iv_btn_home, iv_btn_help;
     private FirebaseFirestore firebase_firestore = FirebaseFirestore.getInstance(); //파이어스토어 연결
 
     @Override
@@ -87,7 +89,7 @@ public class MainActivity extends FragmentActivity {
                 });
 
                 // 시작화면으로 돌아가기기
-               Intent intent = new Intent(MainActivity.this, SplashActivity.class);
+                Intent intent = new Intent(MainActivity.this, SplashActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -111,11 +113,21 @@ public class MainActivity extends FragmentActivity {
                 transaction.commit();
             }
         });
+        iv_btn_help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                FragmentHelp fragment_help = new FragmentHelp();
+                transaction.replace(R.id.fl_fragment_container, fragment_help);
+                transaction.commit();
+            }
+        });
     }
 
 
     void init() {
         iv_btn_home = findViewById(R.id.iv_btn_home);
+        iv_btn_help = findViewById(R.id.iv_btn_help);
     }
 
     void fragmentInit() {
