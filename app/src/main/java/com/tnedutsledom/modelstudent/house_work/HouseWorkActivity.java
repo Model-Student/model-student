@@ -22,6 +22,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -64,6 +66,7 @@ public class HouseWorkActivity extends AppCompatActivity {
 
     }
 
+    // 리스트뷰 데이터 초기 세팅
     void InitListViewForFireBase() {
 
         new Handler().postDelayed(new Runnable() {
@@ -100,9 +103,8 @@ public class HouseWorkActivity extends AppCompatActivity {
         }
     }
 
-    // 파이어베이스에 할일리스트를 업로드
+    // 파이어베이스에 할일리스트를 받아오기
     void getToFireBase(){
-        ArrayList<Work> tmpList = new ArrayList<>();
         ColRef.get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -122,6 +124,53 @@ public class HouseWorkActivity extends AppCompatActivity {
                     }
                 });
     }
+
+
+    void deleteInternalList() {
+        se.getStrList().clear();
+        se.getWorkList().clear();
+        se.getHouse_work_list().clear();
+        se.getHome_work_list().clear();
+        se.getEating_list().clear();
+        se.getEtc_list().clear();
+    }
+    // 파이어베이스에서 삭제
+    void deleteDataInFireBase(){
+        final int[] firebase_data_size = {0};
+        ColRef.get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                firebase_data_size[0]++;
+                            }
+                        } else {
+                            //실패했을 경우
+                        }
+                    }
+                });
+        for (int i = 0; i < firebase_data_size[0]; i++) {
+            firebaseFirestore.
+                    collection("model_student").
+                    document(SP.getString("email","")).
+                    collection("HouseWork")
+                    .document("item" + i).delete()
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d("하우스 워크 아이템 삭제", "DocumentSnapshot successfully deleted!");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w("하우스 워크 아이템 삭제", "Error deleting document", e);
+                        }
+                    });
+        }
+    }
+
 
 
     // 삭제버튼을 누를 때마다 delete 변수의 true|false 값을 바꾸도록 설정
@@ -353,6 +402,8 @@ public class HouseWorkActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        deleteInternalList();
+        deleteDataInFireBase();
         sendToFireBase(getWorkList());
     }
 }
