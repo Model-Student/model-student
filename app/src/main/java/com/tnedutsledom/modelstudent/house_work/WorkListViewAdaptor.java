@@ -187,6 +187,46 @@ public class WorkListViewAdaptor extends BaseAdapter {
         return workArrayList.get(i);
     }
 
+    void deleteItem(String name) {
+        switch (nowCategory) {
+            case 0 :
+                for (int j = 0; j < se.getWorkList().size(); j++) {
+                    if (se.getWorkList().get(j).getWork_name().equals(name)) {
+                        se.getWorkList().remove(j);
+                        break;
+                    }
+                }
+            case 1 :
+                for (int j = 0; j < se.getHouse_work_list().size(); j++) {
+                    if (se.getHouse_work_list().get(j).getWork_name().equals(name)) {
+                        se.getHouse_work_list().remove(j);
+                        break;
+                    }
+                }
+            case 2 :
+                for (int j = 0; j < se.getHome_work_list().size(); j++) {
+                    if (se.getHome_work_list().get(j).getWork_name().equals(name)) {
+                        se.getHome_work_list().remove(j);
+                        break;
+                    }
+                }
+            case 3 :
+                for (int j = 0; j < se.getEating_list().size(); j++) {
+                    if (se.getEating_list().get(j).getWork_name().equals(name)) {
+                        se.getEating_list().remove(j);
+                        break;
+                    }
+                }
+            case 4 :
+                for (int j = 0; j < se.getEtc_list().size(); j++) {
+                    if (se.getEtc_list().get(j).getWork_name().equals(name)) {
+                        se.getEtc_list().remove(j);
+                        break;
+                    }
+                }
+        }
+    }
+
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) { // getView메소드는 아이템을 생성(화면에 표시)할때 실행하는 메소드
         house_work_item = layoutInflater.inflate(R.layout.house_work_item, null);
@@ -204,7 +244,7 @@ public class WorkListViewAdaptor extends BaseAdapter {
                 if (se.getDelete()) {
                     deleteOtherCategory(workArrayList.get(i).getCategory(), workArrayList.get(i).getWork_name());
                     deleteStrList(workArrayList.get(i).getWork_name());
-                    workArrayList.remove(i);
+                    deleteItem(workArrayList.get(i).getWork_name());
                     HouseWorkActivity.updateListView(nowCategory);
                 }
             }

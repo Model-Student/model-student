@@ -48,6 +48,7 @@ public class HouseWorkActivity extends AppCompatActivity {
     static ListView lv_work_list;   // 할일 리스트뷰
 
     int category;                   // 카테고리
+    int a;
     // 0 = 전체, 1 = 집안일, 2 = 숙제, 3 = 음식, 4 = 기타
     private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     SharedPreferences SP;
@@ -134,41 +135,47 @@ public class HouseWorkActivity extends AppCompatActivity {
         se.getEating_list().clear();
         se.getEtc_list().clear();
     }
+
     // 파이어베이스에서 삭제
     void deleteDataInFireBase(){
-        final int[] firebase_data_size = {0};
         ColRef.get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                firebase_data_size[0]++;
-                            }
+                            a = task.getResult().size();
+                            Log.d("야발ㄹㄹㄹㄹㄹㄹ", "onComplete: " + a);
                         } else {
                             //실패했을 경우
                         }
                     }
                 });
-        for (int i = 0; i < firebase_data_size[0]; i++) {
-            firebaseFirestore.
-                    collection("model_student").
-                    document(SP.getString("email","")).
-                    collection("HouseWork")
-                    .document("item" + i).delete()
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Log.d("하우스 워크 아이템 삭제", "DocumentSnapshot successfully deleted!");
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.w("하우스 워크 아이템 삭제", "Error deleting document", e);
-                        }
-                    });
-        }
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i <= a; i++) {
+                    firebaseFirestore.
+                            collection("model_student").
+                            document(SP.getString("email","")).
+                            collection("HouseWork")
+                            .document("item" + i).delete()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("하우스 워크 아이템 삭제", "DocumentSnapshot successfully deleted!");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("하우스 워크 아이템 삭제", "Error deleting document", e);
+                                }
+                            });
+                }
+            }
+        }, 500);
+
     }
 
 
@@ -402,8 +409,20 @@ public class HouseWorkActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        deleteInternalList();
-        deleteDataInFireBase();
-        sendToFireBase(getWorkList());
+        try {
+            Log.d("전체 리스트", "onPause: " + se.getWorkList().size());
+            deleteDataInFireBase();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    sendToFireBase(getWorkList());
+                    deleteInternalList();
+                }
+            }, 900);
+
+
+        } catch (Exception e) {
+
+        }
     }
 }
