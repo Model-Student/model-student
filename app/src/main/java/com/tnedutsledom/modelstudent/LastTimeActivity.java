@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -44,6 +45,7 @@ public class LastTimeActivity extends AppCompatActivity {
     private boolean drag = false; // 일기장 터치가 가능한 상태인지 아닌지 ( false = 가능 / true = 불가능 )
 
     TextView tv_last_time_diary_text; // 일기 내용 표시 텍스트뷰
+    ImageView iv_have_content, iv_no_content;
 
     private FirebaseFirestore firebase_firestore = FirebaseFirestore.getInstance(); //파이어스토어 연결
     DocumentReference app_ref; //파이어 스토어 Document 접근
@@ -102,6 +104,16 @@ public class LastTimeActivity extends AppCompatActivity {
         });
     }
 
+    void showNoContentImage() {
+        iv_no_content.setVisibility(View.VISIBLE);
+        iv_have_content.setVisibility(View.INVISIBLE);
+    }
+
+    void showHaveContentImage() {
+        iv_no_content.setVisibility(View.INVISIBLE);
+        iv_have_content.setVisibility(View.VISIBLE);
+    }
+
     // 요일 선택 시
     void selectDate() {
         cv_calender.setOnDateChangedListener(new OnDateSelectedListener() {
@@ -121,6 +133,8 @@ public class LastTimeActivity extends AppCompatActivity {
         ll_diary = findViewById(R.id.ll_last_time_diary);
         ll_diary.setY(550);
         tv_last_time_diary_text = findViewById(R.id.tv_last_time_main_text);//일기 표시 텍스트 뷰
+        iv_have_content = findViewById(R.id.iv_last_time_have_content);
+        iv_no_content = findViewById(R.id.iv_last_time_no_content);
 
     }
     //선택한 날짜가 SQL에 없으면 파이어베이스에 쿼리
@@ -147,6 +161,7 @@ public class LastTimeActivity extends AppCompatActivity {
                         //DB가 꼬여도 앱이 멈추지 않게끔 Try catch로 방지
                         try {
                             // SQL에 넣어주기
+                            showHaveContentImage();
                             setSQLValue(document.getString("Date"), document.getString("Text"));
                         } catch (Exception e) {
                             //가져올 값이 없는 경우
@@ -238,9 +253,11 @@ public class LastTimeActivity extends AppCompatActivity {
                 Log.d("1", "getString(2)" + cursor.getString(2));
                 //일기 텍스트뷰에 검색 결과 두 번째 열의 값(일기 텍스트) 넣기 / 첫 번째 값은 날짜임
                 tv_last_time_diary_text.setText(cursor.getString(2));
+                showHaveContentImage();
             }else {
                 //관련 값이 없으면 텍스트뷰를 NUll로 바꾸고 데이터베이스에 쿼리
                 tv_last_time_diary_text.setText("일기가 비어있어요.");
+                showNoContentImage();
                 getFireBaseLastTime(date);
             }
             //커서 실행 종료

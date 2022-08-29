@@ -52,7 +52,8 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1.7"/>
+                android:layout_weight="1.7" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -67,87 +68,114 @@
                 android:layout_weight="1"
                 android:theme="@style/CalenderViewCustom"
                 app:mcv_dateTextAppearance="@style/CalenderViewDateCustomText"
-                app:mcv_weekDayTextAppearance="@style/CalenderViewWeekCustomText"
-                />
+                app:mcv_weekDayTextAppearance="@style/CalenderViewWeekCustomText" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1.3"/>
+                android:layout_weight="1.3" />
 
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_test"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="180dp"
+            android:orientation="vertical">
+
             <LinearLayout
-                android:id="@+id/ll_test"
+                android:id="@+id/ll_last_time_diary"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="600dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/last_time_diary_background"
+                android:elevation="10dp"
                 android:orientation="vertical"
-                android:layout_marginTop="180dp">
+                android:paddingLeft="20dp"
+                android:paddingTop="8dp"
+                android:paddingRight="20dp">
 
                 <LinearLayout
-                    android:id="@+id/ll_last_time_diary"
                     android:layout_width="match_parent"
-                    android:layout_height="600dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="20dp"
-                    android:background="@drawable/last_time_diary_background"
-                    android:elevation="10dp"
-                    android:orientation="vertical"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:paddingTop="8dp">
+                    android:layout_height="5.5dp"
+                    android:orientation="horizontal">
 
-                    <LinearLayout
+                    <View
                         android:layout_width="match_parent"
-                        android:layout_height="5.5dp"
-                        android:orientation="horizontal">
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"/>
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1.4"
-                            android:background="@drawable/last_time_diary_hole"/>
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"/>
-                    </LinearLayout>
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
 
-                    <FrameLayout
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.4"
+                        android:background="@drawable/last_time_diary_hole" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="6dp">
+
+                    <TextView
+                        android:id="@+id/tv_diary_date"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
-                        android:layout_marginTop="6dp">
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/inter_extrabold_font"
+                        android:text="날짜를 선택해주세요!"
+                        android:textColor="@color/Theme_Indigo_Text"
+                        android:textSize="26dp" />
 
-                        <TextView
-                            android:id="@+id/tv_diary_date"
-                            android:layout_width="wrap_content"
-                            android:layout_height="50dp"
-                            android:layout_marginTop="10dp"
-                            android:fontFamily="@font/inter_extrabold_font"
-                            android:text="Tuesday August 2"
-                            android:textColor="@color/Theme_Indigo_Text"
-                            android:textSize="26dp" />
+                    <View
+                        android:layout_width="250dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:background="@color/Theme_Indigo" />
+                </FrameLayout>
 
-                        <View
-                            android:layout_width="250dp"
-                            android:layout_height="2dp"
-                            android:layout_gravity="bottom"
-                            android:background="@color/Theme_Indigo" />
-                    </FrameLayout>
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="20dp">
+                    <ImageView
+                        android:id="@+id/iv_last_time_no_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/last_time_no_content"
+                        android:visibility="invisible"
+                        android:layout_marginBottom="40dp"/>
+                    <ImageView
+                        android:id="@+id/iv_last_time_have_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="160dp"
+                        android:paddingTop="200dp"
+                        android:src="@drawable/last_time_have_content"
+                        android:visibility="invisible"
+                        android:layout_marginBottom="40dp"/>
 
                     <TextView
                         android:id="@+id/tv_last_time_main_text"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="20dp"
-                        android:text=""
-                        android:textSize="20dp"
                         android:fontFamily="@font/inter_bold"
-                        android:textColor="#707070"/>
-                </LinearLayout>
+                        android:text=""
+                        android:textColor="#707070"
+                        android:textSize="20dp" />
+
+
+                </FrameLayout>
             </LinearLayout>
+        </LinearLayout>
     </FrameLayout>
 
 
