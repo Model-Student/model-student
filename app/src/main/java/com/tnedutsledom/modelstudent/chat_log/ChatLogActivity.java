@@ -65,7 +65,7 @@ public class ChatLogActivity extends AppCompatActivity {
         lv_chat = findViewById(R.id.lv_chat);
         chat_log_list = new ArrayList<>();
         preferences = getSharedPreferences("user_info",MODE_PRIVATE);
-        ColRef = firebaseFirestore.collection("model_student").document(preferences.getString("email", "")).collection("chat_log");
+        ColRef = firebaseFirestore.collection("model_student").document(preferences.getString("email", "")).collection("ChatLog");
     }
 
     // 파이어베이스에서 순서대로 받아와서 아이템 리스트에 추가해주는 코드
