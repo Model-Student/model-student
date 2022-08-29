@@ -132,10 +132,9 @@ public class LastTimeActivity extends AppCompatActivity {
 
         //파이어 스토어 디렉토리 접근(여기서 어디를 참조할지 정함)
         app_ref = firebase_firestore.collection("model_student")
-                .document(preferences.getString("user_email",""))
+                .document(preferences.getString("email",""))
                 .collection("LastTime")
                 .document(get_date_to_firebase);
-        Log.d("1",preferences.getString("user_email",""));
         //앱에서 보낸 값 가져오기(실시간x 한번만)
         app_ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override

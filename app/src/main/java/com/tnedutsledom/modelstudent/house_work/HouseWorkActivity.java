@@ -144,7 +144,6 @@ public class HouseWorkActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             a = task.getResult().size();
-                            Log.d("야발ㄹㄹㄹㄹㄹㄹ", "onComplete: " + a);
                         } else {
                             //실패했을 경우
                         }
