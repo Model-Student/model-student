@@ -28,6 +28,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.tnedutsledom.modelstudent.intro_activitys.SplashActivity;
 import com.tnedutsledom.modelstudent.main_activity_fragment.FragmentMain;
 
 public class MainActivity extends FragmentActivity {
