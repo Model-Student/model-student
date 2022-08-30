@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_weight="1"
+    android:background="#DDEAEF"
+    android:orientation="vertical"
+    android:paddingTop="2dp"
+    android:paddingBottom="2dp">
+   <ScrollView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       app:layout_constraintLeft_toLeftOf="parent"
+       app:layout_constraintRight_toRightOf="parent"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintTop_toTopOf="parent">
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical"
+           android:padding="15dp">
+           <ImageView
+               android:id="@+id/iv_help_detail_ui"
+               android:layout_width="match_parent"
+               android:layout_height="700dp"
+               android:background="#647493"/>
+
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="300dp"
+               android:fontFamily="@font/inter_medium_font"
+               android:textColor="#B7232323"
+               android:textSize="16dp"
+               android:paddingTop="20dp"
+               android:text="설며어어어어어어ㅓ어어어어어어어어어엉ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ엉"
+               />
+       </LinearLayout>
+   </ScrollView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_help_detail_back"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.98"
+        app:layout_constraintHorizontal_bias="0.95"
+        android:background="@drawable/help_btn_shape"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

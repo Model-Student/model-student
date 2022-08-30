@@ -3,7 +3,9 @@ package com.tnedutsledom.modelstudent;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
@@ -107,22 +109,26 @@ public class MainActivity extends FragmentActivity {
         iv_btn_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 FragmentMain fragment_main = new FragmentMain();
-                transaction.replace(R.id.fl_fragment_container, fragment_main);
-                transaction.commit();
+                replaceFragment(fragment_main);
             }
         });
         iv_btn_help.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 FragmentHelp fragment_help = new FragmentHelp();
-                transaction.replace(R.id.fl_fragment_container, fragment_help);
-                transaction.commit();
+                replaceFragment(fragment_help);
             }
         });
     }
+
+    public void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fl_fragment_container, fragment).commit();
+    }
+
+
 
 
     void init() {
