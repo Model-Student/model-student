@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,8 +15,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.tnedutsledom.modelstudent.R;
 
 public class UserSelectActivity extends AppCompatActivity {
@@ -24,9 +31,8 @@ public class UserSelectActivity extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient; // 구글 로그인 객체
     private final int RC_SIGN_IN = 123;     // 구글 로그인 고유값 (신경안써도 ㄱㅊ)
     SignInButton sign_in_button;            // 구글 로그인 버튼
-    String user_email;                      // 유저 gmail 정보
 
-    private FirebaseAuth mAuth;
+    private FirebaseAuth mAuth = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,6 +43,7 @@ public class UserSelectActivity extends AppCompatActivity {
     }
     void init(){
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail() // email addresses 요청
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(UserSelectActivity.this, gso);
@@ -44,7 +51,7 @@ public class UserSelectActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
     }
 
-    void signInGoogle(){
+    private void signInGoogle() {
         sign_in_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,41 +61,51 @@ public class UserSelectActivity extends AppCompatActivity {
         });
     }
 
-    void startSignUpActivity(String user_email) {
-        Log.d("1",user_email);
-        Intent intent_view_change = new Intent(getApplicationContext(),SignUpActivity.class);
-        intent_view_change.putExtra("user_email",user_email);
-        startActivity(intent_view_change);
-        intent_view_change.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
-        finish();
-    }
-
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
-            // The Task returned from this call is always completed, no need to attach
-            // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleSignInResult(task);
-            startSignUpActivity(user_email);
+            try {
+                // Google Sign In was successful, authenticate with Firebase
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                firebaseAuthWithGoogle(account);
+            } catch (ApiException e) {
+                Log.e("구글 로그인 오류", "onActivityResult: ", e);
+            }
         }
     }
 
-    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
-        try {
-            GoogleSignInAccount acct = completedTask.getResult(ApiException.class);
-            if (acct != null) {
-                user_email = acct.getEmail();
-                Log.d("1", "handleSignInResult: " + user_email);
-            }
-        } catch (ApiException e) {
-            // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Log.e("1", "signInResult:failed code=" + e.getStatusCode());
+    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+
+                            Log.d("구글 로그인 성공", "onComplete: ");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            startSignUpActivity(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.d("구글 로그인 오류", "onComplete: ");
+                            startSignUpActivity(null);
+                        }
+                    }
+                });
+    }
+
+    void startSignUpActivity(FirebaseUser user) {
+        if (user != null) {
+            Intent intent_view_change = new Intent(getApplicationContext(), SignUpActivity.class);
+            intent_view_change.putExtra("user_email", user.getEmail());
+            startActivity(intent_view_change);
+            intent_view_change.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            finish();
         }
     }
+
 }

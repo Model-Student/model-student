@@ -353,33 +353,6 @@ public class SignUpActivity extends AppCompatActivity {
                 }
             }
         });
-        
-        //부모 권한일 때 자녀 이름 입력
-        et_sign_up_child_name_text.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() >= 3){
-                    //자녀 이름까지 입력하고 1초뒤 키보드 내려감
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            hideKeyboard();
-                        }
-                    }, 1000);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
     }
 
     // 키보드 숨기기

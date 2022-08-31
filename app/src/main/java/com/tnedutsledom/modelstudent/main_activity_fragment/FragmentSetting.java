@@ -22,6 +22,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.tnedutsledom.modelstudent.MainActivity;
 import com.tnedutsledom.modelstudent.R;
@@ -103,6 +104,10 @@ public class FragmentSetting extends Fragment {
 
                     }
                 });
+
+                // 파이어베이스에서 유저정보 삭제
+                FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                mAuth.getCurrentUser().delete();
 
                 // 시작화면으로 돌아가기기
                 Intent intent = new Intent(getActivity(), SplashActivity.class);
