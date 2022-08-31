@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_main_layout"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="#edeff2">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!--안내문-->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="145dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_setting_voice_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="어떤 목소리를 좋아하세요?"
+                    android:fontFamily="@font/inter_bold"
+                    android:textSize="24dp"
+                    android:textColor="#383838"
+                    android:gravity="center"
+                    android:layout_marginTop="20dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="취향에 맞는 목소리를 골라서"
+                    android:fontFamily="@font/inter_medium_font"
+                    android:textSize="16dp"
+                    android:gravity="center"
+                    android:layout_marginTop="65dp"
+                    android:textColor="#7E7E7E"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="NUGU에 적용해 보세요!"
+                    android:fontFamily="@font/inter_medium_font"
+                    android:textSize="16dp"
+                    android:gravity="center"
+                    android:layout_marginTop="88dp"
+                    android:textColor="#7E7E7E"/>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/setting_color_bubble"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="10dp"/>
+
+            </FrameLayout>
+
+            <!--테마 버튼-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="12dp">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:src="@drawable/setting_voice_tmp1"
+                            android:layout_marginBottom="5dp"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="뽀로로"
+                            android:gravity="center|bottom"
+                            android:textSize="18dp"
+                            android:fontFamily="@font/inter_semi_bold"
+                            android:textColor="#686868"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="12dp">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:src="@drawable/setting_voice_tmp3"
+                            android:layout_marginBottom="5dp"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="엉덩이 탐정"
+                            android:gravity="center|bottom"
+                            android:textSize="18dp"
+                            android:fontFamily="@font/inter_semi_bold"
+                            android:textColor="#686868"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="12dp">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:src="@drawable/setting_voice_tmp5"
+                            android:layout_marginBottom="5dp"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="기영이"
+                            android:gravity="center|bottom"
+                            android:textSize="18dp"
+                            android:fontFamily="@font/inter_semi_bold"
+                            android:textColor="#686868"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingTop="10dp"
+                    android:paddingRight="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="12dp">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:src="@drawable/setting_voice_tmp2"
+                            android:layout_marginBottom="5dp"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="타요"
+                            android:gravity="center|bottom"
+                            android:textSize="18dp"
+                            android:fontFamily="@font/inter_semi_bold"
+                            android:textColor="#76C8EC"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="12dp">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:src="@drawable/setting_voice_tmp4"
+                            android:layout_marginBottom="5dp"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="자두"
+                            android:gravity="center|bottom"
+                            android:textSize="18dp"
+                            android:fontFamily="@font/inter_semi_bold"
+                            android:textColor="#686868"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="12dp">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:src="@drawable/setting_voice_tmp6"
+                            android:layout_marginBottom="5dp"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="티미"
+                            android:gravity="center|bottom"
+                            android:textSize="18dp"
+                            android:fontFamily="@font/inter_semi_bold"
+                            android:textColor="#686868"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_voice_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#76C8EC"
+                android:text="변경하기"
+                android:textColor="#ffffff"
+                android:textSize="24dp"
+                android:elevation="10dp"
+                android:fontFamily="@font/inter_semi_bold"
+                android:layout_marginHorizontal="40dp"
+                android:layout_marginVertical="10dp"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

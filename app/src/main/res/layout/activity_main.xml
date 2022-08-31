@@ -87,7 +87,7 @@
             android:gravity="center"/>
 <!--        설정 아이콘-->
         <ImageView
-            android:id="@+id/btn_test_sp_delete"
+            android:id="@+id/iv_btn_setting"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
