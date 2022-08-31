@@ -3,7 +3,9 @@ package com.tnedutsledom.modelstudent;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
@@ -29,12 +31,13 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.tnedutsledom.modelstudent.intro_activitys.SplashActivity;
+import com.tnedutsledom.modelstudent.main_activity_fragment.FragmentHelp;
 import com.tnedutsledom.modelstudent.main_activity_fragment.FragmentMain;
 
 public class MainActivity extends FragmentActivity {
 
 
-    ImageView btn_delete_sp_TEST, iv_btn_home;
+    ImageView btn_delete_sp_TEST, iv_btn_home, iv_btn_help;
     private FirebaseFirestore firebase_firestore = FirebaseFirestore.getInstance(); //파이어스토어 연결
 
     @Override
@@ -88,7 +91,7 @@ public class MainActivity extends FragmentActivity {
                 });
 
                 // 시작화면으로 돌아가기기
-               Intent intent = new Intent(MainActivity.this, SplashActivity.class);
+                Intent intent = new Intent(MainActivity.this, SplashActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -106,17 +109,31 @@ public class MainActivity extends FragmentActivity {
         iv_btn_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 FragmentMain fragment_main = new FragmentMain();
-                transaction.replace(R.id.fl_fragment_container, fragment_main);
-                transaction.commit();
+                replaceFragment(fragment_main);
+            }
+        });
+        iv_btn_help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentHelp fragment_help = new FragmentHelp();
+                replaceFragment(fragment_help);
             }
         });
     }
 
+    public void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fl_fragment_container, fragment).commit();
+    }
+
+
+
 
     void init() {
         iv_btn_home = findViewById(R.id.iv_btn_home);
+        iv_btn_help = findViewById(R.id.iv_btn_help);
     }
 
     void fragmentInit() {

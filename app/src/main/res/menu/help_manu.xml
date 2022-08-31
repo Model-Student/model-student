@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/help_manu_house_work"
+        android:title="하우스워크"
+        android:icon="@drawable/ic_todo"
+        app:exb_color="#3EA88F"/>
+
+    <item
+        android:id="@+id/help_manu_chat_log"
+        android:title="아이의 하루"
+        android:icon="@drawable/ic_chat"
+        app:exb_color="#B65F78" />
+
+    <item
+        android:id="@+id/help_manu_last_time"
+        android:title="라스트타임"
+        android:icon="@drawable/ic_moon"
+        app:exb_color="#3B709A" />
+
+    <item
+        android:id="@+id/help_manu_setting"
+        android:title="설정"
+        android:icon="@drawable/ic_settings_24"
+        app:exb_color="#AA8B5C" />
+</menu>

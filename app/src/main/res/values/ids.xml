@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="icon_todo" type="id" />
+    <item name="icon_chat" type="id" />
+    <item name="icon_moon" type="id" />
+    <item name="icon_settings" type="id" />
+</resources>

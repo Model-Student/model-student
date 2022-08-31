@@ -8,16 +8,34 @@
         <entry key="..\:/Users/User/StudioProjects/model-student/app/src/main/res/layout/activity_sign_up.xml" value="0.2" />
         <entry key="..\:/Users/User/StudioProjects/model-student/app/src/main/res/layout/activity_splash.xml" value="0.2" />
         <entry key="..\:/Users/User/StudioProjects/model-student/app/src/main/res/layout/activity_user_select.xml" value="0.2" />
+        <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/drawable-v24/chat_log_kid_profile.xml" value="0.1" />
+        <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/drawable-v24/help_btn_shape.xml" value="0.1235" />
+        <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/drawable/banner_settings (2).xml" value="0.1115" />
+        <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/drawable/help_background_shape.xml" value="0.1465" />
+        <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/drawable/ic_banner_chat_log.xml" value="0.1235" />
+        <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/drawable/ic_chat.xml" value="0.1465" />
+        <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/drawable/ic_heart.xml" value="0.1465" />
+        <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/drawable/ic_hw_home_work.xml" value="0.1235" />
+        <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/drawable/ic_moon.xml" value="0.1465" />
+        <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/drawable/ic_settings_24.xml" value="0.1465" />
+        <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/drawable/ic_todo.xml" value="0.1465" />
+        <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/drawable/last_time_diary_background.xml" value="0.1465" />
+        <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/drawable/last_time_diary_hole.xml" value="0.1465" />
         <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/layout/activity_house_work.xml" value="0.2" />
         <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/layout/activity_last_time.xml" value="0.13100634632819583" />
         <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/layout/activity_main.xml" value="0.11196736174070716" />
         <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/layout/activity_sign_up.xml" value="0.11196736174070716" />
+        <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/layout/activity_user_select.xml" value="0.10175511909736733" />
+        <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/layout/chat_log_kid.xml" value="0.1" />
         <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/layout/fragment_chatlog.xml" value="0.10944848225737494" />
+        <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/layout/fragment_help.xml" value="0.2" />
+        <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/layout/fragment_help_detail.xml" value="0.20820863616930313" />
         <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/layout/fragment_main.xml" value="0.13852073535699017" />
+        <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/menu/help_manu.xml" value="0.20735356990166737" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
