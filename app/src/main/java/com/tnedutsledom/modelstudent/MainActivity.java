@@ -30,6 +30,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.shashank.sony.fancytoastlib.FancyToast;
 import com.tnedutsledom.modelstudent.intro_activitys.SplashActivity;
 import com.tnedutsledom.modelstudent.main_activity_fragment.FragmentHelp;
 import com.tnedutsledom.modelstudent.main_activity_fragment.FragmentMain;
@@ -38,6 +39,7 @@ public class MainActivity extends FragmentActivity {
 
 
     ImageView btn_delete_sp_TEST, iv_btn_home, iv_btn_help;
+    private long backpressedTime = 0;
     private FirebaseFirestore firebase_firestore = FirebaseFirestore.getInstance(); //파이어스토어 연결
 
     @Override
@@ -141,5 +143,15 @@ public class MainActivity extends FragmentActivity {
         FragmentMain fragment_main = new FragmentMain();
         transaction.replace(R.id.fl_fragment_container, fragment_main);
         transaction.commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() > backpressedTime + 2000) {
+            backpressedTime = System.currentTimeMillis();
+            FancyToast.makeText(this,"한번 더 누르시면 종료됩니다.", FancyToast.LENGTH_SHORT, FancyToast.INFO,false).show();
+        } else if (System.currentTimeMillis() <= backpressedTime + 2000) {
+            finish();
+        }
     }
 }

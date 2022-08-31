@@ -25,6 +25,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.shashank.sony.fancytoastlib.FancyToast;
 import com.tnedutsledom.modelstudent.FirebaseAdapter.ChildAdapter;
 import com.tnedutsledom.modelstudent.FirebaseAdapter.ParentAdapter;
 import com.tnedutsledom.modelstudent.MainActivity;
@@ -46,6 +47,7 @@ public class SignUpActivity extends AppCompatActivity {
     ImageView iv_sign_up_first_banana, iv_sign_up_second_banana, iv_sign_up_third_banana_parent, iv_sign_up_third_banana_child;// 바나나 이미지
     private FirebaseFirestore firebase_firestore = FirebaseFirestore.getInstance();// 파이어스토어 연결
     private SharedPreferences preferences;// 비밀번호 내부에 저장
+    private long backpressedTime = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,6 +58,16 @@ public class SignUpActivity extends AppCompatActivity {
         setBt_sign_up_login();
         setEtLengthLimit();
         stepEvent();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() > backpressedTime + 2000) {
+            backpressedTime = System.currentTimeMillis();
+            FancyToast.makeText(this,"한번 더 누르시면 종료됩니다.", FancyToast.LENGTH_SHORT, FancyToast.INFO,false).show();
+        } else if (System.currentTimeMillis() <= backpressedTime + 2000) {
+            finish();
+        }
     }
 
     void getInfo() {
