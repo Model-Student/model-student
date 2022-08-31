@@ -34,13 +34,13 @@ import com.shashank.sony.fancytoastlib.FancyToast;
 import com.tnedutsledom.modelstudent.intro_activitys.SplashActivity;
 import com.tnedutsledom.modelstudent.main_activity_fragment.FragmentHelp;
 import com.tnedutsledom.modelstudent.main_activity_fragment.FragmentMain;
+import com.tnedutsledom.modelstudent.main_activity_fragment.FragmentSetting;
 
 public class MainActivity extends FragmentActivity {
 
-
-    ImageView btn_delete_sp_TEST, iv_btn_home, iv_btn_help;
     private long backpressedTime = 0;
     private FirebaseFirestore firebase_firestore = FirebaseFirestore.getInstance(); //파이어스토어 연결
+    ImageView iv_btn_setting, iv_btn_home, iv_btn_help;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,56 +49,10 @@ public class MainActivity extends FragmentActivity {
         init();
         fragmentInit();
         firstCheck();
-        TEST_DELETE_USER_DATA();
         setBtnFragment();
 
     }
 
-    void TEST_DELETE_USER_DATA() {
-        btn_delete_sp_TEST = findViewById(R.id.btn_test_sp_delete);
-        btn_delete_sp_TEST.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SharedPreferences preferences = getSharedPreferences("user_info",MODE_PRIVATE);
-                //파이어베이스의 유저정보 삭제
-                firebase_firestore.collection("model_student").document(preferences.getString("email", ""))
-                        .delete()
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d("파이어베이스 유저정보 삭제 여부", "DocumentSnapshot successfully deleted!");
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w("파이어베이스 유저정보 삭제 여부", "Error deleting document", e);
-                            }
-                        });
-                // SharedPreferences의 유저정보 삭제
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.clear();
-                editor.commit();
-
-                // 구글로그인 객체에서 정보 삭제
-                GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                        .requestEmail()
-                        .build();
-                GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(MainActivity.this, gso);
-                mGoogleSignInClient.signOut().addOnCompleteListener(MainActivity.this, new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-
-                    }
-                });
-
-                // 시작화면으로 돌아가기기
-                Intent intent = new Intent(MainActivity.this, SplashActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-    }
 
     void firstCheck(){
         SharedPreferences pref = getSharedPreferences("checkFirst", Activity.MODE_PRIVATE);
@@ -122,6 +76,14 @@ public class MainActivity extends FragmentActivity {
                 replaceFragment(fragment_help);
             }
         });
+
+        iv_btn_setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentSetting fragment_setting = new FragmentSetting();
+                replaceFragment(fragment_setting);
+            }
+        });
     }
 
     public void replaceFragment(Fragment fragment) {
@@ -136,6 +98,7 @@ public class MainActivity extends FragmentActivity {
     void init() {
         iv_btn_home = findViewById(R.id.iv_btn_home);
         iv_btn_help = findViewById(R.id.iv_btn_help);
+        iv_btn_setting = findViewById(R.id.iv_btn_setting);
     }
 
     void fragmentInit() {
