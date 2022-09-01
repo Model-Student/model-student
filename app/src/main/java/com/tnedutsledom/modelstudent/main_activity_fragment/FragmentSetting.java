@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,12 +32,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.shashank.sony.fancytoastlib.FancyToast;
 import com.tnedutsledom.modelstudent.MainActivity;
 import com.tnedutsledom.modelstudent.R;
+import com.tnedutsledom.modelstudent.faq.FragmentFaq;
 import com.tnedutsledom.modelstudent.intro_activitys.SplashActivity;
 
 public class FragmentSetting extends Fragment {
 
     View v;
-    LinearLayout ll_btn_delete_account, ll_btn_change_color, ll_btn_change_voice, ll_btn_change_child_name;
+    LinearLayout ll_btn_delete_account, ll_btn_change_color, ll_btn_change_voice, ll_btn_change_child_name, ll_btn_faq;
     TextView tv_user_title;
 
     private FirebaseFirestore firebase_firestore = FirebaseFirestore.getInstance(); //파이어스토어 연결
@@ -58,6 +58,7 @@ public class FragmentSetting extends Fragment {
         setLl_btn_change_color();
         setLl_btn_change_child_name();
         setLl_btn_change_voice();
+        setLl_btn_faq();
         setTv_user_title();
         return v;
     }
@@ -163,6 +164,15 @@ public class FragmentSetting extends Fragment {
         });
     }
 
+    public void setLl_btn_faq() {
+        ll_btn_faq.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity) getActivity()).replaceFragment(FragmentFaq.newInstance());
+            }
+        });
+    }
+
     public void setLl_btn_delete_account() {
         ll_btn_delete_account.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -219,5 +229,6 @@ public class FragmentSetting extends Fragment {
         ll_btn_change_child_name = v.findViewById(R.id.ll_btn_change_child_name);
         preferences = getActivity().getSharedPreferences("user_info", MODE_PRIVATE);
         tv_user_title = v.findViewById(R.id.tv_setting_user_title);
+        ll_btn_faq = v.findViewById(R.id.ll_btn_faq);
     }
 }

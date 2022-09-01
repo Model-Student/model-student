@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F2F2F2">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="65dp"
+        android:src="@drawable/ic_faq_question"
+        android:layout_marginLeft="15dp"/>
+
+    <TextView
+        android:id="@+id/header_text"
+        android:layout_width="wrap_content"
+        android:layout_height="65dp"
+        android:padding="10dp"
+        android:textColor="#383838"
+        android:textSize="18dp"
+        android:fontFamily="@font/inter_semi_bold"
+        android:text="학교는 왜 항상 가기 싫은걸까요?"
+        android:gravity="center|left"/>
+
+</LinearLayout>
