@@ -86,15 +86,18 @@
                             android:paddingLeft="5dp"
                             android:textSize="12dp"/>
 
-                        <androidx.appcompat.widget.AppCompatButton
+                        <TextView
                             android:id="@+id/btn_help_start_detail"
                             android:layout_width="36dp"
                             android:layout_height="36dp"
                             android:background="@drawable/help_btn_shape"
                             android:layout_gravity="right"
-                            android:text="\?"
+                            android:text="i"
+                            android:layout_margin="3dp"
+                            android:gravity="center"
                             android:textColor="#ffffff"
-                            android:textSize="16dp"/>
+                            android:textSize="18dp"
+                            android:elevation="3dp"/>
                     </LinearLayout>
 
                 </LinearLayout>

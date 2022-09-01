@@ -29,7 +29,7 @@ public class FragmentHelp extends Fragment {
     Menu menu;
     TextView tv_title, tv_description;
     ImageView iv_banner;
-    AppCompatButton btn_start_detail;
+    TextView tv_start_detail;
     public static int categoryHelp = 0;
     String title;
     String[] titleColor = {"#3EA88F","#B65F78","#3B709A","#AA8B5C"};
@@ -47,7 +47,7 @@ public class FragmentHelp extends Fragment {
         v = inflater.inflate(R.layout.fragment_help, container, false);
         init();
         initBottomBar();
-        setBtn_start_detail();
+        settv_start_detail();
 
         return v;
     }
@@ -56,8 +56,8 @@ public class FragmentHelp extends Fragment {
         return new FragmentHelp();
     }
 
-    void setBtn_start_detail() {
-        btn_start_detail.setOnClickListener(new View.OnClickListener() {
+    void settv_start_detail() {
+        tv_start_detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ((MainActivity)getActivity()).replaceFragment(FragmentHelpDetail.newInstance());
@@ -110,7 +110,7 @@ public class FragmentHelp extends Fragment {
         tv_title = v.findViewById(R.id.tv_help_title);
         tv_description = v.findViewById(R.id.tv_help_description);
         iv_banner = v.findViewById(R.id.iv_help_banner);
-        btn_start_detail = v.findViewById(R.id.btn_help_start_detail);
+        tv_start_detail = v.findViewById(R.id.btn_help_start_detail);
         menu = bottom_bar.getMenu();
         setHelpView(categoryHelp, "하우스워크");
     }
