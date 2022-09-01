@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:background="@drawable/setting_change_child_name_shape">
+
+    <TextView
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="아이 이름을 설정해주세요"
+        android:layout_margin="10dp"
+        android:textColor="#ffffff"
+        android:textSize="20dp"
+        android:fontFamily="@font/inter_semi_bold"
+        android:gravity="left|center"/>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="250dp"
+        android:layout_height="100dp">
+        <EditText
+            android:id="@+id/et_change_child_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/Theme_Indigo_Text"
+            android:textColorHint="#B34E7EA3"
+            android:background="#ffffff"
+            android:padding="8dp"
+            android:layout_marginHorizontal="20dp"
+            android:hint="ex) 홍길동"
+            android:textSize="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.3"
+            app:layout_constraintHorizontal_bias="0.1"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_change_name_accept"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:text="확인"
+            android:background="#00ffffff"
+            android:textColor="#ffffff"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintHorizontal_bias="1.0"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_change_name_cancel"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:text="취소"
+            android:background="#00ffffff"
+            android:textColor="#ffffff"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/btn_change_name_accept"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintHorizontal_bias="1.0"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

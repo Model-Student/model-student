@@ -2,6 +2,7 @@ package com.tnedutsledom.modelstudent.main_activity_fragment;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,10 +10,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -23,7 +28,9 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.shashank.sony.fancytoastlib.FancyToast;
 import com.tnedutsledom.modelstudent.MainActivity;
 import com.tnedutsledom.modelstudent.R;
 import com.tnedutsledom.modelstudent.intro_activitys.SplashActivity;
@@ -31,9 +38,12 @@ import com.tnedutsledom.modelstudent.intro_activitys.SplashActivity;
 public class FragmentSetting extends Fragment {
 
     View v;
-    LinearLayout ll_btn_delete_account, ll_btn_change_color, ll_btn_change_voice;
+    LinearLayout ll_btn_delete_account, ll_btn_change_color, ll_btn_change_voice, ll_btn_change_child_name;
+    TextView tv_user_title;
 
     private FirebaseFirestore firebase_firestore = FirebaseFirestore.getInstance(); //파이어스토어 연결
+    SharedPreferences preferences;
+
 
     public static FragmentSetting newInstance() {
         return new FragmentSetting();
@@ -46,15 +56,100 @@ public class FragmentSetting extends Fragment {
         init();
         setLl_btn_delete_account();
         setLl_btn_change_color();
+        setLl_btn_change_child_name();
         setLl_btn_change_voice();
+        setTv_user_title();
         return v;
+    }
+
+    void setTv_user_title() {
+        tv_user_title.setText(getChildName() + " " + getMotherOrFather());
+    }
+
+    String getChildName() {
+        String childName = preferences.getString("child_name", "");
+        if (childName.length() < 3) {
+            return childName;
+        } else {
+            return childName.substring(1);
+        }
+    }
+
+    String getMotherOrFather() {
+        String mother_or_father = preferences.getString("mother_or_father", "");
+        if (mother_or_father.equals("모")) {
+            return "엄마";
+        } else {
+            return "아빠";
+        }
+    }
+
+    public void setLl_btn_change_child_name() {
+        ll_btn_change_child_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showNameChangeDialog();
+            }
+        });
+    }
+
+    void showNameChangeDialog() {
+        Dialog child_name_change_dialog;
+        child_name_change_dialog = new Dialog(getActivity());
+        child_name_change_dialog.setContentView(R.layout.dialog_setting_child_name);
+        child_name_change_dialog.show();
+
+        EditText et_value = child_name_change_dialog.findViewById(R.id.et_change_child_name);
+        AppCompatButton btn_accept = child_name_change_dialog.findViewById(R.id.btn_change_name_accept);
+        AppCompatButton btn_cancel = child_name_change_dialog.findViewById(R.id.btn_change_name_cancel);
+
+        btn_accept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!et_value.getText().toString().equals("")) {
+                    DocumentReference ref = firebase_firestore.collection("model_student").document(preferences.getString("email", ""))
+                            .collection("SignUp").document(preferences.getString("mother_or_father", ""));
+
+                    ref.update("child_name", et_value.getText().toString())
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("아이 이름 변경", "DocumentSnapshot successfully updated!");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("아이 이름 변경", "Error updating document", e);
+                                }
+                            });
+
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("child_name", et_value.getText().toString());
+                    editor.commit();
+                    setTv_user_title();
+
+                    child_name_change_dialog.dismiss();
+
+                } else {
+                    FancyToast.makeText(getActivity(), "입력값을 확인해주세요.", FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show();
+                }
+            }
+        });
+
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                child_name_change_dialog.dismiss();
+            }
+        });
     }
 
     public void setLl_btn_change_color() {
         ll_btn_change_color.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).replaceFragment(FragmentSettingThemeColor.newInstance());
+                ((MainActivity) getActivity()).replaceFragment(FragmentSettingThemeColor.newInstance());
             }
         });
     }
@@ -63,7 +158,7 @@ public class FragmentSetting extends Fragment {
         ll_btn_change_voice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).replaceFragment(FragmentSettingNuguVoice.newInstance());
+                ((MainActivity) getActivity()).replaceFragment(FragmentSettingNuguVoice.newInstance());
             }
         });
     }
@@ -121,5 +216,8 @@ public class FragmentSetting extends Fragment {
         ll_btn_delete_account = v.findViewById(R.id.ll_btn_delete_account);
         ll_btn_change_color = v.findViewById(R.id.ll_btn_change_theme_color);
         ll_btn_change_voice = v.findViewById(R.id.ll_btn_change_nugu_voice);
+        ll_btn_change_child_name = v.findViewById(R.id.ll_btn_change_child_name);
+        preferences = getActivity().getSharedPreferences("user_info", MODE_PRIVATE);
+        tv_user_title = v.findViewById(R.id.tv_setting_user_title);
     }
 }
