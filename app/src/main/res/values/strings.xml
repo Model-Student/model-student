@@ -22,6 +22,12 @@
         <item>기타</item>
     </string-array>
 
+    <string-array name="bottom_navi_item">
+        <item>help</item>
+        <item>home</item>
+        <item>setting</item>
+    </string-array>
+
     <string-array name="custom_weekdays">
         <item>SUN</item>
         <item>MON</item>

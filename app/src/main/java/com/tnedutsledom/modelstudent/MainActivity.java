@@ -1,6 +1,7 @@
 package com.tnedutsledom.modelstudent;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
@@ -36,11 +37,15 @@ import com.tnedutsledom.modelstudent.main_activity_fragment.FragmentHelp;
 import com.tnedutsledom.modelstudent.main_activity_fragment.FragmentMain;
 import com.tnedutsledom.modelstudent.main_activity_fragment.FragmentSetting;
 
+import org.jetbrains.annotations.NotNull;
+
+import nl.joery.animatedbottombar.AnimatedBottomBar;
+
 public class MainActivity extends FragmentActivity {
 
     private long backpressedTime = 0;
     private FirebaseFirestore firebase_firestore = FirebaseFirestore.getInstance(); //파이어스토어 연결
-    ImageView iv_btn_setting, iv_btn_home, iv_btn_help;
+    AnimatedBottomBar animatedBottomBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,26 +67,28 @@ public class MainActivity extends FragmentActivity {
     }
 
     void setBtnFragment() {
-        iv_btn_home.setOnClickListener(new View.OnClickListener() {
+        animatedBottomBar.setOnTabSelectListener(new AnimatedBottomBar.OnTabSelectListener() {
             @Override
-            public void onClick(View view) {
-                FragmentMain fragment_main = new FragmentMain();
-                replaceFragment(fragment_main);
-            }
-        });
-        iv_btn_help.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentHelp fragment_help = new FragmentHelp();
-                replaceFragment(fragment_help);
-            }
-        });
+            public void onTabReselected(int i, @NonNull AnimatedBottomBar.Tab tab) {
 
-        iv_btn_setting.setOnClickListener(new View.OnClickListener() {
+            }
+
             @Override
-            public void onClick(View view) {
-                FragmentSetting fragment_setting = new FragmentSetting();
-                replaceFragment(fragment_setting);
+            public void onTabSelected(int lastIndex, @Nullable AnimatedBottomBar.Tab lastTab, int newIndex, @NotNull AnimatedBottomBar.Tab newTab) {
+                switch (newTab.getId()) {
+                    case R.id.menu_help:
+                        FragmentHelp fragment_help = new FragmentHelp();
+                        replaceFragment(fragment_help);
+                        break;
+                    case R.id.menu_home:
+                        FragmentMain fragment_main = new FragmentMain();
+                        replaceFragment(fragment_main);
+                        break;
+                    case R.id.menu_setting:
+                        FragmentSetting fragment_setting = new FragmentSetting();
+                        replaceFragment(fragment_setting);
+                        break;
+                }
             }
         });
     }
@@ -96,9 +103,7 @@ public class MainActivity extends FragmentActivity {
 
 
     void init() {
-        iv_btn_home = findViewById(R.id.iv_btn_home);
-        iv_btn_help = findViewById(R.id.iv_btn_help);
-        iv_btn_setting = findViewById(R.id.iv_btn_setting);
+        animatedBottomBar = findViewById(R.id.main_bottom_bar);
     }
 
     void fragmentInit() {

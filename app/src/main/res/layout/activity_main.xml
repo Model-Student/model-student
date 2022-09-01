@@ -48,55 +48,25 @@
         android:orientation="vertical"
         android:background="#edeff2"
         android:paddingTop="2dp"
-        android:paddingBottom="2dp"
         >
 
     </FrameLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#DCDADA"/>
 <!--    하단바-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="6"
-        android:orientation="horizontal"
-        android:background="#ffffff"
-        >
-<!--        도움말 아이콘-->
-        <ImageView
-            android:id="@+id/iv_btn_help"
+        <nl.joery.animatedbottombar.AnimatedBottomBar
+            android:id="@+id/main_bottom_bar"
+            android:background="#FFF"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:src="@drawable/ic_help_not_fill"
-            android:backgroundTint="@color/Theme_Indigo"
-            android:padding="10dp"
-            android:gravity="center"/>
-<!--        홈 아이콘-->
-        <ImageView
-            android:id="@+id/iv_btn_home"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:src="@drawable/ic_home_not_fill"
-            android:backgroundTint="@color/Theme_Indigo"
-            android:padding="10dp"
-            android:gravity="center"/>
-<!--        설정 아이콘-->
-        <ImageView
-            android:id="@+id/iv_btn_setting"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:src="@drawable/ic_settings_not_fill"
-            android:backgroundTint="@color/Theme_Indigo"
-            android:padding="10dp"
-            android:gravity="center"/>
-
-
-    </LinearLayout>
-
+            android:layout_weight="6"
+            app:abb_selectedTabType="text"
+            app:abb_indicatorAppearance="round"
+            app:abb_indicatorMargin="16dp"
+            app:abb_indicatorHeight="4dp"
+            app:abb_tabs="@menu/main_manu"
+            app:abb_selectedIndex="1"
+            app:abb_textAppearance="@style/BottomBarText"
+            app:abb_tabColor="@color/Theme_Indigo_Text"
+            app:abb_tabColorSelected="@color/Theme_Indigo"
+            app:abb_tabAnimation="slide"
+            app:abb_indicatorColor="@color/Theme_Indigo"/>
 </LinearLayout>
