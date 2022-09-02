@@ -7,8 +7,39 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+
     <color name="Theme_Indigo">#083C60</color>
     <color name="Theme_Indigo_Text">#285E79</color>
+    <color name="theme_Indigo_back">#DDEAEF</color>
+
+    <color name="Theme_Modern">#7CAB8C</color>
+    <color name="Theme_Modern_Text">#E5DAAB</color>
+    <color name="Theme_Modern_back">#EAEFDD</color>
+
+    <color name="Theme_Chic">#657FB9</color>
+    <color name="Theme_Chic_text">#91B0D0</color>
+    <color name="Theme_Chic_back">#DDE1EF</color>
+
+    <color name="Theme_Mono">#716436</color>
+    <color name="Theme_Mono_Text">#DBD79A</color>
+    <color name="Theme_Mono_back">#EFEBDD</color>
+
+    <color name="Theme_Barry">#FE91BF</color>
+    <color name="Theme_Barry_Text">#FCB4D1</color>
+    <color name="theme_Barry_back">#EFDDEA</color>
+
+    <color name="Theme_Pink">#F73D93</color>
+    <color name="Theme_Pink_Text">#16003B</color>
+    <color name="theme_Pink_back">#EFDDEA</color>
+
+    <color name="Theme_Fresh">#66BFBF</color>
+    <color name="Theme_Fresh_Text">#CAFDFD</color>
+    <color name="theme_Fresh_back">#DDEDEF</color>
+
+<!--    <color name="Theme_Indigo">#083C60</color>-->
+<!--    <color name="Theme_Indigo_Text">#285E79</color>-->
+<!--    <color name="theme_Indigo_back">#DDEAEF</color>-->
 
 
     <!--
