@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 
 import com.tnedutsledom.modelstudent.R;
+import com.tnedutsledom.modelstudent.ThemeColorAdaptor;
 
 import java.util.ArrayList;
 
@@ -31,6 +32,8 @@ public class WorkListViewAdaptor extends BaseAdapter {
 
     int nowCategory;                        // 현재 화면에 표시되는 카테고리
 
+    ThemeColorAdaptor colorAdaptor;
+
     public WorkListViewAdaptor(Context context, int category) {
         se = StaticElement.getInstance();
         this.context = context;
@@ -39,6 +42,7 @@ public class WorkListViewAdaptor extends BaseAdapter {
         layoutInflater = LayoutInflater.from(context);
         anim_alpha_100 = AnimationUtils.loadAnimation(context, R.anim.alpha100);
         anim_alpha_0 = AnimationUtils.loadAnimation(context, R.anim.alpha0);
+        colorAdaptor = ThemeColorAdaptor.getInstance(context);
     }
 
     // 현재 화면에 표시되고있는 카테고리를 반환
@@ -234,6 +238,8 @@ public class WorkListViewAdaptor extends BaseAdapter {
         TextView tv_work_name = house_work_item.findViewById(R.id.tv_hw_work_name);
         ImageView iv_selected = house_work_item.findViewById(R.id.iv_hw_selected);
         LinearLayout ll_item = house_work_item.findViewById(R.id.ll_hw_item);
+
+        colorAdaptor.setViewColorText(iv_selected);
 
         iv_selected.startAnimation(setVisible(i)); // 현재 아이템이 선택되어있는지 표시
 

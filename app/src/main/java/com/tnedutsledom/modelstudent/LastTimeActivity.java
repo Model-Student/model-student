@@ -8,6 +8,7 @@ import android.content.ContentValues;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -40,25 +41,29 @@ import java.util.Calendar;
 public class LastTimeActivity extends AppCompatActivity {
 
     private MaterialCalendarView cv_calender; // 캘린더
-    private TextView tv_diary_date; // 일기 날짜 표시 텍스트뷰
     private LinearLayout ll_diary; // 일기장 바탕 레이아웃
     private boolean drag = false; // 일기장 터치가 가능한 상태인지 아닌지 ( false = 가능 / true = 불가능 )
 
+    TextView tv_diary_date; // 일기 날짜 표시 텍스트뷰
     TextView tv_last_time_diary_text; // 일기 내용 표시 텍스트뷰
+    View v_under_line;
     ImageView iv_have_content, iv_no_content;
 
     private FirebaseFirestore firebase_firestore = FirebaseFirestore.getInstance(); //파이어스토어 연결
     DocumentReference app_ref; //파이어 스토어 Document 접근
 
     SQLiteHelper db_helper = new SQLiteHelper(LastTimeActivity.this); //SQLite 데이터 셋 설정
+    ThemeColorAdaptor colorAdaptor;
 
     private SharedPreferences preferences;// 비밀번호 내부에 저장
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_last_time);
         init(); // 초기세팅
         calenderDesignInit(); // 캘린더 디자인 세팅
+        setActivityTheme();
         selectDate(); // 날짜 선택시 실행하는 메소두
         dragDiary(); // 일기장 창을 드래그할 때
     }
@@ -127,6 +132,14 @@ public class LastTimeActivity extends AppCompatActivity {
         });
     }
 
+    void setActivityTheme() {
+        colorAdaptor.setTheme(preferences.getInt("theme", 0));
+        colorAdaptor.setViewColorTheme(v_under_line);
+        colorAdaptor.setViewColorText(tv_diary_date);
+        colorAdaptor.setCalenderTheme(cv_calender);
+    }
+
+
     void init() {
         cv_calender = findViewById(R.id.cv_last_time_calender);
         tv_diary_date = findViewById(R.id.tv_diary_date);
@@ -135,18 +148,21 @@ public class LastTimeActivity extends AppCompatActivity {
         tv_last_time_diary_text = findViewById(R.id.tv_last_time_main_text);//일기 표시 텍스트 뷰
         iv_have_content = findViewById(R.id.iv_last_time_have_content);
         iv_no_content = findViewById(R.id.iv_last_time_no_content);
+        colorAdaptor = ThemeColorAdaptor.getInstance(getApplicationContext());
+        v_under_line = findViewById(R.id.view_under_line);
+        preferences = getSharedPreferences("user_info", MODE_PRIVATE);
 
     }
+
     //선택한 날짜가 SQL에 없으면 파이어베이스에 쿼리
     void getFireBaseLastTime(String get_date_to_firebase) {
         //내부에 저장된 비밀번호로 참조
-        preferences = getSharedPreferences("user_info",MODE_PRIVATE);
 
         Log.d("1", "파이어베이스에 쿼리");
 
         //파이어 스토어 디렉토리 접근(여기서 어디를 참조할지 정함)
         app_ref = firebase_firestore.collection("model_student")
-                .document(preferences.getString("email",""))
+                .document(preferences.getString("email", ""))
                 .collection("LastTime")
                 .document(get_date_to_firebase);
         //앱에서 보낸 값 가져오기(실시간x 한번만)
@@ -165,7 +181,7 @@ public class LastTimeActivity extends AppCompatActivity {
                             setSQLValue(document.getString("Date"), document.getString("Text"));
                         } catch (Exception e) {
                             //가져올 값이 없는 경우
-                            Log.d("1","값이 없슴다");
+                            Log.d("1", "값이 없슴다");
                         }
 
                     } else {
@@ -191,7 +207,6 @@ public class LastTimeActivity extends AppCompatActivity {
         // 월, 요일을 한글로 보이게 설정 (MonthArrayTitleFormatter의 작동을 확인하려면 밑의 setTitleFormatter()를 지운다)
         cv_calender.setTitleFormatter(new MonthArrayTitleFormatter(getResources().getTextArray(R.array.custom_months)));
         cv_calender.setWeekDayFormatter(new ArrayWeekDayFormatter(getResources().getTextArray(R.array.custom_weekdays)));
-//        cv_calender.setWeekDayTextAppearance(Color.parseColor("#D94925"));
 
         // 좌우 화살표 사이 연, 월의 폰트 스타일 설정
         cv_calender.setHeaderTextAppearance(R.style.CalendarWidgetHeader);
@@ -244,9 +259,9 @@ public class LastTimeActivity extends AppCompatActivity {
         //읽기 권한 설정
         SQLiteDatabase sql_db_reader = db_helper.getReadableDatabase();
 
-            //SELECT * FROM 테이블명 WHERE 필드='조건' SQL문 작성
-            Cursor cursor = sql_db_reader.rawQuery("SELECT * FROM " + TableInfo.TABLE_NAME + " WHERE DATE = " + "'" + date + "'", null);
-            //DB에서 오류가 나도 앱 구동에는 지장 없게 Try,catch
+        //SELECT * FROM 테이블명 WHERE 필드='조건' SQL문 작성
+        Cursor cursor = sql_db_reader.rawQuery("SELECT * FROM " + TableInfo.TABLE_NAME + " WHERE DATE = " + "'" + date + "'", null);
+        //DB에서 오류가 나도 앱 구동에는 지장 없게 Try,catch
         try {
             //커서가 있고 가장 위 아이템에 있을 때(기본값)
             if (cursor != null && cursor.moveToFirst()) {
@@ -254,7 +269,7 @@ public class LastTimeActivity extends AppCompatActivity {
                 //일기 텍스트뷰에 검색 결과 두 번째 열의 값(일기 텍스트) 넣기 / 첫 번째 값은 날짜임
                 tv_last_time_diary_text.setText(cursor.getString(2));
                 showHaveContentImage();
-            }else {
+            } else {
                 //관련 값이 없으면 텍스트뷰를 NUll로 바꾸고 데이터베이스에 쿼리
                 tv_last_time_diary_text.setText("일기가 비어있어요.");
                 showNoContentImage();

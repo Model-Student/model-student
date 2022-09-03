@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.tnedutsledom.modelstudent.MainActivity;
 import com.tnedutsledom.modelstudent.R;
+import com.tnedutsledom.modelstudent.ThemeColorAdaptor;
 
 public class SplashActivity extends AppCompatActivity {
     //Splash FadeIn 애니메이션
@@ -23,13 +25,16 @@ public class SplashActivity extends AppCompatActivity {
     TextView tv_logo,tv_small_text;
     //전체를 감싸는 레이아웃
     LinearLayout ll_splash_layout;
+    ImageView iv_splash_background;
     SharedPreferences preferences;
+    ThemeColorAdaptor colorAdaptor;
     boolean already_account = false;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         init();
+        setActivityTheme();
         delayed();
     }
 
@@ -45,7 +50,17 @@ public class SplashActivity extends AppCompatActivity {
         ll_splash_layout = findViewById(R.id.ll_splash_layout);
         ll_splash_layout.startAnimation(fadeInAnim);
 
+        iv_splash_background = findViewById(R.id.iv_splash_background);
+
+        colorAdaptor = ThemeColorAdaptor.getInstance(getApplicationContext());
+
         preferences = getSharedPreferences("user_info",MODE_PRIVATE);
+    }
+
+    void setActivityTheme() {
+        colorAdaptor.setTheme(preferences.getInt("theme", 0));
+        colorAdaptor.setViewColorBack(ll_splash_layout);
+        colorAdaptor.setViewColorImg(iv_splash_background);
     }
     //화면전환 딜레이 주기
     void delayed(){

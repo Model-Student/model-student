@@ -14,10 +14,11 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="65dp"
-            android:src="@drawable/ic_faq_answer"
-            android:layout_marginLeft="15dp"/>
+            android:src="@drawable/ic_faq_answer_1"
+            android:paddingLeft="18dp"
+            android:paddingRight="6dp"/>
 
         <TextView
             android:id="@+id/tv_faq_answer"
@@ -29,7 +30,7 @@
             android:textSize="18dp"
             android:fontFamily="@font/inter_light"
             android:layout_marginRight="30dp"
-            android:text="네, 그건 주7일 중에 5일은 학교에 가기 때문에 주말이 너무 적어서 입니다.qwdqdwdqwdwqddqw"
+            android:text="진선이의 진선이는 진선이가 진선했기때문에 진선이를 진선했다고 진선이가 진선이에게 알려줬다."
             android:gravity="top"
             android:layout_marginBottom="30dp"/>
     </LinearLayout>

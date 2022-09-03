@@ -7,12 +7,14 @@
     android:layout_weight="1"
     android:background="#DDEAEF"
     android:orientation="vertical"
+    android:id="@+id/ll_help_back"
     android:paddingTop="2dp">
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
         <ImageView
+            android:id="@+id/iv_help_back"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"

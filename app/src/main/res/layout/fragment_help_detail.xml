@@ -5,10 +5,11 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_weight="1"
-    android:background="#DDEAEF"
+    android:background="@color/Theme_Indigo_Back"
     android:orientation="vertical"
     android:paddingTop="2dp"
-    android:paddingBottom="2dp">
+    android:paddingBottom="2dp"
+    android:id="@+id/cl_help_detail_back">
    <ScrollView
        android:layout_width="match_parent"
        android:layout_height="match_parent"

@@ -5,5 +5,5 @@
         android:topRightRadius="20dp"
         android:topLeftRadius="20dp"/>
     <solid
-        android:color="#4365A2" />
+        android:color="@color/Theme_Indigo_Text" />
 </shape>

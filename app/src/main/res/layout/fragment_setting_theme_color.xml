@@ -80,6 +80,7 @@
                         android:paddingTop="10dp">
 
                         <ImageView
+                            android:id="@+id/iv_theme_0"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -87,6 +88,7 @@
                             android:layout_marginBottom="16dp"/>
 
                         <ImageView
+                            android:id="@+id/iv_theme_2"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -94,6 +96,7 @@
                             android:src="@drawable/ic_theme_color_2" />
 
                         <ImageView
+                            android:id="@+id/iv_theme_4"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -101,6 +104,7 @@
                             android:src="@drawable/ic_theme_color_4" />
 
                         <ImageView
+                            android:id="@+id/iv_theme_6"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -117,6 +121,7 @@
                         android:paddingRight="20dp">
 
                         <ImageView
+                            android:id="@+id/iv_theme_1"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -124,6 +129,7 @@
                             android:src="@drawable/ic_theme_color_1" />
 
                         <ImageView
+                            android:id="@+id/iv_theme_3"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -131,6 +137,7 @@
                             android:src="@drawable/ic_theme_color_3" />
 
                         <ImageView
+                            android:id="@+id/iv_theme_5"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -138,6 +145,7 @@
                             android:src="@drawable/ic_theme_color_5" />
 
                         <ImageView
+                            android:id="@+id/iv_theme_7"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -147,19 +155,6 @@
                     </LinearLayout>
 
                 </LinearLayout>
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btn_color_confirm"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="#76C8EC"
-                        android:text="변경하기"
-                        android:textColor="#ffffff"
-                        android:textSize="24dp"
-                        android:elevation="10dp"
-                        android:fontFamily="@font/inter_semi_bold"
-                        android:layout_marginHorizontal="40dp"
-                        android:layout_marginVertical="10dp"/>
             </LinearLayout>
         </ScrollView>
 </LinearLayout>

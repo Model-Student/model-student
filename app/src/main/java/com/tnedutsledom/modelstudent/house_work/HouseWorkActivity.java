@@ -2,12 +2,15 @@ package com.tnedutsledom.modelstudent.house_work;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -30,6 +33,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.tnedutsledom.modelstudent.R;
+import com.tnedutsledom.modelstudent.ThemeColorAdaptor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +50,8 @@ public class HouseWorkActivity extends AppCompatActivity {
             iv_category;            // 카테고리 선택 버튼
     static TextView tv_item_count;  // 아이템 개수표시 뷰
     static ListView lv_work_list;   // 할일 리스트뷰
+    TextView tv_title;
+    ThemeColorAdaptor colorAdaptor;
 
     int category;                   // 카테고리
     int a;
@@ -62,8 +68,9 @@ public class HouseWorkActivity extends AppCompatActivity {
         getToFireBase();            // 파이어베이스에 있는 현재 값 가져오기
         setPopUpAddDialog();        // 할일 추가 버튼 세팅
         setToggleDelete();          // 할일 삭제 토글 버튼 세팅
-        setCategoryDialog();        // 카테고리 버튼 세팅
         InitListViewForFireBase();  // 리스트뷰 데이터 초기 세팅
+        setActivityTheme();
+        setCategoryDialog();        // 카테고리 버튼 세팅
 
     }
 
@@ -305,6 +312,29 @@ public class HouseWorkActivity extends AppCompatActivity {
         ll_btn_category[3] = dl_category.findViewById(R.id.ll_hw_category_eat);
         ll_btn_category[4] = dl_category.findViewById(R.id.ll_hw_category_etc);
 
+        ImageView[] lv_category = new ImageView[5];
+        lv_category[0] = dl_category.findViewById(R.id.iv_hw_category_all);
+        lv_category[1] = dl_category.findViewById(R.id.iv_hw_category_house_work);
+        lv_category[2] = dl_category.findViewById(R.id.iv_hw_category_home_work);
+        lv_category[3] = dl_category.findViewById(R.id.iv_hw_category_eat);
+        lv_category[4] = dl_category.findViewById(R.id.iv_hw_category_etc);
+
+        TextView[] tv_category = new TextView[5];
+        tv_category[0] = dl_category.findViewById(R.id.tv_hw_category_all);
+        tv_category[1] = dl_category.findViewById(R.id.tv_hw_category_house_work);
+        tv_category[2] = dl_category.findViewById(R.id.tv_hw_category_home_work);
+        tv_category[3] = dl_category.findViewById(R.id.tv_hw_category_eat);
+        tv_category[4] = dl_category.findViewById(R.id.tv_hw_category_etc);
+
+        ConstraintLayout cl_top_bar = dl_category.findViewById(R.id.cl_hw_dia_top_bar_cate);
+        GradientDrawable drawable = (GradientDrawable) ContextCompat.getDrawable(context, R.drawable.dialog_hw_top_background);
+        colorAdaptor.setViewColorText(drawable, cl_top_bar);
+
+        for (int i = 0; i < 5; i++) {
+            colorAdaptor.setViewColorTheme(tv_category[i]);
+            colorAdaptor.setViewColorTheme(lv_category[i]);
+        }
+
         for (int i = 0; i < ll_btn_category.length; i++) {
             int finalI = i;
             ll_btn_category[finalI].setOnClickListener(new View.OnClickListener() {
@@ -356,6 +386,14 @@ public class HouseWorkActivity extends AppCompatActivity {
         iv_dialog_check = dl_add_work.findViewById(R.id.iv_btn_dl_check);
         iv_dialog_close = dl_add_work.findViewById(R.id.iv_btn_dl_close);
 
+        ConstraintLayout cl_top_bar;
+        cl_top_bar = dl_add_work.findViewById(R.id.cl_hw_dia_top_bar);
+
+        GradientDrawable drawable = (GradientDrawable) ContextCompat.getDrawable(context, R.drawable.dialog_hw_top_background);
+        colorAdaptor.setViewColorText(drawable, cl_top_bar);
+        colorAdaptor.setViewColorText(iv_dialog_check);
+
+
         iv_dialog_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -403,6 +441,17 @@ public class HouseWorkActivity extends AppCompatActivity {
         ColRef = firebaseFirestore.collection("model_student").
                 document(SP.getString("email","")).
                 collection("HouseWork");
+        tv_title = findViewById(R.id.tv_hw_title);
+        colorAdaptor = ThemeColorAdaptor.getInstance(getApplicationContext());
+    }
+
+    void setActivityTheme() {
+        colorAdaptor.setTheme(SP.getInt("theme", 0));
+        colorAdaptor.setViewColorTheme(tv_title);
+        colorAdaptor.setViewColorTheme(iv_category);
+        colorAdaptor.setViewColorTheme(iv_hw_delete);
+        GradientDrawable drawable = (GradientDrawable) ContextCompat.getDrawable(this, R.drawable.house_work_btn_add_background);
+        colorAdaptor.setViewColorBtn(drawable, ll_btn_add);
     }
 
     @Override

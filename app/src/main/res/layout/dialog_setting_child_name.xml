@@ -6,7 +6,9 @@
     android:orientation="vertical"
     android:layout_gravity="center"
     android:gravity="center"
-    android:background="@drawable/setting_change_child_name_shape">
+    android:id="@+id/dl_child_name_set_back"
+    android:background="@drawable/setting_change_child_name_shape"
+    >
 
     <TextView
         android:layout_width="250dp"
@@ -27,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/Theme_Indigo_Text"
-            android:textColorHint="#B34E7EA3"
+            android:textColorHint="@color/Theme_Indigo_Img"
             android:background="#ffffff"
             android:padding="8dp"
             android:layout_marginHorizontal="20dp"

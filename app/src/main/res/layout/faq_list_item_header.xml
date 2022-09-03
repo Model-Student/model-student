@@ -5,10 +5,11 @@
     android:background="#F2F2F2">
 
     <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="60dp"
         android:layout_height="65dp"
-        android:src="@drawable/ic_faq_question"
-        android:layout_marginLeft="15dp"/>
+        android:src="@drawable/ic_faq_question_1"
+        android:paddingLeft="18dp"
+        android:paddingRight="6dp"/>
 
     <TextView
         android:id="@+id/header_text"

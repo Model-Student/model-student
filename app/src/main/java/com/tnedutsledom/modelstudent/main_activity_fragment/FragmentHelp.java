@@ -2,21 +2,25 @@ package com.tnedutsledom.modelstudent.main_activity_fragment;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.tnedutsledom.modelstudent.MainActivity;
 import com.tnedutsledom.modelstudent.R;
+import com.tnedutsledom.modelstudent.ThemeColorAdaptor;
 
 import github.com.st235.lib_expandablebottombar.ExpandableBottomBar;
 import github.com.st235.lib_expandablebottombar.Menu;
@@ -28,7 +32,9 @@ public class FragmentHelp extends Fragment {
     ExpandableBottomBar bottom_bar;
     Menu menu;
     TextView tv_title, tv_description;
-    ImageView iv_banner;
+    ImageView iv_banner, iv_back;
+    LinearLayout ll_back;
+    ThemeColorAdaptor colorAdaptor;
     TextView tv_start_detail;
     public static int categoryHelp = 0;
     String title;
@@ -48,6 +54,7 @@ public class FragmentHelp extends Fragment {
         init();
         initBottomBar();
         settv_start_detail();
+        setThemeColor();
 
         return v;
     }
@@ -93,6 +100,14 @@ public class FragmentHelp extends Fragment {
         super.onResume();
         categoryHelp = 0;
         setHelpView(categoryHelp, "하우스워크");
+        setThemeColor();
+    }
+
+    void setThemeColor() {
+        colorAdaptor.setViewColorBack(ll_back);
+        colorAdaptor.setViewColorImg(iv_back);
+        GradientDrawable drawable = (GradientDrawable) ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.help_btn_shape);
+        colorAdaptor.setViewColorText(drawable, tv_start_detail);
     }
 
     int getCategory(String value) {
@@ -113,5 +128,8 @@ public class FragmentHelp extends Fragment {
         tv_start_detail = v.findViewById(R.id.btn_help_start_detail);
         menu = bottom_bar.getMenu();
         setHelpView(categoryHelp, "하우스워크");
+        colorAdaptor = ThemeColorAdaptor.getInstance(getActivity().getApplicationContext());
+        ll_back = v.findViewById(R.id.ll_help_back);
+        iv_back = v.findViewById(R.id.iv_help_back);
     }
 }

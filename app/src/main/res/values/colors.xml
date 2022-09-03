@@ -8,38 +8,59 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-
     <color name="Theme_Indigo">#083C60</color>
     <color name="Theme_Indigo_Text">#285E79</color>
-    <color name="theme_Indigo_back">#DDEAEF</color>
+    <color name="Theme_Indigo_Back">#DDEAEF</color>
+    <color name="Theme_Indigo_Img">#1A2C84AF</color>
+    <color name="Theme_Indigo_Btn">#8FC2F0</color>
 
-    <color name="Theme_Modern">#7CAB8C</color>
-    <color name="Theme_Modern_Text">#E5DAAB</color>
-    <color name="Theme_Modern_back">#EAEFDD</color>
+    <color name="Theme_Modern">#373737</color>
+    <color name="Theme_Modern_Text">#919190</color>
+    <color name="Theme_Modern_Back">#ECECEC</color>
+    <color name="Theme_Modern_Img">#1A5E5E5D</color>
+    <color name="Theme_Modern_Btn">#3E3E3E</color>
 
+<!--    합격-->
     <color name="Theme_Chic">#657FB9</color>
-    <color name="Theme_Chic_text">#91B0D0</color>
-    <color name="Theme_Chic_back">#DDE1EF</color>
+    <color name="Theme_Chic_Text">#91B0D0</color>
+    <color name="Theme_Chic_Back">#DDE1EF</color>
+    <color name="Theme_Chic_Img">#1A2C58AF</color>
+    <color name="Theme_Chic_Btn">#6C8CC3</color>
 
+<!--    합격-->
     <color name="Theme_Mono">#716436</color>
     <color name="Theme_Mono_Text">#DBD79A</color>
-    <color name="Theme_Mono_back">#EFEBDD</color>
+    <color name="Theme_Mono_Back">#EFEBDD</color>
+    <color name="Theme_Mono_Img">#1AAF742C</color>
+    <color name="Theme_Mono_Btn">#F0DB8F</color>
 
+<!--    합격-->
     <color name="Theme_Barry">#FE91BF</color>
     <color name="Theme_Barry_Text">#FCB4D1</color>
-    <color name="theme_Barry_back">#EFDDEA</color>
+    <color name="Theme_Barry_Nack">#EFDDEA</color>
+    <color name="Theme_Barry_Img">#1AAF2C93</color>
+    <color name="Theme_Barry_Btn">#E69ABB</color>
 
+<!--    합격-->
     <color name="Theme_Pink">#F73D93</color>
     <color name="Theme_Pink_Text">#16003B</color>
-    <color name="theme_Pink_back">#EFDDEA</color>
+    <color name="Theme_Pink_Back">#EFDDEA</color>
+    <color name="Theme_Pink_Img">#1AAF2CA2</color>
+    <color name="Theme_Pink_Btn">#302444</color>
 
+<!--    합격-->
     <color name="Theme_Fresh">#66BFBF</color>
-    <color name="Theme_Fresh_Text">#CAFDFD</color>
-    <color name="theme_Fresh_back">#DDEDEF</color>
+    <color name="Theme_Fresh_Text">#9AEBEB</color>
+    <color name="Theme_Fresh_Back">#DDEDEF</color>
+    <color name="Theme_Fresh_Img">#1A2CAFA4</color>
+    <color name="Theme_Fresh_Btn">#8FF0ED</color>
 
-<!--    <color name="Theme_Indigo">#083C60</color>-->
-<!--    <color name="Theme_Indigo_Text">#285E79</color>-->
-<!--    <color name="theme_Indigo_back">#DDEAEF</color>-->
+<!--    합격-->
+    <color name="Theme_Grass">#58CD95</color>
+    <color name="Theme_Grass_Text">#95E2BD</color>
+    <color name="Theme_Grass_Back">#DDEFE0</color>
+    <color name="Theme_Grass_Img">#1A2CAF76</color>
+    <color name="Theme_Grass_Btn">#8FF0B6</color>
 
 
     <!--

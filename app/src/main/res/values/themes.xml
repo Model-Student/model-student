@@ -55,7 +55,7 @@
     </style>
 
     <!-- 달력 안의 숫자들에 적용되는 스타일 -->
-    <style name="CalenderViewDateCustomText" parent="android:TextAppearance.DeviceDefault.Small">
+    <style name="CalenderViewDateCustomText0" parent="android:TextAppearance.DeviceDefault.Small">
         <item name="android:textColor">@color/Theme_Indigo_Text</item>
         <item name="android:weekNumberColor">@android:color/holo_red_light</item>
         <item name="android:textSize">19sp</item>
@@ -64,7 +64,7 @@
     </style>
 
     <!-- 달력 안의 요일들에 적용되는 스타일 -->
-    <style name="CalenderViewWeekCustomText" parent="android:TextAppearance.DeviceDefault.Small">
+    <style name="CalenderViewWeekCustomText0" parent="android:TextAppearance.DeviceDefault.Small">
         <item name="android:textColor">@color/Theme_Indigo</item>
         <item name="android:weekNumberColor">@android:color/holo_red_light</item>
         <item name="android:textStyle">bold</item>
@@ -72,9 +72,184 @@
     </style>
 
     <!-- 연, 월을 표시하는 헤더에 적용되는 스타일 -->
-    <style name="CalendarWidgetHeader">
+    <style name="CalendarWidgetHeader0">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/Theme_Indigo</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/scdream7</item>
+    </style>
+
+    <!-- 달력 안의 숫자들에 적용되는 스타일 -->
+    <style name="CalenderViewDateCustomText2" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@color/Theme_Modern_Text</item>
+        <item name="android:weekNumberColor">@android:color/holo_red_light</item>
+        <item name="android:textSize">19sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/scdream5</item>
+    </style>
+
+    <!-- 달력 안의 요일들에 적용되는 스타일 -->
+    <style name="CalenderViewWeekCustomText2" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@color/Theme_Modern</item>
+        <item name="android:weekNumberColor">@android:color/holo_red_light</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/scdream7</item>
+    </style>
+
+    <!-- 연, 월을 표시하는 헤더에 적용되는 스타일 -->
+    <style name="CalendarWidgetHeader2">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/Theme_Modern</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/scdream7</item>
+    </style>
+
+    <!-- 달력 안의 숫자들에 적용되는 스타일 -->
+    <style name="CalenderViewDateCustomText3" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@color/Theme_Chic_Text</item>
+        <item name="android:weekNumberColor">@android:color/holo_red_light</item>
+        <item name="android:textSize">19sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/scdream5</item>
+    </style>
+
+    <!-- 달력 안의 요일들에 적용되는 스타일 -->
+    <style name="CalenderViewWeekCustomText3" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@color/Theme_Chic</item>
+        <item name="android:weekNumberColor">@android:color/holo_red_light</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/scdream7</item>
+    </style>
+
+    <!-- 연, 월을 표시하는 헤더에 적용되는 스타일 -->
+    <style name="CalendarWidgetHeader3">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/Theme_Chic</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/scdream7</item>
+    </style>
+
+    <!-- 달력 안의 숫자들에 적용되는 스타일 -->
+    <style name="CalenderViewDateCustomText4" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@color/Theme_Mono_Text</item>
+        <item name="android:weekNumberColor">@android:color/holo_red_light</item>
+        <item name="android:textSize">19sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/scdream5</item>
+    </style>
+
+    <!-- 달력 안의 요일들에 적용되는 스타일 -->
+    <style name="CalenderViewWeekCustomText4" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@color/Theme_Mono</item>
+        <item name="android:weekNumberColor">@android:color/holo_red_light</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/scdream7</item>
+    </style>
+
+    <!-- 연, 월을 표시하는 헤더에 적용되는 스타일 -->
+    <style name="CalendarWidgetHeader4">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/Theme_Mono</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/scdream7</item>
+    </style>
+
+    <!-- 달력 안의 숫자들에 적용되는 스타일 -->
+    <style name="CalenderViewDateCustomText5" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@color/Theme_Barry_Text</item>
+        <item name="android:weekNumberColor">@android:color/holo_red_light</item>
+        <item name="android:textSize">19sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/scdream5</item>
+    </style>
+
+    <!-- 달력 안의 요일들에 적용되는 스타일 -->
+    <style name="CalenderViewWeekCustomText5" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@color/Theme_Barry</item>
+        <item name="android:weekNumberColor">@android:color/holo_red_light</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/scdream7</item>
+    </style>
+
+    <!-- 연, 월을 표시하는 헤더에 적용되는 스타일 -->
+    <style name="CalendarWidgetHeader5">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/Theme_Barry</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/scdream7</item>
+    </style>
+
+    <!-- 달력 안의 숫자들에 적용되는 스타일 -->
+    <style name="CalenderViewDateCustomText6" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@color/Theme_Pink_Text</item>
+        <item name="android:weekNumberColor">@android:color/holo_red_light</item>
+        <item name="android:textSize">19sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/scdream5</item>
+    </style>
+
+    <!-- 달력 안의 요일들에 적용되는 스타일 -->
+    <style name="CalenderViewWeekCustomText6" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@color/Theme_Pink</item>
+        <item name="android:weekNumberColor">@android:color/holo_red_light</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/scdream7</item>
+    </style>
+
+    <!-- 연, 월을 표시하는 헤더에 적용되는 스타일 -->
+    <style name="CalendarWidgetHeader6">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/Theme_Pink</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/scdream7</item>
+    </style>
+
+    <!-- 달력 안의 숫자들에 적용되는 스타일 -->
+    <style name="CalenderViewDateCustomText7" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@color/Theme_Fresh_Text</item>
+        <item name="android:weekNumberColor">@android:color/holo_red_light</item>
+        <item name="android:textSize">19sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/scdream5</item>
+    </style>
+
+    <!-- 달력 안의 요일들에 적용되는 스타일 -->
+    <style name="CalenderViewWeekCustomText7" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@color/Theme_Fresh</item>
+        <item name="android:weekNumberColor">@android:color/holo_red_light</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/scdream7</item>
+    </style>
+
+    <!-- 연, 월을 표시하는 헤더에 적용되는 스타일 -->
+    <style name="CalendarWidgetHeader7">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/Theme_Fresh</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/scdream7</item>
+    </style>
+
+    <!-- 달력 안의 숫자들에 적용되는 스타일 -->
+    <style name="CalenderViewDateCustomText8" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@color/Theme_Grass_Text</item>
+        <item name="android:weekNumberColor">@android:color/holo_red_light</item>
+        <item name="android:textSize">19sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/scdream5</item>
+    </style>
+
+    <!-- 달력 안의 요일들에 적용되는 스타일 -->
+    <style name="CalenderViewWeekCustomText8" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@color/Theme_Grass</item>
+        <item name="android:weekNumberColor">@android:color/holo_red_light</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/scdream7</item>
+    </style>
+
+    <!-- 연, 월을 표시하는 헤더에 적용되는 스타일 -->
+    <style name="CalendarWidgetHeader8">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/Theme_Grass</item>
         <item name="android:textStyle">bold</item>
         <item name="fontFamily">@font/scdream7</item>
     </style>

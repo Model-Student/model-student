@@ -22,6 +22,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -46,6 +47,8 @@ public class MainActivity extends FragmentActivity {
     private long backpressedTime = 0;
     private FirebaseFirestore firebase_firestore = FirebaseFirestore.getInstance(); //파이어스토어 연결
     AnimatedBottomBar animatedBottomBar;
+    ThemeColorAdaptor colorAdaptor;
+    TextView tv_main_title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +57,16 @@ public class MainActivity extends FragmentActivity {
         init();
         fragmentInit();
         firstCheck();
+        setActivityTheme();
         setBtnFragment();
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setActivityTheme();
+    }
 
     void firstCheck(){
         SharedPreferences pref = getSharedPreferences("checkFirst", Activity.MODE_PRIVATE);
@@ -99,11 +108,16 @@ public class MainActivity extends FragmentActivity {
         fragmentTransaction.replace(R.id.fl_fragment_container, fragment).commit();
     }
 
-
+    public void setActivityTheme() {
+        colorAdaptor.setBottomBarColor(animatedBottomBar);
+        colorAdaptor.setViewColorTheme(tv_main_title);
+    }
 
 
     void init() {
+        colorAdaptor = ThemeColorAdaptor.getInstance(getApplicationContext());
         animatedBottomBar = findViewById(R.id.main_bottom_bar);
+        tv_main_title = findViewById(R.id.tv_main_title);
     }
 
     void fragmentInit() {

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,6 +12,7 @@ import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 import com.tnedutsledom.modelstudent.R;
+import com.tnedutsledom.modelstudent.ThemeColorAdaptor;
 import com.tnedutsledom.modelstudent.carouselitem.CarouselAdapter;
 
 public class FragmentMain extends Fragment {
@@ -18,14 +20,31 @@ public class FragmentMain extends Fragment {
     private ViewPager2 vp_carousel; // 캐러셀 뷰페이저
     private CarouselAdapter pager_adapter; // 캐러셀 어뎁터
     private int carousel_size = 3; // 페이지(버튼) 개수
-    View v;
+    ThemeColorAdaptor colorAdaptor;
+    TextView tvSubTitle;
+    View v, v_back;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_main, container, false);
+        init();
         initCarousel();
+        setThemeColor();
         return v;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setThemeColor();
+    }
+
+
+
+    void setThemeColor() {
+        colorAdaptor.setViewColorTheme(tvSubTitle);
+        colorAdaptor.setViewColorText(v_back);
     }
 
     //    캐러셀 초기설정
@@ -96,5 +115,11 @@ public class FragmentMain extends Fragment {
 
         });
 
+    }
+
+    void init() {
+        colorAdaptor = ThemeColorAdaptor.getInstance(getActivity().getApplicationContext());
+        tvSubTitle = v.findViewById(R.id.tv_main_sub_title);
+        v_back = v.findViewById(R.id.v_main_back);
     }
 }

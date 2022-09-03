@@ -35,6 +35,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tv_main_sub_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="4.3"
@@ -46,6 +47,7 @@
             android:textSize="21dp" />
 
         <View
+            android:id="@+id/v_main_back"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1.7"
