@@ -46,6 +46,14 @@
           }
         },
         {
+          "client_id": "401088561477-tqq42sdb2b74i8q2k4fnd1vnovtq442d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tnedutsledom.modelstudent",
+            "certificate_hash": "c30ef6f6f7696c5cc4467b24d89f16b9a0c2b338"
+          }
+        },
+        {
           "client_id": "401088561477-voehschkaqoqi7fgvf7h25kgocv840b2.apps.googleusercontent.com",
           "client_type": 3
         }
