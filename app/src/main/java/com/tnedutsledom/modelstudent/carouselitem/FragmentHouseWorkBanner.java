@@ -13,14 +13,14 @@ import com.tnedutsledom.modelstudent.house_work.HouseWorkActivity;
 import com.tnedutsledom.modelstudent.R;
 
 
-public class FragmentHouseWork extends Fragment {
+public class FragmentHouseWorkBanner extends Fragment {
 
     LinearLayout ll_house_work;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_housework, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_house_work_banner, container, false);
         ll_house_work = rootView.findViewById(R.id.btn_main_house_work);
         ll_house_work.setOnClickListener(new View.OnClickListener() {
             @Override

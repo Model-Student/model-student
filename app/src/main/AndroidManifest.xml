@@ -14,15 +14,8 @@
         android:theme="@style/Theme.ModelStudent"
         tools:targetApi="31">
         <activity
-            android:name=".chat_log.ChatLogActivity"
-            android:exported="false" />
-        <activity
             android:name=".house_work.HouseWorkActivity"
             android:exported="false" />
-        <activity
-            android:name=".LastTimeActivity"
-            android:exported="false"
-            android:theme="@style/Theme.ModelStudentLastTime" />
         <activity
             android:name=".intro_activitys.SplashActivity"
             android:exported="true"

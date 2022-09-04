@@ -1,28 +1,34 @@
 package com.tnedutsledom.modelstudent.chat_log;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import static android.content.Context.MODE_PRIVATE;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ListView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.tnedutsledom.modelstudent.R;
-import com.tnedutsledom.modelstudent.house_work.WorkListViewAdaptor;
+import com.tnedutsledom.modelstudent.main_activity_fragment.FragmentHelp;
 
 import java.util.ArrayList;
 
-public class ChatLogActivity extends AppCompatActivity {
+public class ChatLogFragment extends Fragment {
 
+    View v;
     ListView lv_chat;                       // 대화가 표시될 리스트뷰
     ArrayList<ChatLogItem> chat_log_list;   // 대화 아이템 리스트
     private SharedPreferences preferences;  // 유저 정보가 저장되어있는 SharedPreferences
@@ -32,16 +38,24 @@ public class ChatLogActivity extends AppCompatActivity {
 
     CollectionReference ColRef;             //Document를 모두 참조
 
-
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat_log);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        v = inflater.inflate(R.layout.fragment_chat_log, container, false);
         init();
         addDateItem();
         getToFirebase();
         updateListView();
+        return v;
     }
+
+
+
+
+    public static ChatLogFragment newInstance() {
+        return new ChatLogFragment();
+    }
+
 
     // 어뎁터에서 리스트 아이템중 첫번째 아이템은 시간표시로 띄우기 때문에 임시 아이템을 추가
     void addDateItem() {
@@ -53,7 +67,8 @@ public class ChatLogActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                final ChatLogAdaptor adapter = new ChatLogAdaptor(ChatLogActivity.this, chat_log_list);
+                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                final ChatLogAdaptor adapter = new ChatLogAdaptor(getActivity(), chat_log_list);
                 lv_chat.setAdapter(adapter);
                 lv_chat.setSelection(adapter.getCount() - 1);
             }
@@ -62,9 +77,11 @@ public class ChatLogActivity extends AppCompatActivity {
 
     // 객체, 변수 초기화
     void init() {
-        lv_chat = findViewById(R.id.lv_chat);
+        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        lv_chat = v.findViewById(R.id.lv_chat);
         chat_log_list = new ArrayList<>();
-        preferences = getSharedPreferences("user_info",MODE_PRIVATE);
+        preferences = getActivity().getSharedPreferences("user_info",MODE_PRIVATE);
         ColRef = firebaseFirestore.collection("model_student").document(preferences.getString("email", "")).collection("ChatLog");
     }
 

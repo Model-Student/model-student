@@ -1,27 +1,37 @@
 package com.tnedutsledom.modelstudent;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import static android.content.Context.MODE_PRIVATE;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
@@ -32,13 +42,19 @@ import com.tnedutsledom.modelstudent.SQL.SQLiteHelper;
 import com.tnedutsledom.modelstudent.SQL.TableInfo;
 import com.tnedutsledom.modelstudent.calender_decorator.SelectDayDecorator;
 import com.tnedutsledom.modelstudent.calender_decorator.SundayDecorator;
+import com.tnedutsledom.modelstudent.chat_log.ChatLogAdaptor;
+import com.tnedutsledom.modelstudent.chat_log.ChatLogFragment;
+import com.tnedutsledom.modelstudent.chat_log.ChatLogItem;
 
 import org.threeten.bp.DayOfWeek;
 import org.threeten.bp.LocalDate;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
-public class LastTimeActivity extends AppCompatActivity {
+public class FragmentLastTime extends Fragment {
+
+    View v;
 
     private MaterialCalendarView cv_calender; // 캘린더
     private LinearLayout ll_diary; // 일기장 바탕 레이아웃
@@ -52,22 +68,25 @@ public class LastTimeActivity extends AppCompatActivity {
     private FirebaseFirestore firebase_firestore = FirebaseFirestore.getInstance(); //파이어스토어 연결
     DocumentReference app_ref; //파이어 스토어 Document 접근
 
-    SQLiteHelper db_helper = new SQLiteHelper(LastTimeActivity.this); //SQLite 데이터 셋 설정
+    SQLiteHelper db_helper;  //SQLite 데이터 셋 설정
     ThemeColorAdaptor colorAdaptor;
 
     private SharedPreferences preferences;// 비밀번호 내부에 저장
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_last_time);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        v = inflater.inflate(R.layout.fragment_last_time, container, false);
         init(); // 초기세팅
         calenderDesignInit(); // 캘린더 디자인 세팅
         setActivityTheme();
         selectDate(); // 날짜 선택시 실행하는 메소두
         dragDiary(); // 일기장 창을 드래그할 때
+        return v;
     }
-
+    public static FragmentLastTime newInstance() {
+        return new FragmentLastTime();
+    }
 
     //    일기장 창을 드래그할 때
     @SuppressLint("ClickableViewAccessibility")
@@ -141,16 +160,17 @@ public class LastTimeActivity extends AppCompatActivity {
 
 
     void init() {
-        cv_calender = findViewById(R.id.cv_last_time_calender);
-        tv_diary_date = findViewById(R.id.tv_diary_date);
-        ll_diary = findViewById(R.id.ll_last_time_diary);
+        db_helper = new SQLiteHelper(getActivity());
+        cv_calender = v.findViewById(R.id.cv_last_time_calender);
+        tv_diary_date = v.findViewById(R.id.tv_diary_date);
+        ll_diary = v.findViewById(R.id.ll_last_time_diary);
         ll_diary.setY(550);
-        tv_last_time_diary_text = findViewById(R.id.tv_last_time_main_text);//일기 표시 텍스트 뷰
-        iv_have_content = findViewById(R.id.iv_last_time_have_content);
-        iv_no_content = findViewById(R.id.iv_last_time_no_content);
-        colorAdaptor = ThemeColorAdaptor.getInstance(getApplicationContext());
-        v_under_line = findViewById(R.id.view_under_line);
-        preferences = getSharedPreferences("user_info", MODE_PRIVATE);
+        tv_last_time_diary_text = v.findViewById(R.id.tv_last_time_main_text);//일기 표시 텍스트 뷰
+        iv_have_content = v.findViewById(R.id.iv_last_time_have_content);
+        iv_no_content = v.findViewById(R.id.iv_last_time_no_content);
+        colorAdaptor = ThemeColorAdaptor.getInstance(getActivity().getApplicationContext());
+        v_under_line = v.findViewById(R.id.view_under_line);
+        preferences = getActivity().getSharedPreferences("user_info", MODE_PRIVATE);
 
     }
 
@@ -216,7 +236,7 @@ public class LastTimeActivity extends AppCompatActivity {
 
         // 일자 선택 시 내가 정의한 드로어블이 적용되도록 한다
         cv_calender.addDecorators(
-                new SelectDayDecorator(this),
+                new SelectDayDecorator(getActivity()),
                 new SundayDecorator()
         );
 
