@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,7 @@ public class FragmentMain extends Fragment {
     private int carousel_size = 3; // 페이지(버튼) 개수
     ThemeColorAdaptor colorAdaptor;
     TextView tvSubTitle;
+    ImageView iv_silhouette;
     View v, v_back;
 
     @Nullable
@@ -45,6 +47,7 @@ public class FragmentMain extends Fragment {
     void setThemeColor() {
         colorAdaptor.setViewColorTheme(tvSubTitle);
         colorAdaptor.setViewColorText(v_back);
+        colorAdaptor.setViewColorTheme(iv_silhouette);
     }
 
     //    캐러셀 초기설정
@@ -121,5 +124,6 @@ public class FragmentMain extends Fragment {
         colorAdaptor = ThemeColorAdaptor.getInstance(getActivity().getApplicationContext());
         tvSubTitle = v.findViewById(R.id.tv_main_sub_title);
         v_back = v.findViewById(R.id.v_main_back);
+        iv_silhouette = v.findViewById(R.id.iv_main_silhouette);
     }
 }
