@@ -84,8 +84,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:src="@drawable/ic_theme_color_0"
-                            android:layout_marginBottom="16dp"/>
+                            android:layout_marginBottom="16dp"
+                            android:src="@drawable/ic_theme_color_0" />
 
                         <ImageView
                             android:id="@+id/iv_theme_2"

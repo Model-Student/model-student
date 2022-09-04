@@ -46,11 +46,33 @@
             android:textColor="@color/Theme_Indigo"
             android:textSize="21dp" />
 
-        <View
-            android:id="@+id/v_main_back"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1.7"
-            android:background="@color/Theme_Indigo" />
+            android:layout_weight="1.7">
+
+            <View
+                android:id="@+id/v_main_back"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.7"
+                android:background="@color/Theme_Indigo" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"/>
+
+            <ImageView
+                android:id="@+id/iv_main_silhouette"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/tmp_jjin_ddugbaegi"/>
+            </LinearLayout>
+        </FrameLayout>
     </LinearLayout>
 </LinearLayout>
