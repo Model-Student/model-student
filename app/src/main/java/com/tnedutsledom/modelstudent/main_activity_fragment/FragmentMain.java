@@ -1,20 +1,33 @@
 package com.tnedutsledom.modelstudent.main_activity_fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.Dimension;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
+
+import com.romainpiel.shimmer.Shimmer;
+import com.romainpiel.shimmer.ShimmerTextView;
 import com.tnedutsledom.modelstudent.R;
 import com.tnedutsledom.modelstudent.ThemeColorAdaptor;
 import com.tnedutsledom.modelstudent.carouselitem.CarouselAdapter;
+
+import java.util.Random;
 
 public class FragmentMain extends Fragment {
 
@@ -23,8 +36,13 @@ public class FragmentMain extends Fragment {
     private int carousel_size = 3; // 페이지(버튼) 개수
     ThemeColorAdaptor colorAdaptor;
     TextView tvSubTitle;
-    ImageView iv_silhouette;
+    ConstraintLayout cl_today_sentence;
+    ImageView iv_sentence_moon, iv_sentence_back;
+    ShimmerTextView tv_sentence_title, tv_sentence_said;
     View v, v_back;
+    SharedPreferences preferences;
+    int sentenceCategory;
+    Animation anim_text_get_back, anim_none;
 
     @Nullable
     @Override
@@ -33,6 +51,7 @@ public class FragmentMain extends Fragment {
         init();
         initCarousel();
         setThemeColor();
+        setTodaySentence();
         return v;
     }
 
@@ -42,12 +61,70 @@ public class FragmentMain extends Fragment {
         setThemeColor();
     }
 
+    void showTodaySentence() {
+        cl_today_sentence.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String[] array, arraySaid;
+                Random random = new Random();
+                int tmp = random.nextInt(20);
+                iv_sentence_back.setImageResource(R.drawable.sentence_back_clicked);
+                tv_sentence_title.setPadding(0, 0, 0, 0);
+                tv_sentence_title.startAnimation(anim_text_get_back);
+                switch (sentenceCategory) {
+                    case 0:
+                        array = getResources().getStringArray(R.array.sentence_list_1);
+                        tv_sentence_said.setVisibility(View.INVISIBLE);
+                        tv_sentence_title.setText("\"" +array[tmp] + "\"");
+                        break;
+                    case 1:
+                        array = getResources().getStringArray(R.array.sentence_list_2);
+                        tv_sentence_title.setText(array[tmp]);
+                        tv_sentence_said.setVisibility(View.VISIBLE);
+                        arraySaid = getResources().getStringArray(R.array.sentence_list_2_said);
+                        tv_sentence_said.setText("- " + arraySaid[tmp] + " -");
+                        tv_sentence_said.setTextSize(Dimension.DP, tv_sentence_title.getTextSize()-10);
+                        break;
+                    default:
+                        array = getResources().getStringArray(R.array.sentence_list_3);
+                        tv_sentence_title.setText(array[tmp]);
+                        tv_sentence_said.setVisibility(View.VISIBLE);
+                        arraySaid = getResources().getStringArray(R.array.sentence_list_3_said);
+                        tv_sentence_said.setText(arraySaid[tmp]);
+                        tv_sentence_said.setTextSize(Dimension.DP, tv_sentence_title.getTextSize()-10);
+                        break;
+                }
 
+            }
+        });
+    }
+
+
+    void setTodaySentenceTitle() {
+        switch (sentenceCategory) {
+            case 0:
+                tv_sentence_title.setText("오늘은 아이에게\n이런 얘기 어떠세요?");
+                break;
+            case 1:
+                tv_sentence_title.setText("지치고 힘드실 떄\n한번 읽어보실래요?");
+                break;
+            default:
+                tv_sentence_title.setText("부모 역할에 관한\n명언 한번 보실래요?");
+                break;
+        }
+    }
+
+    void setTodaySentence() {
+        setShimmerTv();
+        setTodaySentenceTitle();
+        showTodaySentence();
+    }
 
     void setThemeColor() {
         colorAdaptor.setViewColorTheme(tvSubTitle);
-        colorAdaptor.setViewColorText(v_back);
-        colorAdaptor.setViewColorTheme(iv_silhouette);
+        colorAdaptor.setViewColorTheme(v_back);
+        colorAdaptor.setSentenceMoon(iv_sentence_moon);
+        colorAdaptor.setViewColorText(iv_sentence_back);
     }
 
     //    캐러셀 초기설정
@@ -68,7 +145,7 @@ public class FragmentMain extends Fragment {
                 vp_carousel.setCurrentItem(1);
 
             }
-        },10);
+        }, 10);
 
 //        전환 애니메이션 세팅
         final float page_margin = getResources().getDimensionPixelOffset(R.dimen.pageMargin);
@@ -115,15 +192,33 @@ public class FragmentMain extends Fragment {
                 super.onPageSelected(position);
 
             }
-
         });
+    }
 
+    void setShimmerTv() {
+        Shimmer shimmer = new Shimmer();
+        shimmer.setDuration(2500).setStartDelay(300).start(tv_sentence_title);
     }
 
     void init() {
         colorAdaptor = ThemeColorAdaptor.getInstance(getActivity().getApplicationContext());
         tvSubTitle = v.findViewById(R.id.tv_main_sub_title);
         v_back = v.findViewById(R.id.v_main_back);
-        iv_silhouette = v.findViewById(R.id.iv_main_silhouette);
+        tv_sentence_title = v.findViewById(R.id.tv_sentence_title);
+        tv_sentence_said = v.findViewById(R.id.tv_sentence_said);
+        iv_sentence_moon = v.findViewById(R.id.iv_sentence_moon);
+        iv_sentence_back = v.findViewById(R.id.iv_sentence_back);
+        cl_today_sentence = v.findViewById(R.id.cl_btn_today_sentence);
+        preferences = getActivity().getSharedPreferences("user_info", Context.MODE_PRIVATE);
+        sentenceCategory = preferences.getInt("sentence_category", 0);
+        SharedPreferences.Editor editor = preferences.edit();
+        if (sentenceCategory == 2) {
+            editor.putInt("sentence_category", 0);
+        } else {
+            editor.putInt("sentence_category", sentenceCategory + 1);
+        }
+        editor.commit();
+        anim_text_get_back = AnimationUtils.loadAnimation(getActivity().getApplicationContext(),R.anim.text_get_back);
+        anim_none = AnimationUtils.loadAnimation(getActivity().getApplicationContext(),R.anim.none_anim);
     }
 }

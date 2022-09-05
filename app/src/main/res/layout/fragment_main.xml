@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -38,7 +39,7 @@
             android:id="@+id/tv_main_sub_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="4.3"
+            android:layout_weight="4.85"
             android:fontFamily="@font/jalnan_font"
             android:gravity="center|left"
             android:paddingLeft="20dp"
@@ -46,34 +47,74 @@
             android:textColor="@color/Theme_Indigo"
             android:textSize="21dp" />
 
-        <FrameLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_btn_today_sentence"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1.7">
-
             <View
                 android:id="@+id/v_main_back"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1.7"
                 android:background="@color/Theme_Indigo" />
-            <LinearLayout
+            <ImageView
+                android:id="@+id/iv_sentence_back"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1.5"/>
-
+                android:src="@drawable/sentence_back"
+                android:scaleType="fitEnd"/>
             <ImageView
-                android:id="@+id/iv_main_silhouette"
-                android:layout_width="match_parent"
+                android:id="@+id/iv_sentence_moon"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/sentence_moon_1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintVertical_bias="0.0"/>
+
+<!--            물결 텍스트뷰 라이브러리-->
+            <com.romainpiel.shimmer.ShimmerTextView
+                android:id="@+id/tv_sentence_title"
+                android:layout_width="260dp"
+                android:layout_height="100dp"
+                android:fontFamily="@font/cafe24"
+                android:text="오늘은 아이에게\n이런 얘기 어떠세요?"
+                android:paddingTop="10dp"
+                android:textColor="#FFFFFF"
+                app:reflectionColor="#BFFFFFFF"
+                android:textSize="23dp"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMaxTextSize="25dp"
+                android:autoSizeMinTextSize="5dp"
+                android:autoSizeStepGranularity="1dp"
+                android:maxLines="4"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.27"
+                app:layout_constraintHorizontal_bias="0.1" />
+
+            <com.romainpiel.shimmer.ShimmerTextView
+                android:id="@+id/tv_sentence_said"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:fontFamily="@font/cafe24"
+                android:text="asdasd"
+                android:textColor="#ffffff"
+                app:reflectionColor="#A6FFFFFF"
+                android:textSize="25dp"
+                android:bufferType="spannable"
                 android:visibility="invisible"
-                android:src="@drawable/tmp_jjin_ddugbaegi"/>
-            </LinearLayout>
-        </FrameLayout>
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.9"
+                app:layout_constraintHorizontal_bias="0.9" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 </LinearLayout>

@@ -134,7 +134,7 @@
                 android:backgroundTint="@color/Theme_Indigo"
                 android:gravity="center"
                 android:padding="16dp"
-                android:src="@drawable/ic_home_not_fill" />
+                android:src="@drawable/ic_hw_all" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

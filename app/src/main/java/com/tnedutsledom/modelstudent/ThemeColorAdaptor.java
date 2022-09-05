@@ -26,6 +26,10 @@ public class ThemeColorAdaptor {
 
     private static ThemeColorAdaptor instance;
     int themeColor, textColor, backColor, imgColor, btnColor;
+    int[] sentence_moon = new int[]{
+            R.drawable.sentence_moon_1, R.drawable.sentence_moon_2, R.drawable.sentence_moon_3, R.drawable.sentence_moon_4,
+            R.drawable.sentence_moon_5, R.drawable.sentence_moon_6, R.drawable.sentence_moon_7, R.drawable.sentence_moon_8,
+    };
     SharedPreferences preferences;
     Context context;
     int theme = 0;
@@ -78,6 +82,11 @@ public class ThemeColorAdaptor {
         bottomBar.setIndicatorColor(textColor);
         bottomBar.setTabColorSelected(themeColor);
         bottomBar.setTabColor(themeColor);
+    }
+
+    // 문장추천 달 색 변경
+    public void setSentenceMoon(ImageView iv) {
+        iv.setImageResource(sentence_moon[theme]);
     }
 
     // View를 theme 색으로 설정
