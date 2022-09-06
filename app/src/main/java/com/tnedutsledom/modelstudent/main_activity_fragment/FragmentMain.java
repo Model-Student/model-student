@@ -3,11 +3,13 @@ package com.tnedutsledom.modelstudent.main_activity_fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -42,7 +44,8 @@ public class FragmentMain extends Fragment {
     View v, v_back;
     SharedPreferences preferences;
     int sentenceCategory;
-    Animation anim_text_get_back, anim_none;
+    boolean showedSentence = false;
+    Animation anim_text_get_back, anim_none, anim_background_get_back;
 
     @Nullable
     @Override
@@ -65,38 +68,82 @@ public class FragmentMain extends Fragment {
         cl_today_sentence.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String[] array, arraySaid;
-                Random random = new Random();
-                int tmp = random.nextInt(20);
-                iv_sentence_back.setImageResource(R.drawable.sentence_back_clicked);
+                getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 tv_sentence_title.setPadding(0, 0, 0, 0);
-                tv_sentence_title.startAnimation(anim_text_get_back);
-                switch (sentenceCategory) {
-                    case 0:
-                        array = getResources().getStringArray(R.array.sentence_list_1);
-                        tv_sentence_said.setVisibility(View.INVISIBLE);
-                        tv_sentence_title.setText("\"" +array[tmp] + "\"");
-                        break;
-                    case 1:
-                        array = getResources().getStringArray(R.array.sentence_list_2);
-                        tv_sentence_title.setText(array[tmp]);
-                        tv_sentence_said.setVisibility(View.VISIBLE);
-                        arraySaid = getResources().getStringArray(R.array.sentence_list_2_said);
-                        tv_sentence_said.setText("- " + arraySaid[tmp] + " -");
-                        tv_sentence_said.setTextSize(Dimension.DP, tv_sentence_title.getTextSize()-10);
-                        break;
-                    default:
-                        array = getResources().getStringArray(R.array.sentence_list_3);
-                        tv_sentence_title.setText(array[tmp]);
-                        tv_sentence_said.setVisibility(View.VISIBLE);
-                        arraySaid = getResources().getStringArray(R.array.sentence_list_3_said);
-                        tv_sentence_said.setText(arraySaid[tmp]);
-                        tv_sentence_said.setTextSize(Dimension.DP, tv_sentence_title.getTextSize()-10);
-                        break;
-                }
-
+                startSentenceAnim();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        changeSentenceValue();
+                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    }
+                }, 700);
             }
         });
+    }
+
+    void changeSentenceValue() {
+        iv_sentence_back.setImageResource(R.drawable.sentence_back_clicked);
+
+        String[] array, arraySaid;
+        Random random = new Random();
+        int tmp = random.nextInt(20);
+        switch (sentenceCategory) {
+            case 0:
+                array = getActivity().getResources().getStringArray(R.array.sentence_list_1);
+                tv_sentence_said.setVisibility(View.INVISIBLE);
+                tv_sentence_title.setText("\"" +array[tmp] + "\"");
+                break;
+            case 1:
+                array = getSentenceList(true);
+                arraySaid = getSentenceSaidList(true);
+                setTv_sentence_title(array[tmp]);
+                setTv_sentence_said(arraySaid[tmp]);
+                break;
+            default:
+                array = getSentenceList(false);
+                arraySaid = getSentenceSaidList(false);
+                setTv_sentence_title(array[tmp]);
+                setTv_sentence_said(arraySaid[tmp]);
+                break;
+        }
+    }
+
+    public void startSentenceAnim() {
+        tv_sentence_title.startAnimation(anim_text_get_back);
+        if (sentenceCategory != 0)
+            tv_sentence_said.startAnimation(anim_text_get_back);
+        if (!showedSentence) {
+            iv_sentence_back.startAnimation(anim_background_get_back);
+            showedSentence = true;
+        }
+    }
+
+    public String[] getSentenceList(boolean a) {
+        if (a) {
+            return getResources().getStringArray(R.array.sentence_list_2);
+        } else {
+            return getResources().getStringArray(R.array.sentence_list_3);
+        }
+    }
+
+    public String[] getSentenceSaidList(boolean a) {
+        if (a) {
+            return getResources().getStringArray(R.array.sentence_list_2_said);
+        } else {
+            return getResources().getStringArray(R.array.sentence_list_3_said);
+        }
+    }
+
+    void setTv_sentence_title(String a) {
+        tv_sentence_title.setText(a);
+    }
+
+    void setTv_sentence_said(String a) {
+        tv_sentence_said.setVisibility(View.VISIBLE);
+        tv_sentence_said.setText("- " + a + " -");
+        tv_sentence_said.setTextSize(Dimension.DP, tv_sentence_title.getTextSize()-10);
     }
 
 
@@ -220,5 +267,6 @@ public class FragmentMain extends Fragment {
         editor.commit();
         anim_text_get_back = AnimationUtils.loadAnimation(getActivity().getApplicationContext(),R.anim.text_get_back);
         anim_none = AnimationUtils.loadAnimation(getActivity().getApplicationContext(),R.anim.none_anim);
+        anim_background_get_back = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.background_get_back);
     }
 }

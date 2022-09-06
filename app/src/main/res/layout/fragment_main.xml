@@ -43,7 +43,7 @@
             android:fontFamily="@font/jalnan_font"
             android:gravity="center|left"
             android:paddingLeft="20dp"
-            android:text="Model Student 사용 TIP!"
+            android:text="Model Student 추천 문장!"
             android:textColor="@color/Theme_Indigo"
             android:textSize="21dp" />
 
@@ -102,7 +102,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/cafe24"
-                android:text="asdasd"
                 android:textColor="#ffffff"
                 app:reflectionColor="#A6FFFFFF"
                 android:textSize="25dp"
