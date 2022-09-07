@@ -130,6 +130,9 @@ public class MainActivity extends FragmentActivity {
     @Override
     public void onBackPressed() {
         if (System.currentTimeMillis() > backpressedTime + 2000) {
+            animatedBottomBar.selectTabAt(1, true);
+            FragmentMain fragment_main = new FragmentMain();
+            replaceFragment(fragment_main);
             backpressedTime = System.currentTimeMillis();
             FancyToast.makeText(this,"한번 더 누르시면 종료됩니다.", FancyToast.LENGTH_SHORT, FancyToast.INFO,false).show();
         } else if (System.currentTimeMillis() <= backpressedTime + 2000) {
