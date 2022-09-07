@@ -134,6 +134,11 @@ public class ThemeColorAdaptor {
         cl.setBackground(drawable);
     }
 
+    public void setViewColorText(GradientDrawable drawable, ImageView iv) {
+        drawable.setColor(textColor);
+        iv.setBackground(drawable);
+    }
+
     public void setViewColorText(GradientDrawable drawable, AppCompatButton btn) {
         drawable.setColor(textColor);
         btn.setBackground(drawable);

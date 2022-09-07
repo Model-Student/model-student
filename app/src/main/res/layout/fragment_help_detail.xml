@@ -20,30 +20,36 @@
        <LinearLayout
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
-           android:orientation="vertical"
-           android:padding="15dp">
+           android:orientation="vertical">
            <ImageView
                android:id="@+id/iv_help_detail_ui"
                android:layout_width="match_parent"
-               android:layout_height="700dp"
-               android:background="#647493"/>
+               android:layout_height="wrap_content"
+               android:scaleType="fitXY"
+               android:background="#647493"
+               android:layout_margin="15dp"
+               android:elevation="1dp"/>
 
            <TextView
+               android:id="@+id/tv_help_detail"
                android:layout_width="match_parent"
                android:layout_height="300dp"
                android:fontFamily="@font/inter_medium_font"
                android:textColor="#B7232323"
                android:textSize="16dp"
-               android:paddingTop="20dp"
+               android:paddingTop="5dp"
+               android:layout_marginHorizontal="15dp"
                android:text="설며어어어어어어ㅓ어어어어어어어어어엉ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ엉"
                />
        </LinearLayout>
    </ScrollView>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <ImageView
         android:id="@+id/btn_help_detail_back"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_return"
+        android:padding="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
