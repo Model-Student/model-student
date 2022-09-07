@@ -128,12 +128,12 @@ public class FragmentLastTime extends Fragment {
         });
     }
 
-    void showNoContentImage() {
+    void showHaveContentImage() {
         iv_no_content.setVisibility(View.VISIBLE);
         iv_have_content.setVisibility(View.INVISIBLE);
     }
 
-    void showHaveContentImage() {
+    void showNoContentImage() {
         iv_no_content.setVisibility(View.INVISIBLE);
         iv_have_content.setVisibility(View.VISIBLE);
     }
@@ -198,7 +198,7 @@ public class FragmentLastTime extends Fragment {
                         try {
                             // SQL에 넣어주기
                             showHaveContentImage();
-                            setSQLValue(document.getString("Date"), document.getString("Text"));
+                            setSQLValue(document.getString("Date"), document.getString("Text"), document.getString("Mood"));
                         } catch (Exception e) {
                             //가져올 값이 없는 경우
                             Log.d("1", "값이 없슴다");
@@ -259,7 +259,7 @@ public class FragmentLastTime extends Fragment {
     }
 
     //SQL에 일기 넣어주기
-    void setSQLValue(String Date, String main_text) {
+    void setSQLValue(String Date, String main_text, String mood_text) {
         // DB 쓰기 권한 가져오기
         SQLiteDatabase sql_db_writer = db_helper.getWritableDatabase();
         // 데이터 셋 생성 (테이블 이름,값)
@@ -268,10 +268,21 @@ public class FragmentLastTime extends Fragment {
         values.put(TableInfo.COLUMN_DATE_TEXT, Date);
         //아이의 일기 내용
         values.put(TableInfo.COLUMN_MAIN_TEXT, main_text);
+        //아이의 기분
+        values.put(TableInfo.COLUMN_MOOD_TEXT, mood_text);
         //고유 ID에 insert
         long newRowId = sql_db_writer.insert(TableInfo.TABLE_NAME, null, values);
         //처음 SQL에 들어올 때도 텍스트뷰에 셋
         tv_last_time_diary_text.setText(main_text);
+        setMood(mood_text);
+    }
+
+    void setMood(String mood) {
+        switch (mood) {
+            case "Good": iv_no_content.setImageResource(R.drawable.last_time_good);break;
+            case "Normal": iv_no_content.setImageResource(R.drawable.last_time_normal);break;
+            default: iv_no_content.setImageResource(R.drawable.last_time_bad);break;
+        }
     }
 
     // 날짜 선택할 때마다 SQL에 오늘 날짜 테이블 쿼리
@@ -288,6 +299,8 @@ public class FragmentLastTime extends Fragment {
                 Log.d("1", "getString(2)" + cursor.getString(2));
                 //일기 텍스트뷰에 검색 결과 두 번째 열의 값(일기 텍스트) 넣기 / 첫 번째 값은 날짜임
                 tv_last_time_diary_text.setText(cursor.getString(2));
+                //일기 이미지뷰에 검색 결과 세 번째 열의 값(기분 표시) 넣기 / 첫 번째 값은 날짜임
+                setMood(cursor.getString(3));
                 showHaveContentImage();
             } else {
                 //관련 값이 없으면 텍스트뷰를 NUll로 바꾸고 데이터베이스에 쿼리

@@ -13,7 +13,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + TableInfo.TABLE_NAME + " (" +
                     TableInfo.COLUMN_NAME_ID +" INTEGER PRIMARY KEY," +
                     TableInfo.COLUMN_DATE_TEXT + " TEXT," +
-                    TableInfo.COLUMN_MAIN_TEXT + " TEXT)";
+                    TableInfo.COLUMN_MAIN_TEXT + " TEXT," +
+                    TableInfo.COLUMN_MOOD_TEXT + " TEXT)";
 
     public static final String DATABASE_NAME = "LastTime.DB";
     public static final int DATABASE_VERSION = 1;
