@@ -40,6 +40,8 @@ import com.tnedutsledom.modelstudent.ThemeColorAdaptor;
 import com.tnedutsledom.modelstudent.faq.FragmentFaq;
 import com.tnedutsledom.modelstudent.intro_activitys.SplashActivity;
 
+import java.io.File;
+
 public class FragmentSetting extends Fragment {
 
     View v, v_theme;
@@ -225,6 +227,16 @@ public class FragmentSetting extends Fragment {
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.clear();
                 editor.commit();
+
+                //sqlite 테이블 삭제
+                String DB_PATH = "/data/data/" + getActivity().getPackageName();
+                String DB_NAME = "LastTime.DB";
+                String DB_FULL_FATH = DB_PATH + "/databases/" + DB_NAME;
+
+                File file = new File(DB_FULL_FATH);
+                if (file.delete()) {
+                    Log.d("db 삭제", "onCreate: ");
+                }
 
                 // 구글로그인 객체에서 정보 삭제
                 GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
