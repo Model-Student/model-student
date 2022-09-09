@@ -31,6 +31,9 @@ import com.tnedutsledom.modelstudent.FirebaseAdapter.ParentAdapter;
 import com.tnedutsledom.modelstudent.MainActivity;
 import com.tnedutsledom.modelstudent.R;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 public class SignUpActivity extends AppCompatActivity {
 
     EditText et_sign_up_name_text, et_sign_up_first_number_text, et_sign_up_second_number_text,
@@ -73,7 +76,7 @@ public class SignUpActivity extends AppCompatActivity {
     void getInfo() {
         //전 엑티비티에서 값 가져오기
         Intent get_intent = getIntent();
-        user_email = get_intent.getStringExtra("user_email");
+        user_email = encrypt(get_intent.getStringExtra("user_email"));
     }
 
     void init() {
@@ -105,7 +108,7 @@ public class SignUpActivity extends AppCompatActivity {
         iv_sign_up_third_banana_child = findViewById(R.id.iv_sign_up_third_banana_child);
 
     }
-    
+
     void showStep3() {
         //바나나 애니메이션
         iv_sign_up_third_banana_parent.setImageResource(R.drawable.sign_up_banana3_iv);
@@ -141,12 +144,12 @@ public class SignUpActivity extends AppCompatActivity {
                 if (et_sign_up_name_text.getText().toString().equals("")
                         || mother_or_father == null) {
                     //공통 질문에 공백 입력칸이 하나라도 있을 시
-                    Toast.makeText(SignUpActivity.this, "입력값을 확인해주세요", Toast.LENGTH_SHORT).show();
+                    FancyToast.makeText(SignUpActivity.this, "입력값을 확인해주세요", FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show();
                 } else {
                     if (parent_or_child.equals("parent")) {
                         if (et_sign_up_child_name_text.getText().toString().equals("")) {
                             //부모 전용 입력칸에 공백 입력칸이 하나라도 있을 시
-                            Toast.makeText(SignUpActivity.this, "입력값을 확인해주세요", Toast.LENGTH_SHORT).show();
+                            FancyToast.makeText(SignUpActivity.this, "입력값을 확인해주세요", FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show();
                         } else {
                             //부모의 폰에서 올라가는 거
                             Log.d("1", "adsad" + user_email);
@@ -158,7 +161,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 et_sign_up_second_number_text.getText().toString().equals("") ||
                                 et_sign_up_third_number_text.getText().toString().equals("")) {
                             //자녀 전용 입력칸에 공백 입력칸이 하나라도 있을 시
-                            Toast.makeText(SignUpActivity.this, "입력값을 확인해주세요", Toast.LENGTH_SHORT).show();
+                            FancyToast.makeText(SignUpActivity.this, "입력값을 확인해주세요", FancyToast.LENGTH_SHORT,FancyToast.ERROR, false).show();
                         } else {
                             //자녀의 폰에서 올라가는 거
                             uploadToFirebaseChild(et_sign_up_name_text.getText().toString(), phone_number);
@@ -169,7 +172,7 @@ public class SignUpActivity extends AppCompatActivity {
                 }
                 if (login_success == true) {
                     //toast 메세지 띄움
-                    Toast.makeText(SignUpActivity.this, "ModelStudent에 오신 것을 환영합니다.", Toast.LENGTH_SHORT).show();
+                    FancyToast.makeText(SignUpActivity.this, "ModelStudent에 오신 것을 환영합니다.", FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, false).show();
                     //내부에 값 저장
                     saveInfoSharedPreferences();
                     //화면전환
@@ -200,6 +203,26 @@ public class SignUpActivity extends AppCompatActivity {
         editor.putBoolean("already_account", true);
         //항상 commit & apply 를 해주어야 저장이 된다.
         editor.commit();
+    }
+
+    public String encrypt(String text){
+        MessageDigest md = null;
+        try {
+            md = MessageDigest.getInstance("SHA-256");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        md.update(text.getBytes());
+
+        return bytesToHex(md.digest());
+    }
+
+    private String bytesToHex(byte[] bytes) {
+        StringBuilder builder = new StringBuilder();
+        for (byte b : bytes) {
+            builder.append(String.format("%02x", b));
+        }
+        return builder.toString();
     }
 
     void uploadToFirebaseParent(String name, String child_name) {
