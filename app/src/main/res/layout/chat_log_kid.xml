@@ -22,7 +22,8 @@
             android:textSize="10dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="5dp"/>
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="10dp"/>
 
         <FrameLayout
             android:layout_width="wrap_content"
@@ -43,8 +44,15 @@
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:layout_marginBottom="8dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:textColor="#ffffff"
                 android:textSize="15dp"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMaxTextSize="15dp"
+                android:autoSizeMinTextSize="12dp"
+                android:autoSizeStepGranularity="1dp"
+                android:maxLines="2"
                 android:fontFamily="@font/inter_bold"/>
         </FrameLayout>
     </LinearLayout>

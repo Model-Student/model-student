@@ -114,6 +114,7 @@
                         android:textColorHint="#BAB9B9"
                         android:textColor="#4C4C4C"
                         android:textSize="18dp"
+                        android:textSelectHandle="@color/Theme_Modern"
                         android:textCursorDrawable="@color/Theme_Modern"
                         android:backgroundTint="@color/Theme_Modern"
                         android:textColorHighlight="@color/Theme_Modern"
@@ -151,6 +152,7 @@
                         android:textSize="18dp"
                         android:textCursorDrawable="@color/Theme_Modern"
                         android:backgroundTint="@color/Theme_Modern"
+                        android:textSelectHandle="@color/Theme_Modern"
                         android:textColorHighlight="@color/Theme_Modern"/>
 
                 </LinearLayout>

@@ -119,7 +119,10 @@
                     android:maxLines="1"
                     android:singleLine="true"
                     android:textColor="@color/black"
-                    android:textColorHint="#8F8E8E" />
+                    android:textColorHint="#8F8E8E"
+                    android:textSelectHandle="@color/Theme_Modern"
+                    android:textCursorDrawable="@color/Theme_Modern"
+                    android:textColorHighlight="@color/Theme_Modern"/>
 
                 <View
                     android:layout_width="match_parent"
@@ -381,7 +384,10 @@
                     android:maxLines="1"
                     android:singleLine="true"
                     android:textColor="@color/black"
-                    android:textColorHint="#8F8E8E" />
+                    android:textColorHint="#8F8E8E"
+                    android:textCursorDrawable="@color/Theme_Modern"
+                    android:textSelectHandle="@color/Theme_Modern"
+                    android:textColorHighlight="@color/Theme_Modern"/>
 
                 <View
                     android:layout_width="match_parent"

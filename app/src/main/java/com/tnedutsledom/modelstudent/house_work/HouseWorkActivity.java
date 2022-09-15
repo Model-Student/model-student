@@ -384,9 +384,6 @@ public class HouseWorkActivity extends AppCompatActivity {
         EditText et_memo = dl_add_work.findViewById(R.id.et_hw_memo);
         et_memo.setText("");
         et_value.setText("");
-        et_value.requestFocus();
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
 
 
         Spinner spinner = dl_add_work.findViewById(R.id.spinner_hw_category);
