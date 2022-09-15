@@ -9,10 +9,13 @@ public class FirebaseAdaptor {
     // 선택되어있음
     boolean selected;
 
-    public FirebaseAdaptor(String work_name, String category, boolean selected) {
+    String memo;
+
+    public FirebaseAdaptor(String work_name, String category, boolean selected, String memo) {
         this.work_name = work_name;
         this.category = category;
         this.selected = selected;
+        this.memo = memo;
     }
 
     public String getWork_name() {
@@ -39,5 +42,11 @@ public class FirebaseAdaptor {
         this.work_name = work_name;
     }
 
+    public String getMemo() {
+        return memo;
+    }
 
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
 }

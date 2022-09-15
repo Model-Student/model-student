@@ -16,6 +16,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -106,7 +107,8 @@ public class HouseWorkActivity extends AppCompatActivity {
                     collection("HouseWork").document("item" + i).set(new FirebaseAdaptor(
                             list.get(i).getWork_name(),
                             list.get(i).getCategory(),
-                            list.get(i).getSelected()
+                            list.get(i).getSelected(),
+                            list.get(i).getMemo()
                     ));
         }
     }
@@ -121,10 +123,12 @@ public class HouseWorkActivity extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 addWorkList(document.getString("work_name"),
                                         document.getString("category"),
-                                        document.getBoolean("selected"));
+                                        document.getBoolean("selected"),
+                                        document.getString("memo"));
                                 addCategoryList(document.getString("work_name"),
                                         document.getString("category"),
-                                        document.getBoolean("selected"));
+                                        document.getBoolean("selected"),
+                                        document.getString("memo"));
                             }
                         } else {
                             //실패했을 경우
@@ -256,8 +260,8 @@ public class HouseWorkActivity extends AppCompatActivity {
     }
 
     // 전체 할일리스트에 할일을 추가해준다
-    void addWorkList(String data, String category, boolean selected) {
-        se.getWorkList().add(new Work(data, category, selected));
+    void addWorkList(String data, String category, boolean selected, String memo) {
+        se.getWorkList().add(new Work(data, category, selected, memo));
         se.getStrList().add(data);
     }
 
@@ -277,19 +281,19 @@ public class HouseWorkActivity extends AppCompatActivity {
     }
 
     // 받아온 카테고리에 해당하는 리스트에 할일을 추가해준다
-    void addCategoryList(String data, String category, boolean selected) {
+    void addCategoryList(String data, String category, boolean selected, String memo) {
         switch (category) {
             case "집안일":
-                se.getHouse_work_list().add(new Work(data, category, selected));
+                se.getHouse_work_list().add(new Work(data, category, selected, memo));
                 break;
             case "숙제":
-                se.getHome_work_list().add(new Work(data, category, selected));
+                se.getHome_work_list().add(new Work(data, category, selected, memo));
                 break;
             case "음식":
-                se.getEating_list().add(new Work(data, category, selected));
+                se.getEating_list().add(new Work(data, category, selected, memo));
                 break;
             case "기타":
-                se.getEtc_list().add(new Work(data, category, selected));
+                se.getEtc_list().add(new Work(data, category, selected, memo));
                 break;
         }
     }
@@ -377,6 +381,13 @@ public class HouseWorkActivity extends AppCompatActivity {
         category_list.add("기타");
 
         EditText et_value = dl_add_work.findViewById(R.id.et_hw_text);
+        EditText et_memo = dl_add_work.findViewById(R.id.et_hw_memo);
+        et_memo.setText("");
+        et_value.setText("");
+        et_value.requestFocus();
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+
 
         Spinner spinner = dl_add_work.findViewById(R.id.spinner_hw_category);
         SpinnerAdaptor spinnerAdaptor = new SpinnerAdaptor(getApplicationContext(), category_list);
@@ -406,10 +417,11 @@ public class HouseWorkActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String value = et_value.getText().toString();
                 String categoryTmp = spinner.getSelectedItem().toString();
+                String memoTmp = et_memo.getText().toString();
 
                 if (!se.getStrList().contains(value) && value.length() != 0) {
-                    addWorkList(value, categoryTmp,true);
-                    addCategoryList(value, categoryTmp, true);
+                    addWorkList(value, categoryTmp,true, memoTmp);
+                    addCategoryList(value, categoryTmp, true, memoTmp);
                     updateListView(category);
                     dl_add_work.dismiss();
 

@@ -12,11 +12,15 @@ public class Work {
     // 사용자가 선택(체크) 해놓은 상태인가
     boolean selected = true;
 
+    // 할일 메모
+    String memo = "";
+    boolean showMemo = false;
     // 생성자 메소드
-    public Work(String work_name, String category, Boolean selected) {
+    public Work(String work_name, String category, Boolean selected, String memo) {
         this.work_name = work_name;
         this.category = category;
         this.selected = selected;
+        this.memo = memo;
     }
 
     // 게터 세터 영역
@@ -44,4 +48,19 @@ public class Work {
         return work_name;
     }
 
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setShowMemo(boolean showMemo) {
+        this.showMemo = showMemo;
+    }
+
+    public boolean getShowMemo() {
+        return showMemo;
+    }
 }

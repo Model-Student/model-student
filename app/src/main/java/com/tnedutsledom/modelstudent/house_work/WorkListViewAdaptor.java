@@ -1,6 +1,7 @@
 package com.tnedutsledom.modelstudent.house_work;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -252,6 +253,14 @@ public class WorkListViewAdaptor extends BaseAdapter {
                     deleteStrList(workArrayList.get(i).getWork_name());
                     deleteItem(workArrayList.get(i).getWork_name());
                     HouseWorkActivity.updateListView(nowCategory);
+                } else if(workArrayList.get(i).getShowMemo()) {
+                    tv_work_name.setText(workArrayList.get(i).getWork_name());
+                    tv_work_name.setTypeface(tv_work_name.getTypeface(), Typeface.NORMAL);
+                    workArrayList.get(i).setShowMemo(false);
+                } else {
+                    tv_work_name.setText(workArrayList.get(i).getMemo());
+                    tv_work_name.setTypeface(tv_work_name.getTypeface(), Typeface.ITALIC);
+                    workArrayList.get(i).setShowMemo(true);
                 }
             }
         });
