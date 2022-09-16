@@ -5,6 +5,7 @@ import static android.content.Context.MODE_PRIVATE;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import com.tnedutsledom.modelstudent.R;
 import com.tnedutsledom.modelstudent.main_activity_fragment.FragmentHelp;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ChatLogFragment extends Fragment {
 
@@ -48,8 +50,6 @@ public class ChatLogFragment extends Fragment {
         updateListView();
         return v;
     }
-
-
 
 
     public static ChatLogFragment newInstance() {
@@ -81,23 +81,52 @@ public class ChatLogFragment extends Fragment {
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         lv_chat = v.findViewById(R.id.lv_chat);
         chat_log_list = new ArrayList<>();
-        preferences = getActivity().getSharedPreferences("user_info",MODE_PRIVATE);
+        preferences = getActivity().getSharedPreferences("user_info", MODE_PRIVATE);
         ColRef = firebaseFirestore.collection("model_student").document(preferences.getString("email", "")).collection("ChatLog");
     }
 
     // 파이어베이스에서 순서대로 받아와서 아이템 리스트에 추가해주는 코드
     void getToFirebase() {
+        ArrayList<ChatLogItem> tmpList = new ArrayList<ChatLogItem>();
         ColRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        chat_log_list.add(new ChatLogItem(document.getString("chat_data"), document.getString("time"), document.getString("nugu_or_kid")));
+                        if (document.getString("chat_data").length() > 20) {
+                            String[] tmp = document.getString("chat_data").split("\\. |\\, |! |  ");
+                            for (int i = 0; i < tmp.length; i++) {
+                                if (document.getId().length() == 5) {
+                                    chat_log_list.add(new ChatLogItem(tmp[i], document.getString("time"), document.getString("nugu_or_kid")));
+                                    Log.d("아이템 이름", "onComplete: " + document.getId() + "  " + document.getId().length() + " " + i);
+                                } else {
+                                    tmpList.add(new ChatLogItem(tmp[i], document.getString("time"), document.getString("nugu_or_kid")));
+                                    Log.d("아이템 이름", "onComplete: " + document.getId() + "  " + document.getId().length() + " " + i);
+                                }
+                            }
+                        } else {
+                            if (document.getId().length() == 5) {
+                                chat_log_list.add(new ChatLogItem(document.getString("chat_data"), document.getString("time"), document.getString("nugu_or_kid")));
+                                Log.d("아이템 이름", "onComplete: " + document.getId() + "  " + document.getId().length());
+                            } else {
+                                tmpList.add(new ChatLogItem(document.getString("chat_data"), document.getString("time"), document.getString("nugu_or_kid")));
+                                Log.d("아이템 이름", "onComplete: " + document.getId() + "  " + document.getId().length());
+                            }
+                        }
                     }
                 } else {
                     //실패했을 경우
                 }
             }
         });
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Log.d("리스트 길이", "getToFirebase: " + chat_log_list.size());
+                chat_log_list.addAll(tmpList);
+                Log.d("리스트 길이22222", "getToFirebase: " + chat_log_list.size());
+
+            }
+        }, 800);
     }
 }

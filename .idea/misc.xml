@@ -31,6 +31,7 @@
         <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/drawable-v24/ic_return.xml" value="0.1495" />
         <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/drawable-v24/ic_settings_not_fill.xml" value="0.1275" />
         <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/drawable-v24/keyboard_return-48px.xml" value="0.1495" />
+        <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/drawable/dialog_hw_bottom_background.xml" value="0.194" />
         <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/drawable/ic_arrow_forward.xml" value="0.128" />
         <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/drawable/ic_expand_more.xml" value="0.164" />
         <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/drawable/ic_info.xml" value="0.128" />
@@ -45,7 +46,7 @@
         <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/layout/activity_sign_up.xml" value="0.11196736174070716" />
         <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/layout/activity_splash.xml" value="0.20820863616930313" />
         <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/layout/chat_log_kid.xml" value="0.25" />
-        <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/layout/chat_log_nugu.xml" value="0.15177426250534418" />
+        <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/layout/chat_log_nugu.xml" value="0.264" />
         <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/layout/dialog_hw_add.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/layout/dialog_setting_child_name.xml" value="0.264" />
         <entry key="..\:/Users/choi7/AndroidStudioProjects/model-student/app/src/main/res/layout/fragment_chatlog.xml" value="0.10944848225737494" />

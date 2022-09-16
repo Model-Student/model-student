@@ -2,6 +2,8 @@ package com.tnedutsledom.modelstudent.chat_log;
 
 import android.content.Context;
 import android.graphics.Rect;
+import android.graphics.text.LineBreaker;
+import android.os.Build;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -67,13 +69,8 @@ public class ChatLogAdaptor extends BaseAdapter {
 
             tv_time.setText(chat_log_list.get(i).getTime());
             tv_value.setText(chat_log_list.get(i).getChat_data());
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    setViewSize(tv_value, iv_back);
+            setViewSize(tv_value, iv_back);
 
-                }
-            }, 100);
 
             return item_nugu;
         }
